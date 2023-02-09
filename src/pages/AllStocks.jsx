@@ -66,25 +66,25 @@ const AllStocks = () => {
                                     </Typography>
                                 </TableCell>
 
-                                <TableCell align="right">
+                                <TableCell align="center">
                                     <Typography fontWeight='bold'>
                                         Price
                                     </Typography>
                                 </TableCell>
 
-                                <TableCell align="right">
+                                <TableCell align="center">
                                     <Typography fontWeight='bold'>
                                         Day High
                                     </Typography>
                                 </TableCell>
 
-                                <TableCell align="right">
+                                <TableCell align="center">
                                     <Typography fontWeight='bold'>
                                         Day Low
                                     </Typography>
                                 </TableCell>
 
-                                <TableCell align="right">
+                                <TableCell align="center">
                                     <Typography fontWeight='bold'>
                                         Change
                                     </Typography>
@@ -99,15 +99,17 @@ const AllStocks = () => {
                                             <TableCell component="th" scope="row">
                                                 {stock.symbol}
                                             </TableCell>
-                                            <TableCell align="right">₹{stock.lastPrice}</TableCell>
-                                            <TableCell align="right">₹{stock.dayHigh}</TableCell>
-                                            <TableCell align="right">₹{stock.dayLow}</TableCell>
-                                            <TableCell align="right"
+                                            <TableCell align="center">₹{stock.lastPrice}</TableCell>
+                                            <TableCell align="center">₹{stock.dayHigh}</TableCell>
+                                            <TableCell align="center">₹{stock.dayLow}</TableCell>
+                                            <TableCell align="center"
                                                 sx={{
                                                     color: stock.pChange > 0 ? 'green' : 'red'
                                                 }}>
-                                                {stock.pChange > 0 ? <GreenArrow /> : <RedArrow />}
-                                                {stock.pChange}%
+                                                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                    {stock.pChange}%
+                                                    {stock.pChange > 0 ? <GreenArrow /> : <RedArrow />}
+                                                </Box>
                                             </TableCell>
                                         </TableRow>
                                     )
