@@ -1,3 +1,27 @@
 a {
   text-decoration: none;
 }
+/* input[type="text"]
+{
+  width: 50%;
+  background-color: transparent;
+  transition: width 2s ease-in-out;
+}
+input[type="text"]:focus{
+  width: 100%;
+} */
+
+ /* search bar css  */
+.search {
+  width: 30%;
+  padding-top: 20px;
+  border-color: black;
+  
+}
+.main{
+  border-radius:15px 50px 30px 5px;
+}
+
+ul li {
+  font-size: 20px;
+} 
