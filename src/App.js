@@ -6,6 +6,7 @@ import AllStocks from './pages/AllStocks';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Stock from './pages/Stock';
 import SearchBar from './components/searchBar'
+import Search from './pages/Search';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<AllStocks />}></Route>
           <Route path='/:symbol' element={<Stock />}></Route>
+          <Route path='/search' element={<Search />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

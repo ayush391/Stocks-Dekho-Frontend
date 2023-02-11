@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'
 import StockCard from '../components/Card';
-import { Button, Card, CardContent, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Avatar, Button, Card, CardContent, Chip, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
 import { ArrowDownward, ArrowDownwardRounded, ArrowUpward, ArrowUpwardRounded } from '@mui/icons-material';
+import Search from './Search';
 
 const BASE_URL = 'http://localhost:8000/prices'
 const LIMIT = 10
 
+const COLORS = ['#f04211', '#e60ac1', '#a4693a', '#3e86f2', '#6bf66f']
 
 const RedArrow = () => {
     return (
@@ -20,6 +22,10 @@ const GreenArrow = () => {
     return (
         <ArrowUpwardRounded color='green' />
     )
+}
+
+const getRandomColor = () => {
+    return COLORS[Math.floor(Math.random()) * COLORS.length]
 }
 
 const AllStocks = () => {
@@ -49,12 +55,19 @@ const AllStocks = () => {
         setCurrentPage(currentPage + 1)
     }
 
+
+
     return (
         <Container maxWidth='md' sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 2
+            gap: 2, marginTop: '1rem'
         }}>
+            <Container maxWidth='sm' sx={{
+
+            }}>
+                <Search />
+            </Container>
             <TableContainer component={Card} sx={{ marginTop: '1rem', borderRadius: '20px' }}>
                 <CardContent>
                     <Table>
@@ -93,20 +106,39 @@ const AllStocks = () => {
                         </TableHead>
                         <TableBody>
                             {
-                                stocksData.map((stock) => {
+                                stocksData.map((stock, idx) => {
                                     return (
                                         <TableRow key={stock.symbol}>
                                             <TableCell component="th" scope="row">
-                                                {stock.symbol}
+                                                <Box sx={{ display: 'flex', gap: 1, }}>
+                                                    <Chip
+                                                        label={stock.symbol}
+                                                        variant='filled'
+                                                        size='small'
+                                                        sx={{
+                                                            width: '25%',
+                                                            fontSize: '0.6rem',
+                                                            color: 'white',
+                                                            backgroundColor: COLORS[idx % COLORS.length]
+                                                        }}
+                                                    />
+                                                    {stock.symbol}
+                                                </Box>
                                             </TableCell>
                                             <TableCell align="center">₹{stock.lastPrice}</TableCell>
                                             <TableCell align="center">₹{stock.dayHigh}</TableCell>
                                             <TableCell align="center">₹{stock.dayLow}</TableCell>
                                             <TableCell align="center"
                                                 sx={{
-                                                    color: stock.pChange > 0 ? 'green' : 'red'
+                                                    color: stock.pChange > 0 ? 'green' : 'red',
                                                 }}>
-                                                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <Box sx={{
+                                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                    backgroundColor: stock.pChange > 0 ? '#e6f4ea' : '#fce8e6',
+                                                    borderRadius: '5px',
+                                                    padding: '0.5rem 1rem'
+
+                                                }}>
                                                     {stock.pChange}%
                                                     {stock.pChange > 0 ? <GreenArrow /> : <RedArrow />}
                                                 </Box>
