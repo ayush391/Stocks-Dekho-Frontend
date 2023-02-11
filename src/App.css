@@ -1,18 +1,25 @@
 a {
   text-decoration: none;
 }
-
-
-h1 {
-  margin: 10px;
-  font-size: 40px;
-  color: rgb(1, 1, 59);
+/* input[type="text"]
+{
+  width: 50%;
+  background-color: transparent;
+  transition: width 2s ease-in-out;
 }
+input[type="text"]:focus{
+  width: 100%;
+} */
 
+ /* search bar css  */
 .search {
-  width: 25%;
-  padding-top: 30px;
-  /* padding-left: 500px; */
+  width: 30%;
+  padding-top: 20px;
+  border-color: black;
+  
+}
+.main{
+  border-radius:15px 50px 30px 5px;
 }
 
 ul li {
