@@ -66,7 +66,6 @@ const AllStocks = () => {
             <Container maxWidth='sm' sx={{
 
             }}>
-                <Search />
             </Container>
             <TableContainer component={Card} sx={{ marginTop: '1rem', borderRadius: '20px' }}>
                 <CardContent>
