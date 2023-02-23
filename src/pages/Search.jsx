@@ -4,7 +4,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 
-const BASE_URL = 'http://localhost:8000/prices/search'
+const BASE_URL = 'https://lobster-app-zl2g6.ondigitalocean.app/prices/search'
 
 const Search = () => {
 
@@ -15,10 +15,10 @@ const Search = () => {
 
     useEffect(() => {
         const timeout = setTimeout(async () => {
-            const url = BASE_URL + '?symbol=' + searchQuery
+            const url = BASE_URL  + searchQuery
             if (searchQuery.length > 0) {
                 const result = await axios.get(url)
-                console.log(searchQuery)
+                console.log("search",searchQuery)
                 setStocksData(result.data.data)
             }
             else {

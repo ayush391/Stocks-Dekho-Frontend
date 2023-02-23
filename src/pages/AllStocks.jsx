@@ -8,7 +8,7 @@ import { Box } from '@mui/system';
 import { ArrowDownward, ArrowDownwardRounded, ArrowUpward, ArrowUpwardRounded } from '@mui/icons-material';
 import Search from './Search';
 
-const BASE_URL = 'http://localhost:8000/prices'
+const BASE_URL = 'https://lobster-app-zl2g6.ondigitalocean.app/prices'
 const LIMIT = 10
 
 const COLORS = ['#f04211', '#e60ac1', '#a4693a', '#3e86f2', '#6bf66f']
@@ -63,6 +63,7 @@ const AllStocks = () => {
             flexDirection: 'column',
             gap: 2, marginTop: '1rem'
         }}>
+            <Button style={{color:'white' , backgroundColor:'lightblue' , width:50 , marginLeft:'auto'}}><Link to='/login'>Login</Link> </Button>
             <Container maxWidth='sm' sx={{
 
             }}>

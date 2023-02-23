@@ -52,7 +52,7 @@ const Stock = () => {
 
     const [stock, setStock] = useState(defaultStock)
 
-    const url = 'http://localhost:8000/stocks/' + symbol
+    const url = 'https://lobster-app-zl2g6.ondigitalocean.app//stocks/' + symbol
 
     useEffect(() => {
         (async () => {
