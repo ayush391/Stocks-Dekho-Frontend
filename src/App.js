@@ -5,22 +5,22 @@ import TextField from "@mui/material/TextField";  // added
 import AllStocks from './pages/AllStocks';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Stock from './pages/Stock';
-import SearchBar from './components/searchBar'
-import Search from './pages/Search';
+import SearchBar from './components/Navbar/SearchBar'
+import Search from './components/Navbar/Search';
 
 import { LoginPage } from './pages/Login';
 
 import HorizontalCard from './components/HorizontalCard';
 import TopGainers from './components/TopGainers';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
 
 
   return (
-    
+
     <div className="App">
-        <Search/>
-        <TopGainers/>
+      <Navbar />
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<AllStocks />}></Route>

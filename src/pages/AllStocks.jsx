@@ -6,9 +6,9 @@ import { Avatar, Button, Card, CardContent, Chip, Container, Paper, Table, Table
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
 import { ArrowDownward, ArrowDownwardRounded, ArrowUpward, ArrowUpwardRounded } from '@mui/icons-material';
-import Search from './Search';
+import Search from '../components/Navbar/Search';
 
-const BASE_URL = 'https://lobster-app-zl2g6.ondigitalocean.app/prices'
+const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices'
 const LIMIT = 10
 
 const COLORS = ['#f04211', '#e60ac1', '#a4693a', '#3e86f2', '#6bf66f']
@@ -63,7 +63,6 @@ const AllStocks = () => {
             flexDirection: 'column',
             gap: 2, marginTop: '0rem'
         }}>
-            <Button style={{color:'white' , backgroundColor:'lightblue' , width:50 , marginLeft:'auto'}}><Link to='/login'>Login</Link> </Button>
             <Container maxWidth='sm' sx={{
 
             }}>
