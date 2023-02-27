@@ -61,7 +61,7 @@ const AllStocks = () => {
         <Container maxWidth='md' sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 2, marginTop: '1rem'
+            gap: 2, marginTop: '0rem'
         }}>
             <Button style={{color:'white' , backgroundColor:'lightblue' , width:50 , marginLeft:'auto'}}><Link to='/login'>Login</Link> </Button>
             <Container maxWidth='sm' sx={{

@@ -58,66 +58,51 @@ const Search = () => {
                 gap: 2
             }}
         >
-            <TextField
-                label='Search'
-                value={searchQuery}
-                onChange={handleQuery}
-                onFocus={() => handleSuggest(true)}
-                onBlur={() => handleSuggest(false)}
-                fullWidth
-            />
-            <Box
-            >
-                <Card
+          <CardContent>
+            <Table>
+              <TableBody>
+                {stocksData.map((stock) => {
+                  return (
+                    <TableRow key={stock.symbol}>
+                      <TableCell component="th" scope="row">
+                        {stock.symbol}
+                      </TableCell>
+                      <TableCell align="right">
+                        ₹{parseFloat(stock.lastPrice).toFixed(2)}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        sx={{
+                          color: stock.pChange > 0 ? "green" : "red",
+                          fontWeight: "",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            backgroundColor:
+                              stock.pChange > 0 ? "#e6f4ea" : "#fce8e6",
+                            // width: 'max-content',
+                            borderRadius: "5px",
+                            padding: "0.5rem 1rem",
+                          }}
+                        >
+                          {parseFloat(stock.pChange).toFixed(2)}%
+                          {stock.pChange > 0 ? <GreenArrow /> : <RedArrow />}
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+      </Box>
+    </Container>
+  );
+};
 
-                    sx={{
-                        display: (stocksData.length > 0 && showSuggest) ? 'block' : 'none',
-                        position: 'absolute',
-                        maxHeight: '500px',
-                        overflowY: 'scroll',
-                        transform: 'translate(-50%)'
-                    }}
-                >
-                    <CardContent>
-                        <Table>
-                            <TableBody>
-                                {
-                                    stocksData.map((stock) => {
-                                        return (
-
-                                            <TableRow key={stock.symbol}>
-                                                <TableCell component="th" scope="row">
-                                                    {stock.symbol}
-                                                </TableCell>
-                                                <TableCell align="right">₹{parseFloat(stock.lastPrice).toFixed(2)}</TableCell>
-                                                <TableCell align="right"
-                                                    sx={{
-                                                        color: stock.pChange > 0 ? 'green' : 'red',
-                                                        fontWeight: ''
-                                                    }}>
-                                                    <Box sx={{
-                                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                                        backgroundColor: stock.pChange > 0 ? '#e6f4ea' : '#fce8e6',
-                                                        // width: 'max-content',
-                                                        borderRadius: '5px',
-                                                        padding: '0.5rem 1rem'
-                                                    }}>
-                                                        {parseFloat(stock.pChange).toFixed(2)}%
-                                                        {stock.pChange > 0 ? <GreenArrow /> : <RedArrow />}
-                                                    </Box>
-                                                </TableCell>
-                                            </TableRow>
-                                        )
-                                    })
-                                }
-                            </TableBody>
-                        </Table>
-                    </CardContent>
-                </Card>
-            </Box>
-
-        </Box >
-    )
-}
-
-export default Search
+export default Search;

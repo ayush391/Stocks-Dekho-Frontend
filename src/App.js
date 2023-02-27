@@ -7,7 +7,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Stock from './pages/Stock';
 import SearchBar from './components/searchBar'
 import Search from './pages/Search';
+
 import { LoginPage } from './pages/Login';
+
+import HorizontalCard from './components/HorizontalCard';
+import TopGainers from './components/TopGainers';
 
 function App() {
 
@@ -15,7 +19,8 @@ function App() {
   return (
     
     <div className="App">
-        <SearchBar/>
+        <Search/>
+        <TopGainers/>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<AllStocks />}></Route>
