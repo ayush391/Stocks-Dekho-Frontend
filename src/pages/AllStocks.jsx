@@ -61,7 +61,7 @@ const AllStocks = () => {
         <Container maxWidth='md' sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 2, marginTop: '1rem'
+            gap: 2, marginTop: '0rem'
         }}>
             <Container maxWidth='sm' sx={{
 
