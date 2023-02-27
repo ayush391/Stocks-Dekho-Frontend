@@ -1,85 +1,62 @@
-import { ArrowDownwardRounded, ArrowUpwardRounded } from "@mui/icons-material";
-import {
-  Box,
-  Container,
-  Button,
-  Card,
-  CardContent,
-  List,
-  ListItem,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-  TextField,
-} from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { ArrowDownwardRounded, ArrowUpwardRounded } from '@mui/icons-material'
+import { Box, Button, Card, CardContent, List, ListItem, Table, TableBody, TableCell, TableRow, TextField } from '@mui/material'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
-const BASE_URL = "http://localhost:8000/prices/search";
+
+const BASE_URL = 'https://lobster-app-zl2g6.ondigitalocean.app/prices/search'
 
 const Search = () => {
-  const [stocksData, setStocksData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showSuggest, setShowSuggest] = useState(false);
 
-  useEffect(() => {
-    const timeout = setTimeout(async () => {
-      const url = BASE_URL + "?symbol=" + searchQuery;
-      if (searchQuery.length > 0) {
-        const result = await axios.get(url);
-        console.log(searchQuery);
-        setStocksData(result.data.data);
-      } else {
-        setStocksData([]);
-      }
-    }, 500);
+    const [stocksData, setStocksData] = useState([])
+    const [searchQuery, setSearchQuery] = useState('')
+    const [showSuggest, setShowSuggest] = useState(false)
 
-    return () => clearTimeout(timeout);
-  }, [searchQuery]);
 
-  const handleQuery = (e) => {
-    setSearchQuery(e.target.value);
-  };
+    useEffect(() => {
+        const timeout = setTimeout(async () => {
+            const url = BASE_URL  + searchQuery
+            if (searchQuery.length > 0) {
+                const result = await axios.get(url)
+                console.log("search",searchQuery)
+                setStocksData(result.data.data)
+            }
+            else {
+                setStocksData([])
+            }
+        }, 500)
 
-  const handleSuggest = (val) => {
-    setShowSuggest(val);
-  };
+        return () => clearTimeout(timeout)
+    }, [searchQuery])
 
-  const RedArrow = () => {
-    return <ArrowDownwardRounded fontSize="small" color="red" />;
-  };
-  const GreenArrow = () => {
-    return <ArrowUpwardRounded fontSize="small" color="green" />;
-  };
-  return (
-    <Container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 2,
-        marginTop: "1rem",
-        paddingBottom: 0,
-      }}
-    >
-      <TextField
-        label="Search"
-        value={searchQuery}
-        onChange={handleQuery}
-        onFocus={() => handleSuggest(true)}
-        onBlur={() => handleSuggest(false)}
-        fullWidth
-      />
-      <Box>
-        <Card
-          sx={{
-            display: stocksData.length > 0 && showSuggest ? "block" : "none",
-            position: "absolute",
-            maxHeight: "500px",
-            overflowY: "scroll",
-            transform: "translate(-50%)",
-          }}
+
+    const handleQuery = (e) => {
+        setSearchQuery(e.target.value)
+    }
+
+    const handleSuggest = (val) => {
+        setShowSuggest(val)
+    }
+
+
+    const RedArrow = () => {
+        return (
+            <ArrowDownwardRounded fontSize='small' color='red' />
+        )
+    }
+    const GreenArrow = () => {
+        return (
+            <ArrowUpwardRounded fontSize='small' color='green' />
+        )
+    }
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 2
+            }}
         >
           <CardContent>
             <Table>

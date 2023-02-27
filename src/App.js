@@ -7,6 +7,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Stock from './pages/Stock';
 import SearchBar from './components/searchBar'
 import Search from './pages/Search';
+
+import { LoginPage } from './pages/Login';
+
 import HorizontalCard from './components/HorizontalCard';
 import TopGainers from './components/TopGainers';
 
@@ -21,6 +24,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<AllStocks />}></Route>
+          <Route path='/login' element={<LoginPage />}></Route>
           <Route path='/:symbol' element={<Stock />}></Route>
           <Route path='/search' element={<Search />}></Route>
         </Routes>
