@@ -13,6 +13,7 @@ import { LoginPage } from './pages/Login';
 import HorizontalCard from './components/HorizontalCard';
 import TopGainers from './components/TopGainers';
 import Navbar from './components/Navbar/Navbar';
+import StockPage from './pages/StockPage';
 
 function App() {
 
@@ -25,7 +26,7 @@ function App() {
         <Routes>
           <Route path='/' element={<AllStocks />}></Route>
           <Route path='/login' element={<LoginPage />}></Route>
-          <Route path='/:symbol' element={<Stock />}></Route>
+          <Route path='/:symbol' element={<StockPage />}></Route>
           <Route path='/search' element={<Search />}></Route>
         </Routes>
       </BrowserRouter>

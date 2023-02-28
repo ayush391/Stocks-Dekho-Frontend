@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
 import { ArrowDownward, ArrowDownwardRounded, ArrowUpward, ArrowUpwardRounded } from '@mui/icons-material';
 import Search from '../components/Navbar/Search';
+import TopGainers from '../components/TopGainers';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices'
 const LIMIT = 10
@@ -160,6 +161,8 @@ const AllStocks = () => {
                 </CardContent>
 
             </TableContainer>
+
+                <TopGainers/>
 
         </Container >
     )
