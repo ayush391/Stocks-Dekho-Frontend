@@ -8,11 +8,11 @@ import { Box } from '@mui/system';
 import { ArrowDownward, ArrowDownwardRounded, ArrowUpward, ArrowUpwardRounded } from '@mui/icons-material';
 import Search from '../components/Navbar/Search';
 import TopGainers from '../components/TopGainers';
+import { getRandomColor } from '../utils/randomColor';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices'
 const LIMIT = 10
 
-const COLORS = ['#f04211', '#e60ac1', '#a4693a', '#3e86f2', '#6bf66f']
 
 const RedArrow = () => {
     return (
@@ -25,9 +25,6 @@ const GreenArrow = () => {
     )
 }
 
-const getRandomColor = () => {
-    return COLORS[Math.floor(Math.random()) * COLORS.length]
-}
 
 const AllStocks = () => {
     const [stocksData, setStocksData] = useState([])
@@ -71,39 +68,6 @@ const AllStocks = () => {
             <TableContainer component={Card} sx={{ marginTop: '1rem', borderRadius: '20px' }}>
                 <CardContent>
                     <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>
-                                    <Typography fontWeight='bold'>
-                                        Stock
-                                    </Typography>
-                                </TableCell>
-
-                                <TableCell align="center">
-                                    <Typography fontWeight='bold'>
-                                        Price
-                                    </Typography>
-                                </TableCell>
-
-                                <TableCell align="center">
-                                    <Typography fontWeight='bold'>
-                                        Day High
-                                    </Typography>
-                                </TableCell>
-
-                                <TableCell align="center">
-                                    <Typography fontWeight='bold'>
-                                        Day Low
-                                    </Typography>
-                                </TableCell>
-
-                                <TableCell align="center">
-                                    <Typography fontWeight='bold'>
-                                        Change
-                                    </Typography>
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
                         <TableBody>
                             {
                                 stocksData.map((stock, idx) => {
@@ -111,23 +75,28 @@ const AllStocks = () => {
                                         <TableRow key={stock.symbol}>
                                             <TableCell component="th" scope="row">
                                                 <Box sx={{ display: 'flex', gap: 1, }}>
-                                                    <Chip
-                                                        label={stock.symbol}
-                                                        variant='filled'
-                                                        size='small'
+                                                    <Box
                                                         sx={{
-                                                            width: '25%',
+                                                            display: 'flex',
+                                                            justifyContent: 'center',
+                                                            alignItems: 'center',
+                                                            width: '12ch',
                                                             fontSize: '0.6rem',
+                                                            fontFamily: 'Roboto,Arial,sans-serif',
+                                                            fontWeight: 'bold',
                                                             color: 'white',
-                                                            backgroundColor: COLORS[idx % COLORS.length]
+                                                            whiteSpace: 'nowrap',
+                                                            backgroundColor: getRandomColor(++idx),
+                                                            borderRadius: '10px',
                                                         }}
-                                                    />
-                                                    {stock.symbol}
+                                                    >
+                                                        {stock.symbol}
+                                                    </Box>
+                                                    {stock.meta ? stock.meta.companyName : stock.symbol}
                                                 </Box>
                                             </TableCell>
-                                            <TableCell align="center">₹{stock.lastPrice}</TableCell>
-                                            <TableCell align="center">₹{stock.dayHigh}</TableCell>
-                                            <TableCell align="center">₹{stock.dayLow}</TableCell>
+                                            <TableCell align="right">₹{parseFloat(stock.lastPrice).toFixed(2)}</TableCell>
+                                            <TableCell align="right">₹{parseFloat(stock.change).toFixed(2)}</TableCell>
                                             <TableCell align="center"
                                                 sx={{
                                                     color: stock.pChange > 0 ? 'green' : 'red',
@@ -136,8 +105,8 @@ const AllStocks = () => {
                                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                                     backgroundColor: stock.pChange > 0 ? '#e6f4ea' : '#fce8e6',
                                                     borderRadius: '5px',
-                                                    padding: '0.5rem 1rem'
-
+                                                    padding: '0.5rem 1rem',
+                                                    fontWeight: 'bold'
                                                 }}>
                                                     {stock.pChange}%
                                                     {stock.pChange > 0 ? <GreenArrow /> : <RedArrow />}
@@ -162,7 +131,7 @@ const AllStocks = () => {
 
             </TableContainer>
 
-                <TopGainers/>
+            <TopGainers />
 
         </Container >
     )

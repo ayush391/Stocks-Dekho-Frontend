@@ -105,7 +105,8 @@ const Search = () => {
                       align="right"
                       sx={{
                         color: stock.pChange > 0 ? "green" : "red",
-                        fontWeight: "",
+                        fontWeight: 'bold'
+
                       }}
                     >
                       <Box
