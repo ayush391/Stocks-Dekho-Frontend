@@ -1,5 +1,5 @@
-import { ArrowDownwardRounded, ArrowUpwardRounded } from '@mui/icons-material'
-import { Box, Button, Card, CardContent, List, ListItem, Table, TableBody, TableCell, TableRow, TextField } from '@mui/material'
+import { ArrowDownwardRounded, ArrowUpwardRounded, SearchOff, SearchOutlined } from '@mui/icons-material'
+import { Box, Button, Card, CardContent, Input, InputAdornment, List, ListItem, Table, TableBody, TableCell, TableRow, TextField } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
@@ -50,67 +50,88 @@ const Search = () => {
   }
   return (
     <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 2
-      }}
+      width='350px'
     >
-      <TextField
-        id="outlined-basic"
-        variant="outlined"
-
+      <Input
         onChange={handleQuery}
         value={searchQuery}
-
         onFocus={() => handleSuggest(true)}
         onBlur={() => handleSuggest(false)}
-
         fullWidth
-        label="Search..."
+        disableUnderline
+        placeholder="Search..."
+        startAdornment={
+          <InputAdornment position="start" >
+            <SearchOutlined />
+          </InputAdornment>
+        }
+        sx={{
+          backgroundColor: '#73b9ff',
+          borderRadius: '10px',
+          padding: '5px',
+        }}
       />
-      <CardContent>
-        <Table>
-          <TableBody>
-            {stocksData.map((stock) => {
-              return (
-                <TableRow key={stock.symbol}>
-                  <TableCell component="th" scope="row">
-                    {stock.symbol}
-                  </TableCell>
-                  <TableCell align="right">
-                    ₹{parseFloat(stock.lastPrice).toFixed(2)}
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    sx={{
-                      color: stock.pChange > 0 ? "green" : "red",
-                      fontWeight: "",
-                    }}
-                  >
-                    <Box
+      <Box
+        sx={{
+          position: 'relative',
+        }}
+      >
+        <Card
+          sx={{
+            display: (stocksData.length > 0 && showSuggest) ? 'block' : 'none',
+            top: '-5px',
+            position: 'absolute',
+            maxHeight: '500px',
+            overflow: 'scroll',
+            borderRadius: '20px',
+            borderTopLeftRadius: '0',
+            borderTopRightRadius: '0',
+            width: '100%'
+
+          }}
+        >
+          <Table>
+            <TableBody>
+              {stocksData.map((stock) => {
+                return (
+                  <TableRow key={stock.symbol}>
+                    <TableCell component="th" scope="row">
+                      {stock.symbol}
+                    </TableCell>
+                    <TableCell align="right">
+                      ₹{parseFloat(stock.lastPrice).toFixed(2)}
+                    </TableCell>
+                    <TableCell
+                      align="right"
                       sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        backgroundColor:
-                          stock.pChange > 0 ? "#e6f4ea" : "#fce8e6",
-                        // width: 'max-content',
-                        borderRadius: "5px",
-                        padding: "0.5rem 1rem",
+                        color: stock.pChange > 0 ? "green" : "red",
+                        fontWeight: "",
                       }}
                     >
-                      {parseFloat(stock.pChange).toFixed(2)}%
-                      {stock.pChange > 0 ? <GreenArrow /> : <RedArrow />}
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </CardContent>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          backgroundColor:
+                            stock.pChange > 0 ? "#e6f4ea" : "#fce8e6",
+                          // width: 'max-content',
+                          borderRadius: "5px",
+                          padding: "0.5rem 1rem",
+                        }}
+                      >
+                        {parseFloat(stock.pChange).toFixed(2)}%
+                        {stock.pChange > 0 ? <GreenArrow /> : <RedArrow />}
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </Card>
+      </Box >
+
     </Box >
   );
 };

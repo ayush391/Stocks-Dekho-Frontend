@@ -20,8 +20,8 @@ function App() {
   return (
 
     <div className="App">
-      <Navbar />
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path='/' element={<AllStocks />}></Route>
           <Route path='/login' element={<LoginPage />}></Route>
