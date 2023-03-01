@@ -15,7 +15,7 @@ const StockSymbol = ({ symbol, idx }) => {
                 fontWeight: 'bold',
                 color: 'white',
                 whiteSpace: 'nowrap',
-                backgroundColor: getRandomColor(++idx),
+                backgroundColor: getRandomColor(symbol.charCodeAt(1) + 1),
                 borderRadius: '5px',
             }}
         >

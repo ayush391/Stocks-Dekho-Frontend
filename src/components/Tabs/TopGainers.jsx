@@ -43,7 +43,7 @@ const TopGainers = () => {
 
 
     return (
-        <Container maxWidth='md' sx={{
+        <Box sx={{
             display: 'flex',
             flexDirection: 'column',
             gap: 2, marginTop: '0rem'
@@ -83,7 +83,7 @@ const TopGainers = () => {
             </TableContainer>
 
 
-        </Container >
+        </Box >
     )
 }
 

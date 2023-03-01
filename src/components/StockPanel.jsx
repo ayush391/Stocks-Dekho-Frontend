@@ -3,6 +3,24 @@ import React from 'react'
 import MostActive from './Tabs/MostActive';
 import TopLoosers from './Tabs/TopLoosers';
 import TopGainers from './Tabs/TopGainers';
+import { BarChart, TrendingDown, TrendingUp } from '@mui/icons-material';
+
+import { styled } from '@mui/material/styles';
+
+const AntTabs = styled(Tabs)({
+    borderBottom: '1px solid #e8e8e8',
+    '& .MuiTabs-indicator': {
+        display: 'none',
+        backgroundColor: '#1890ff',
+    },
+});
+
+const AntTab = styled(Tab)({
+    borderRadius: '10px',
+    '&.Mui-selected': {
+        backgroundImage: 'linear-gradient(0deg,#73b9ff30,#73b9ff00)',
+    },
+});
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -25,7 +43,7 @@ function TabPanel(props) {
 }
 
 const StockPanel = () => {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(1);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -33,16 +51,16 @@ const StockPanel = () => {
 
     return (
         <Container maxWidth='md'>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab label="Most Active" />
-                <Tab label="Top Gainers" />
-                <Tab label="Top Loosers" />
-            </Tabs>
+            <AntTabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
+                <AntTab iconPosition='start' icon={<TrendingUp color='success' />} label="Top Gainers" />
+                <AntTab iconPosition='start' icon={<BarChart color='grey' />} label="Most Active" />
+                <AntTab iconPosition='start' icon={<TrendingDown color='error' />} label="Top Loosers" />
+            </AntTabs>
             <TabPanel value={value} index={0} >
-                <MostActive />
+                <TopGainers />
             </TabPanel>
             <TabPanel value={value} index={1} >
-                <TopGainers />
+                <MostActive />
             </TabPanel>
             <TabPanel value={value} index={2} >
                 <TopLoosers />
