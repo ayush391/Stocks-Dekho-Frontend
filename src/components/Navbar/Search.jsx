@@ -62,12 +62,12 @@ const Search = () => {
         disableUnderline
         placeholder="Search..."
         startAdornment={
-          <InputAdornment position="start" >
-            <SearchOutlined />
+          <InputAdornment position="start"  >
+            <SearchOutlined color='primary' />
           </InputAdornment>
         }
         sx={{
-          backgroundColor: '#73b9ff',
+          backgroundColor: '#fff',
           borderRadius: '10px',
           padding: '5px',
         }}

@@ -8,7 +8,11 @@ import SearchBar from './SearchBar'
 const Navbar = () => {
     return (
         <>
-            <AppBar position='sticky' sx={{ top: 0 }}>
+            <AppBar position='sticky' color='transparent' elevation='0' sx={{
+                top: 0,
+                backgroundImage: 'linear-gradient(45deg,#73b9ff,#73b9ff20)',
+                backdropFilter: 'blur(5px)'
+            }}>
                 <Toolbar
                     sx={{
                         display: 'flex',
@@ -23,7 +27,11 @@ const Navbar = () => {
 
                     <Search />
 
-                    <Button variant='contained' color='warning' disableElevation component={Link} to='/login'>
+                    <Button variant='contained' disableElevation component={Link} to='/login'
+                        sx={{
+                            backgroundColor: 'linear-gradient(55deg,#73b9ff,#73b9ff20)'
+                        }}
+                    >
                         <AccountCircle />
                         <Typography color='white' textTransform='none' marginX={1}>Login</Typography>
                     </Button>

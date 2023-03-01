@@ -6,6 +6,7 @@ import TopGainers from './Tabs/TopGainers';
 import { BarChart, TrendingDown, TrendingUp } from '@mui/icons-material';
 
 import { styled } from '@mui/material/styles';
+import News from './News';
 
 const AntTabs = styled(Tabs)({
     borderBottom: '1px solid #e8e8e8',
@@ -65,6 +66,7 @@ const StockPanel = () => {
             <TabPanel value={value} index={2} >
                 <TopLoosers />
             </TabPanel>
+            <News />
         </Container>
     )
 }
