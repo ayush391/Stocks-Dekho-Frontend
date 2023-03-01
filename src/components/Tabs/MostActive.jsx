@@ -43,48 +43,41 @@ const MostActive = () => {
 
 
     return (
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2, marginTop: '0rem'
-        }}>
-            <TableContainer component={Card} sx={{ marginTop: '1rem', borderRadius: '20px' }}>
-                <Table>
-                    <TableBody>
-                        {
-                            stocksData.map((stock, idx) => {
-                                return (
-                                    <TableRow key={stock.symbol}>
-                                        <TableCell >
-                                            <Box sx={{ display: 'flex', gap: 1, fontWeight: 'bold', }}>
-                                                <StockSymbol symbol={stock.symbol} idx={idx} />
-                                                <Typography
-                                                    sx={{
-                                                        whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
-                                                    }}
-                                                >
-                                                    {stock.meta ? stock.meta.companyName : stock.symbol}
-                                                </Typography>
-                                            </Box>
-                                        </TableCell>
-                                        <TableCell align="right">₹{parseFloat(stock.lastPrice).toFixed(2)}</TableCell>
-                                        <TableCell align="right"><StockChange change={stock.change} /></TableCell>
-                                        <TableCell align="right">
-                                            <StockPChange pChange={stock.pChange} />
-                                        </TableCell>
-                                    </TableRow>
-                                )
-                            }
+
+        <TableContainer component={Card} >
+            <Table>
+                <TableBody>
+                    {
+                        stocksData.map((stock, idx) => {
+                            return (
+                                <TableRow key={stock.symbol}>
+                                    <TableCell >
+                                        <Box sx={{ display: 'flex', gap: 1, fontWeight: 'bold', }}>
+                                            <StockSymbol symbol={stock.symbol} idx={idx} />
+                                            <Typography
+                                                sx={{
+                                                    whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
+                                                }}
+                                            >
+                                                {stock.meta ? stock.meta.companyName : stock.symbol}
+                                            </Typography>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell align="right">₹{parseFloat(stock.lastPrice).toFixed(2)}</TableCell>
+                                    <TableCell align="right"><StockChange change={stock.change} /></TableCell>
+                                    <TableCell align="right">
+                                        <StockPChange pChange={stock.pChange} />
+                                    </TableCell>
+                                </TableRow>
                             )
                         }
-                    </TableBody>
-                </Table>
+                        )
+                    }
+                </TableBody>
+            </Table>
 
 
-            </TableContainer>
-
-
-        </Box >
+        </TableContainer>
     )
 }
 

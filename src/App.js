@@ -13,6 +13,7 @@ import { LoginPage } from './pages/Login';
 import Navbar from './components/Navbar/Navbar';
 import StockPage from './pages/StockPage';
 import StockPanel from './components/StockPanel';
+import Home from './pages/Home';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path='/' element={<StockPanel />}></Route>
+          <Route path='/' element={<Home />}></Route>
           <Route path='/allstocks' element={<AllStocks />}></Route>
           <Route path='/login' element={<LoginPage />}></Route>
           {/* <Route path='/:symbol' element={<StockPage />}></Route> */}

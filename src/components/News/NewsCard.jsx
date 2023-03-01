@@ -11,12 +11,8 @@ export const NewsCard = (props) => {
             }}
         >
             <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 2
-                }}
+                display='flex'
+                flexDirection='column'
             >
                 <CardMedia
                     component="img"
@@ -29,8 +25,9 @@ export const NewsCard = (props) => {
                 <CardContent sx={{
                     display: 'flex',
                     flexDirection: 'column',
+                    justifyContent: 'space-between',
                 }}>
-                    <Typography variant="h6" fontWeight='bold'>
+                    <Typography variant="h7" fontWeight='bold' >
                         {props.title}
                     </Typography>
                     <Typography variant="caption" textAlign='right' justifySelf='flex-end'>

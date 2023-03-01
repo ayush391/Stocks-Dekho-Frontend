@@ -9,7 +9,7 @@ import { styled } from '@mui/material/styles';
 import News from './News';
 
 const AntTabs = styled(Tabs)({
-    borderBottom: '1px solid #e8e8e8',
+    // borderBottom: '1px solid #e8e8e8',
     '& .MuiTabs-indicator': {
         display: 'none',
         backgroundColor: '#1890ff',
@@ -51,7 +51,7 @@ const StockPanel = () => {
     };
 
     return (
-        <Container maxWidth='md'>
+        <>
             <AntTabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
                 <AntTab iconPosition='start' icon={<TrendingUp color='success' />} label="Top Gainers" />
                 <AntTab iconPosition='start' icon={<BarChart color='grey' />} label="Most Active" />
@@ -66,8 +66,7 @@ const StockPanel = () => {
             <TabPanel value={value} index={2} >
                 <TopLoosers />
             </TabPanel>
-            <News />
-        </Container>
+        </>
     )
 }
 
