@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'
-import StockCard from '../components/Card';
-import { Avatar, Button, Card, CardContent, Chip, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Button, Card, CardContent, Container, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { ArrowDownward, ArrowDownwardRounded, ArrowUpward, ArrowUpwardRounded } from '@mui/icons-material';
-import Search from '../components/Navbar/Search';
-import TopGainers from '../components/TopGainers';
-import { getRandomColor } from '../utils/randomColor';
 import StockSymbol from '../components/Table/StockSymbol';
 import StockPChange from '../components/Table/StockPChange';
 import StockChange from '../components/Table/StockChange';
@@ -98,7 +92,6 @@ const AllStocks = () => {
 
             </TableContainer>
 
-            <TopGainers />
 
         </Container >
     )

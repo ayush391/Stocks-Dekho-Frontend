@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'
-import { Avatar, Button, Card, CardContent, Chip, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
+import { Card, Container, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import StockSymbol from '../Table/StockSymbol';
 import StockPChange from '../Table/StockPChange';
