@@ -16,9 +16,9 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
-                </Box>
+                <>
+                    {children}
+                </>
             )}
         </div>
     );
@@ -33,20 +33,18 @@ const StockPanel = () => {
 
     return (
         <Container maxWidth='md'>
-            <Box>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Most Active" />
-                    <Tab label="Top Gainers" />
-                    <Tab label="Top Loosers" />
-                </Tabs>
-            </Box>
-            <TabPanel value={value} index={0}>
+            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tab label="Most Active" />
+                <Tab label="Top Gainers" />
+                <Tab label="Top Loosers" />
+            </Tabs>
+            <TabPanel value={value} index={0} >
                 <MostActive />
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value} index={1} >
                 <TopGainers />
             </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel value={value} index={2} >
                 <TopLoosers />
             </TabPanel>
         </Container>
