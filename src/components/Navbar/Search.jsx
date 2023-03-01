@@ -2,6 +2,7 @@ import { ArrowDownwardRounded, ArrowUpwardRounded, SearchOff, SearchOutlined } f
 import { Box, Button, Card, CardContent, Input, InputAdornment, List, ListItem, Table, TableBody, TableCell, TableRow, TextField } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import StockPChange from '../Table/StockPChange'
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices/search'
@@ -101,29 +102,8 @@ const Search = () => {
                     <TableCell align="right">
                       ₹{parseFloat(stock.lastPrice).toFixed(2)}
                     </TableCell>
-                    <TableCell
-                      align="right"
-                      sx={{
-                        color: stock.pChange > 0 ? "green" : "red",
-                        fontWeight: 'bold'
-
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          backgroundColor:
-                            stock.pChange > 0 ? "#e6f4ea" : "#fce8e6",
-                          // width: 'max-content',
-                          borderRadius: "5px",
-                          padding: "0.5rem 1rem",
-                        }}
-                      >
-                        {parseFloat(stock.pChange).toFixed(2)}%
-                        {stock.pChange > 0 ? <GreenArrow /> : <RedArrow />}
-                      </Box>
+                    <TableCell align="right">
+                      <StockPChange pChange={stock.pChange} />
                     </TableCell>
                   </TableRow>
                 );

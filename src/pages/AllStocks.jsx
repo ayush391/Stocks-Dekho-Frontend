@@ -9,21 +9,14 @@ import { ArrowDownward, ArrowDownwardRounded, ArrowUpward, ArrowUpwardRounded } 
 import Search from '../components/Navbar/Search';
 import TopGainers from '../components/TopGainers';
 import { getRandomColor } from '../utils/randomColor';
+import StockSymbol from '../components/Table/StockSymbol';
+import StockPChange from '../components/Table/StockPChange';
+import StockChange from '../components/Table/StockChange';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices'
 const LIMIT = 10
 
 
-const RedArrow = () => {
-    return (
-        <ArrowDownwardRounded color='red' />
-    )
-}
-const GreenArrow = () => {
-    return (
-        <ArrowUpwardRounded color='green' />
-    )
-}
 
 
 const AllStocks = () => {
@@ -73,44 +66,16 @@ const AllStocks = () => {
                                 stocksData.map((stock, idx) => {
                                     return (
                                         <TableRow key={stock.symbol}>
-                                            <TableCell component="th" scope="row">
-                                                <Box sx={{ display: 'flex', gap: 1, }}>
-                                                    <Box
-                                                        sx={{
-                                                            display: 'flex',
-                                                            justifyContent: 'center',
-                                                            alignItems: 'center',
-                                                            width: '12ch',
-                                                            fontSize: '0.6rem',
-                                                            fontFamily: 'Roboto,Arial,sans-serif',
-                                                            fontWeight: 'bold',
-                                                            color: 'white',
-                                                            whiteSpace: 'nowrap',
-                                                            backgroundColor: getRandomColor(++idx),
-                                                            borderRadius: '10px',
-                                                        }}
-                                                    >
-                                                        {stock.symbol}
-                                                    </Box>
+                                            <TableCell padding='none' scope="row">
+                                                <Box sx={{ display: 'flex', gap: 1, fontWeight: 'bold' }}>
+                                                    <StockSymbol symbol={stock.symbol} idx={idx} />
                                                     {stock.meta ? stock.meta.companyName : stock.symbol}
                                                 </Box>
                                             </TableCell>
-                                            <TableCell align="right">₹{parseFloat(stock.lastPrice).toFixed(2)}</TableCell>
-                                            <TableCell align="right">₹{parseFloat(stock.change).toFixed(2)}</TableCell>
-                                            <TableCell align="center"
-                                                sx={{
-                                                    color: stock.pChange > 0 ? 'green' : 'red',
-                                                }}>
-                                                <Box sx={{
-                                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                                    backgroundColor: stock.pChange > 0 ? '#e6f4ea' : '#fce8e6',
-                                                    borderRadius: '5px',
-                                                    padding: '0.5rem 1rem',
-                                                    fontWeight: 'bold'
-                                                }}>
-                                                    {stock.pChange}%
-                                                    {stock.pChange > 0 ? <GreenArrow /> : <RedArrow />}
-                                                </Box>
+                                            <TableCell padding='none' align="right">₹{parseFloat(stock.lastPrice).toFixed(2)}</TableCell>
+                                            <TableCell align="right"><StockChange change={stock.change} /></TableCell>
+                                            <TableCell padding='none' align="right">
+                                                <StockPChange pChange={stock.pChange} />
                                             </TableCell>
                                         </TableRow>
                                     )
