@@ -9,7 +9,7 @@ const StockSymbol = ({ symbol, idx }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: '12ch',
+                width: '13ch',
                 fontSize: '0.6rem',
                 fontFamily: 'Roboto,Arial,sans-serif',
                 fontWeight: 'bold',

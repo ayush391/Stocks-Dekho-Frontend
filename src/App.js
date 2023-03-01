@@ -14,6 +14,8 @@ import HorizontalCard from './components/HorizontalCard';
 import TopGainers from './components/TopGainers';
 import Navbar from './components/Navbar/Navbar';
 import StockPage from './pages/StockPage';
+import MostActive from './components/Tabs/MostActive';
+import StockPanel from './components/StockPanel';
 
 function App() {
 
@@ -24,7 +26,9 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path='/' element={<AllStocks />}></Route>
+          {/* <Route path='/' element={<AllStocks />}></Route> */}
+          <Route path='/' element={<StockPanel />}></Route>
+          <Route path='/' element={<MostActive />}></Route>
           <Route path='/login' element={<LoginPage />}></Route>
           <Route path='/:symbol' element={<StockPage />}></Route>
           <Route path='/search' element={<Search />}></Route>

@@ -18,13 +18,11 @@ const StockChange = ({ change }) => {
     return (
         <Box sx={{
             display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
-            // backgroundColor: change > 0 ? '#e6f4ea' : '#fce8e6',
             color: change > 0 ? 'green' : 'red',
             borderRadius: '5px',
             padding: '0.5rem 0.8rem',
             fontWeight: 'bold',
         }}>
-            {/* {change > 0 ? <GreenArrow /> : <RedArrow />} */}
             {change > 0 ? '+' : '-'}₹{Math.abs(parseFloat(change)).toFixed(2)}
         </Box>
     )

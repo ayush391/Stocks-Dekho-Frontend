@@ -54,10 +54,6 @@ const AllStocks = () => {
             flexDirection: 'column',
             gap: 2, marginTop: '0rem'
         }}>
-            <Container maxWidth='sm' sx={{
-
-            }}>
-            </Container>
             <TableContainer component={Card} sx={{ marginTop: '1rem', borderRadius: '20px' }}>
                 <CardContent>
                     <Table>
@@ -66,10 +62,16 @@ const AllStocks = () => {
                                 stocksData.map((stock, idx) => {
                                     return (
                                         <TableRow key={stock.symbol}>
-                                            <TableCell padding='none' scope="row">
-                                                <Box sx={{ display: 'flex', gap: 1, fontWeight: 'bold' }}>
+                                            <TableCell padding='none'>
+                                                <Box sx={{ display: 'flex', gap: 1, fontWeight: 'bold', }}>
                                                     <StockSymbol symbol={stock.symbol} idx={idx} />
-                                                    {stock.meta ? stock.meta.companyName : stock.symbol}
+                                                    <Typography
+                                                        sx={{
+                                                            whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
+                                                        }}
+                                                    >
+                                                        {stock.meta ? stock.meta.companyName : stock.symbol}
+                                                    </Typography>
                                                 </Box>
                                             </TableCell>
                                             <TableCell padding='none' align="right">₹{parseFloat(stock.lastPrice).toFixed(2)}</TableCell>
