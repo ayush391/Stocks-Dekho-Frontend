@@ -1,18 +1,20 @@
 
-import { Box, Card, CardContent, CardHeader, CardMedia, Typography } from "@mui/material"
-import { Stack } from "@mui/material"
+import { Box, Card, CardContent, CardHeader, CardMedia, Stack, Typography } from "@mui/material"
+import { height } from "@mui/system"
 export const NewsCard = (props) => {
 
     return (
         <Card
-            variant='elevation'
+            variant='outlined'
             sx={{
-                width: "280px"
+                width: "100%",
+                height: '100%',
+                // backgroundImage: 'linear-gradient(0deg, #7abbfc30,#7abbfc00)',
+
             }}
         >
-            <Box
-                display='flex'
-                flexDirection='column'
+            <Stack
+                justifyContent="space-between"
             >
                 <CardMedia
                     component="img"
@@ -21,21 +23,24 @@ export const NewsCard = (props) => {
                         height: '200px',
                     }}
                 />
-
                 <CardContent sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
                 }}>
-                    <Typography variant="h7" fontWeight='bold' >
-                        {props.title}
-                    </Typography>
-                    <Typography variant="caption" textAlign='right' justifySelf='flex-end'>
-                        {new Date(props.publishedAt).toDateString()}
-                    </Typography>
+                    <Stack
+                        justifyContent="space-between"
+                    >
 
+                        <Typography variant="body1" height='100px'
+                            textOverflow='ellipsis'
+                        >
+                            {props.title}
+                        </Typography>
+                        <Typography variant="caption" textAlign='right' justifySelf='flex-end'>
+                            {new Date(props.publishedAt).toDateString()}
+                        </Typography>
+                    </Stack>
                 </CardContent>
-            </Box>
+            </Stack >
+
         </Card >
     )
 }

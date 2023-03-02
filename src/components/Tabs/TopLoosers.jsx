@@ -43,7 +43,7 @@ const TopLoosers = () => {
 
 
     return (
-        <TableContainer component={Card} >
+        <TableContainer component={Card} variant='outlined'>
             <Table>
                 <TableBody>
                     {

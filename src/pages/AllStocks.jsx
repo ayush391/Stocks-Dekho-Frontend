@@ -57,8 +57,12 @@ const AllStocks = () => {
                                     return (
                                         <TableRow key={stock.symbol}>
                                             <TableCell padding='none'>
-                                                <Box sx={{ display: 'flex', gap: 1, fontWeight: 'bold', }}>
-                                                    <StockSymbol symbol={stock.symbol} idx={idx} />
+                                                <Box sx={{ display: 'flex', placeItems: 'center', gap: 1, fontWeight: 'bold', }}>
+                                                    {
+                                                        stock.icon ? <img src={stock.icon} height={40}></img>
+                                                            :
+                                                            <StockSymbol symbol={stock.symbol} idx={idx} />
+                                                    }
                                                     <Typography
                                                         sx={{
                                                             whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
