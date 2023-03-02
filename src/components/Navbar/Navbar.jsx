@@ -4,8 +4,17 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Search from './Search'
 import SearchBar from './SearchBar'
+import Hamburger from 'hamburger-react'
+import {useState} from 'react'
+import TemporaryDrawer from './sidebar'
+const RenderSideBar=(props)=>{
+    if (props.condition){
+        return <TemporaryDrawer/>
+    }
 
+}
 const Navbar = () => {
+    const [isOpen, setOpen] = useState(false)
     return (
         <>
             <AppBar position='sticky' color='transparent' elevation='0' sx={{
@@ -19,6 +28,12 @@ const Navbar = () => {
                         justifyContent: 'space-between'
                     }}
                 >
+                    <div onBlur={(e)=>setOpen(false)} onFocus={(e)=>setOpen(true)}>
+                    <Hamburger style={{color:'#fff' , backgroundColor:'#fff'}} toggled={isOpen} toggle={setOpen} />
+                    
+                        <RenderSideBar condition={isOpen} />
+                    </div>
+                    
                     <Button variant='text' component={Link} to='/'>
                         <Typography variant='h5' fontWeight='bold' color='white' textTransform='none'
                             fontFamily='Righteous'
