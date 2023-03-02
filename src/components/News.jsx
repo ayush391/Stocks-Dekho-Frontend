@@ -1,6 +1,8 @@
-import { Box, Typography } from '@mui/material'
+import { Newspaper } from '@mui/icons-material'
+import { Box, CircularProgress, Grid, Stack, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import CircularLoading from './Loading/CircularLoading'
 import { NewsCard } from './News/NewsCard'
 
 const BASE_URL = process.env.REACT_APP_BASE_URL + '/news' + '/PAYTM'
@@ -17,29 +19,27 @@ const News = () => {
 
     return (
         <>
-            <Typography variant='h5' fontWeight='bold' gutterBottom
-                sx={{ marginTop: '5rem' }}
-            >
-                Latest News
-            </Typography>
-            <Box
-                sx={{
-                    display: 'grid',
-                    grid: 'auto /auto auto auto',
-                    // flexDirection: 'column',
-                    gap: 2,
-                    rowGap: 5,
-                    mx: 'auto'
-                }}
-            >
-                {
-                    news.map((article, idx) => {
-                        return (
-                            <NewsCard key={idx} {...article} />
-                        )
-                    })
-                }
-            </Box >
+            <Stack direction='row' alignItems='flex-end' justifyContent='center' marginY={3}>
+                <Newspaper color='primary' fontSize='large' />
+                <Typography variant='h6' color='#00000080' marginX={1} fontWeight='bold'>
+                    TOP STORIES
+                </Typography>
+            </Stack>
+            {
+                news ? <Grid container columnSpacing={4} rowSpacing={3} justifyContent='space-between'>
+                    {
+                        news.map((article, idx) => {
+                            return (
+                                <Grid item key={idx} xs={12} sm={6} md={4}>
+                                    <NewsCard {...article} />
+                                </Grid>
+                            )
+                        })
+                    }
+                </Grid>
+
+                    : <CircularLoading />
+            }
         </>
     )
 }
