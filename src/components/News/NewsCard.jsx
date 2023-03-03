@@ -9,12 +9,21 @@ export const NewsCard = (props) => {
             sx={{
                 width: "100%",
                 height: '100%',
+                backgroundImage: `url(${props.urlToImage})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                borderRadius: '20px'
                 // backgroundImage: 'linear-gradient(0deg, #7abbfc30,#7abbfc00)',
 
             }}
         >
             <Stack
-                justifyContent="space-between"
+                justifyContent="flex-end"
+                sx={{
+                    height: '100%',
+                    flex: 1,
+                }}
             >
                 <CardMedia
                     component="img"
@@ -24,6 +33,9 @@ export const NewsCard = (props) => {
                     }}
                 />
                 <CardContent sx={{
+                    backdropFilter: 'blur(10px) brightness(50%)',
+                    color: 'white',
+
                 }}>
                     <Stack
                         justifyContent="space-between"
