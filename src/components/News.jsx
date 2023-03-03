@@ -13,7 +13,7 @@ const News = () => {
     useEffect(() => {
         (async () => {
             const result = await axios.get(BASE_URL)
-            setNews(result.data.data.articles)
+            setNews(result.data.data.articles.slice(0,6)|| result.data.articles)
         })()
     }, [])
 
