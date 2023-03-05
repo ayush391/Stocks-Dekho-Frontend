@@ -1,5 +1,6 @@
 import { Line } from "react-chartjs-2"
 import { CategoryScale, Chart, registerables } from 'chart.js'
+import { Divider } from "@mui/material"
 
 export const PortfolioHistory = ()=>{
     Chart.register(CategoryScale, ...registerables)
@@ -12,17 +13,43 @@ export const PortfolioHistory = ()=>{
                 data: [10,9,12,4,16,7,9,10,14,20,10,9,12,3,16,7,9,10,14,20],
                 barThickness: 10,
                 backgroundColor: "rgba(1,208,0,1)",
-                // borderColor: 'rgb(0, 166, 0)',
-                fill:true
+                borderColor: 'lightgreen',
+                pointRadius:0
+                
             }
-        ]
+        ],
+       
     }
+    
+    var  options={
+        scales: {
+            x: {
+              grid: {
+                display: false
+              },
+              display:false
+            },
+            y: {
+              grid: {
+                display: false
+              },
+              display:false
+            }
+          },
+          plugins: { legend: { display: false, },
+          
+          
+        } 
+    }
+
+
     return (
         <div style={{margin:30}}>
-             <h1>Portfolio History</h1>
-        <div style={{ height:'25%' , width:'60%' , marginLeft:'auto' , marginRight:'auto'}}>
-           
-            <Line data={data} />
+             
+        <div style={{ height:'25%' , width:'50%' , marginLeft:'auto' , marginRight:'auto' , border:'1px solid' , borderRadius:10 , padding:20}}>
+        <h1>Portfolio History</h1>
+        <Divider/>
+            <Line data={data} options={options} />
         </div>
         </div>
     )
