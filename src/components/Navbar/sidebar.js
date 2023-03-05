@@ -11,6 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Profile } from '../../pages/profile';
+import { Link , useNavigate } from 'react-router-dom'
 
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
@@ -19,14 +20,21 @@ export default function TemporaryDrawer() {
     bottom: false,
     right: false,
   });
-
+  const navigate = useNavigate()
   const toggleDrawer = (anchor, open) => (event) => {
+    // console.log('toggle drwaer' , open)
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
 
     setState({ ...state, [anchor]: open });
   };
+  const handleNav = (event) =>{
+    // Do whatever you need to do then push to the new page
+    console.log('handle navbar')
+    navigate('/profile')
+    console.log('handle navbar')
+  }
 
   const list = (anchor) => (
     <Box
@@ -34,44 +42,46 @@ export default function TemporaryDrawer() {
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
+
     >
       <List>
-        {['Home', 'Holdings', 'Portfolio'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        
+      <ListItem key={'Home'} disablePadding >
+        <ListItemButton>
+          <ListItemIcon>
+          <MailIcon />
+          </ListItemIcon>
+          <ListItemText primary={'Home'} />
+        </ListItemButton>
+      </ListItem>
+  
       </List>
       <Divider />
       <List>
-        {['Profile', 'Logout'].map((text, index) => (
-          <ListItem key={text} disablePadding  button component="a" href="https://www.google.com"> 
-            <ListItemButton >
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+      
+      <ListItem key={'Profile'}   > 
+        <ListItemButton  onClick={handleNav}>
+          <ListItemIcon>
+            <InboxIcon /> 
+          </ListItemIcon>
+          <ListItemText primary={'Profile'} />
+        </ListItemButton>
+      </ListItem>
+      
       </List>
     </Box>
   );
 
   return (
-    <div>
-      {['left', 'right', 'top', 'bottom'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+    <div >
+      {['left'].map((anchor) => (
+        <React.Fragment key={anchor} >
+          
           <Drawer
             anchor={anchor}
             open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
+            // onClose={toggleDrawer(anchor, false)}
+            
           >
             {list(anchor)}
           </Drawer>

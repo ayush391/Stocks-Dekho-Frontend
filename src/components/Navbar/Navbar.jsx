@@ -7,14 +7,20 @@ import SearchBar from './SearchBar'
 import Hamburger from 'hamburger-react'
 import {useState} from 'react'
 import TemporaryDrawer from './sidebar'
-const RenderSideBar=(props)=>{
-    if (props.condition){
-        return <TemporaryDrawer/>
-    }
 
-}
+
 const Navbar = () => {
     const [isOpen, setOpen] = useState(false)
+    const RenderSideBar=(props)=>{
+        
+        if (props.condition){
+            
+        return (<TemporaryDrawer/>)
+
+        }
+    
+    }
+
     return (
         <>
             <AppBar position='sticky' color='transparent' elevation='0' sx={{
@@ -28,11 +34,12 @@ const Navbar = () => {
                         justifyContent: 'space-between'
                     }}
                 >
-                    <div onBlur={(e)=>setOpen(false)} onFocus={(e)=>setOpen(true)}>
-                    <Hamburger style={{color:'#fff' , backgroundColor:'#fff'}} toggled={isOpen} toggle={setOpen} />
-                    
-                        <RenderSideBar condition={isOpen} />
+                    <div > 
+                    <Hamburger color='white' toggled={isOpen} toggle={setOpen}  />
                     </div>
+                        <RenderSideBar condition={isOpen}  />   
+                       
+                    
                     
                     <Button variant='text' component={Link} to='/'>
                         <Typography variant='h5' fontWeight='bold' color='white' textTransform='none'
