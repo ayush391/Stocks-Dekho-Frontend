@@ -9,12 +9,7 @@ const Home = () => {
         <>
             <Box
                 sx={{
-                    // backgroundImage: `linear-gradient(0deg,#ffffff 0 2%, #ffffff05 3% 90%, #ffffff 96% 100%), url(${bgPatternPanel})`,
-                    // backgroundImage: `url(${bgPatternPanel})`,
-                    // backgroundSize: '40%',
-                    // backdropFilter: 'blur(20px)',
                     paddingBottom: '2rem',
-                    // backgroundRepeat: 'repeat',
                     marginTop: '0'
                 }}
             >

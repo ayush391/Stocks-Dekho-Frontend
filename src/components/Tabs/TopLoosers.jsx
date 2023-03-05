@@ -6,6 +6,8 @@ import { Box } from '@mui/system';
 import StockSymbol from '../Table/StockSymbol';
 import StockPChange from '../Table/StockPChange';
 import StockChange from '../Table/StockChange';
+import TableSkeleton from '../Loading/TableSkeleton';
+import StockTable from '../Table/StockTable';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices/top-loosers'
 const LIMIT = 10
@@ -43,40 +45,10 @@ const TopLoosers = () => {
 
 
     return (
-        <TableContainer component={Card} variant='outlined'>
-            <Table>
-                <TableBody>
-                    {
-                        stocksData.map((stock, idx) => {
-                            return (
-                                <TableRow key={stock.symbol}>
-                                    <TableCell>
-                                        <Box sx={{ display: 'flex', gap: 1, fontWeight: 'bold', }}>
-                                            <StockSymbol symbol={stock.symbol} idx={idx} />
-                                            <Typography
-                                                sx={{
-                                                    whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
-                                                }}
-                                            >
-                                                {stock.meta ? stock.meta.companyName : stock.symbol}
-                                            </Typography>
-                                        </Box>
-                                    </TableCell>
-                                    <TableCell align="right">₹{parseFloat(stock.lastPrice).toFixed(2)}</TableCell>
-                                    <TableCell align="right"><StockChange change={stock.change} /></TableCell>
-                                    <TableCell align="right">
-                                        <StockPChange pChange={stock.pChange} />
-                                    </TableCell>
-                                </TableRow>
-                            )
-                        }
-                        )
-                    }
-                </TableBody>
-            </Table>
-
-        </TableContainer>
+        <>
+            <StockTable stocksData={stocksData} />
+        </>
     )
 }
 
-export default TopLoosers
+export default React.memo(TopLoosers)

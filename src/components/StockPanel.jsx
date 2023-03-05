@@ -1,5 +1,5 @@
 import { Box, Container, Tab, Tabs, Typography } from '@mui/material'
-import React from 'react'
+import React, { useMemo } from 'react'
 import MostActive from './Tabs/MostActive';
 import TopLoosers from './Tabs/TopLoosers';
 import TopGainers from './Tabs/TopGainers';

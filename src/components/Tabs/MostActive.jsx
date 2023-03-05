@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'
-import { Card, Container, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import StockSymbol from '../Table/StockSymbol';
-import StockPChange from '../Table/StockPChange';
-import StockChange from '../Table/StockChange';
-import CircularLoading from '../Loading/CircularLoading';
-import TableSkeleton from '../Loading/TableSkeleton';
+import StockTable from '../Table/StockTable';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices/most-active'
 const LIMIT = 10
@@ -46,48 +40,7 @@ const MostActive = () => {
 
     return (
         <>
-            {
-                stocksData ?
-                    <TableContainer component={Card} variant='outlined'>
-                        <Table>
-                            <TableBody>
-                                {
-                                    stocksData.map((stock, idx) => {
-                                        return (
-                                            <TableRow key={stock.symbol}>
-                                                <TableCell >
-                                                    <Box sx={{ display: 'flex', gap: 1, fontWeight: 'bold', }}>
-                                                        {
-                                                            stock.icon ? <img src={stock.icon}></img>
-                                                                :
-                                                                <StockSymbol symbol={stock.symbol} idx={idx} />
-                                                        }
-                                                        <Typography
-                                                            sx={{
-                                                                whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
-                                                            }}
-                                                        >
-                                                            {stock.meta ? stock.meta.companyName : stock.symbol}
-                                                        </Typography>
-                                                    </Box>
-                                                </TableCell>
-                                                <TableCell align="right">₹{parseFloat(stock.lastPrice).toFixed(2)}</TableCell>
-                                                <TableCell align="right"><StockChange change={stock.change} /></TableCell>
-                                                <TableCell align="right">
-                                                    <StockPChange pChange={stock.pChange} />
-                                                </TableCell>
-                                            </TableRow>
-                                        )
-                                    }
-                                    )
-                                }
-                            </TableBody>
-                        </Table>
-
-
-                    </TableContainer>
-                    : <TableSkeleton />
-            }
+            <StockTable stocksData={stocksData} />
         </>
     )
 }

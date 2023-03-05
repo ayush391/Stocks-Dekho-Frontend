@@ -1,25 +1,32 @@
-import { Box, Card, Skeleton, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
+import { Box, Card, Skeleton, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material'
 import React from 'react'
 
-const TableSkeleton = () => {
+const TableSkeleton = ({ rows = 5, columns = 4 }) => {
     return (
-        <TableContainer component={Card} >
+        <TableContainer component={Card} variant='outlined'>
             <Table>
                 <TableBody>
-                    <TableRow>
-                        <TableCell >
-                            <Skeleton variant="text" />
-                        </TableCell>
-                        <TableCell align="right">
-                            <Skeleton variant="text" />
-                        </TableCell>
-                        <TableCell align="right">
-                            <Skeleton variant="text" />
-                        </TableCell>
-                        <TableCell align="right">
-                            <Skeleton variant="text" />
-                        </TableCell>
-                    </TableRow>
+                    {
+                        [...Array(rows)].map(() => {
+                            return (
+                                <TableRow>
+                                    {
+                                        [...Array(columns)].map((val, idx) => {
+
+                                            return (
+                                                <TableCell width={idx ? 10 : 100} height={50}>
+                                                    <Typography>
+                                                        <Skeleton variant="rounded" />
+                                                    </Typography>
+                                                </TableCell>
+                                            )
+                                        }
+                                        )
+                                    }
+                                </TableRow>
+                            )
+                        })
+                    }
                 </TableBody>
             </Table>
 
@@ -28,4 +35,4 @@ const TableSkeleton = () => {
     )
 }
 
-export default TableSkeleton
+export default React.memo(TableSkeleton)
