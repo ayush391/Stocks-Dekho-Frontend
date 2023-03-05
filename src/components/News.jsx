@@ -30,8 +30,8 @@ const News = () => {
                     {
                         news.map((article, idx) => {
                             return (
-                                <Grid item key={idx} xs={12} sm={6} md={4}>
-                                    <NewsCard {...article} />
+                                <Grid item key={idx} xs={6} sm={6} md={2}>
+                                    <NewsCard {...article}  />
                                 </Grid>
                             )
                         })

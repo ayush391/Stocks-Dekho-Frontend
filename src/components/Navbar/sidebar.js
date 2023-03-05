@@ -10,6 +10,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { Profile } from '../../pages/profile';
 
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
@@ -49,8 +50,8 @@ export default function TemporaryDrawer() {
       <Divider />
       <List>
         {['Profile', 'Logout'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
+          <ListItem key={text} disablePadding  button component="a" href="https://www.google.com"> 
+            <ListItemButton >
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>

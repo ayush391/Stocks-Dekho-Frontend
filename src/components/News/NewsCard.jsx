@@ -10,6 +10,8 @@ export const NewsCard = (props) => {
                 width: "100%",
                 height: '100%',
                 // backgroundImage: 'linear-gradient(0deg, #7abbfc30,#7abbfc00)',
+                display:'flex',
+                flexDirection:'column'
 
             }}
         >

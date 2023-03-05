@@ -14,6 +14,7 @@ import Navbar from './components/Navbar/Navbar';
 import StockPage from './pages/StockPage';
 import StockPanel from './components/StockPanel';
 import Home from './pages/Home';
+import { Profile } from './pages/profile';
 
 function App() {
 
@@ -27,8 +28,9 @@ function App() {
           <Route path='/' element={<Home />}></Route>
           <Route path='/allstocks' element={<AllStocks />}></Route>
           <Route path='/login' element={<LoginPage />}></Route>
-          {/* <Route path='/:symbol' element={<StockPage />}></Route> */}
+          <Route path='/:symbol' element={<StockPage />}></Route>
           <Route path='/search' element={<Search />}></Route>
+          <Route path='/profile' element={<Profile/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
