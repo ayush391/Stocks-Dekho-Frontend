@@ -5,6 +5,7 @@ import StockSymbol from '../Table/StockSymbol';
 import StockPChange from '../Table/StockPChange';
 import StockChange from '../Table/StockChange';
 import TableSkeleton from '../Loading/TableSkeleton';
+import { Link } from 'react-router-dom';
 
 
 const StockTable = ({ stocksData }) => {
@@ -19,7 +20,7 @@ const StockTable = ({ stocksData }) => {
                                 {
                                     stocksData.map((stock, idx) => {
                                         return (
-                                            <TableRow key={stock.symbol}>
+                                            <TableRow key={stock.symbol} component={Link} to={'/' + stock.symbol}>
                                                 <TableCell >
                                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, fontWeight: 'bold', }}>
                                                         {
