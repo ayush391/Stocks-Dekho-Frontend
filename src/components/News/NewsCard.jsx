@@ -15,6 +15,8 @@ export const NewsCard = (props) => {
                 backgroundPosition: 'center',
                 borderRadius: '20px'
                 // backgroundImage: 'linear-gradient(0deg, #7abbfc30,#7abbfc00)',
+                display:'flex',
+                flexDirection:'column'
 
             }}
         >
