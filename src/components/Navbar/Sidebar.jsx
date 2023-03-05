@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { List, Paper } from '@mui/material';
-import { House, Pages, Report, Wallet } from '@mui/icons-material';
+import { House, Pages, Report, VerifiedUser, Wallet } from '@mui/icons-material';
 
 export default function TemporaryDrawer({ open, onClose }) {
 
@@ -46,7 +46,7 @@ export default function TemporaryDrawer({ open, onClose }) {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <User />
+              <VerifiedUser />
             </ListItemIcon>
             <ListItemText>
               Portfolio
