@@ -27,7 +27,7 @@ function App() {
           <Route path='/' element={<Home />}></Route>
           <Route path='/allstocks' element={<AllStocks />}></Route>
           <Route path='/login' element={<LoginPage />}></Route>
-          {/* <Route path='/:symbol' element={<StockPage />}></Route> */}
+          <Route path='/:symbol' element={<StockPage />}></Route>
           <Route path='/search' element={<Search />}></Route>
         </Routes>
       </BrowserRouter>
