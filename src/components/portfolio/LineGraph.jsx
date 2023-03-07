@@ -173,7 +173,7 @@ export default function LineGraph({ labels, data }) {
   }]
 
   return (
-    <Box>
+    <Box >
       <Line data={graph} options={options} plugins={plugins} />
     </Box>
   )
