@@ -113,6 +113,13 @@ const Search = () => {
                     </TableRow>
                   );
                 })}
+                <TableRow>
+                  <TableCell>
+                    <Typography variant='caption'>
+                      No more results found
+                    </Typography>
+                  </TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </Card>
