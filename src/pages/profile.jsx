@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { PieChart } from '../components/Portfolio/pie'
 import LineGraph  from '../components/Portfolio/LineGraph'
+import { PortfolioHistory } from '../components/Portfolio/PortfolioHistory'
 const StatComponent = () => {
     return (
         <div style={{ marginLeft: 10 }}>
@@ -42,7 +43,7 @@ export const Profile = () => {
                 </div>
             </div>
 
-            {/* <PortfolioHistory /> */}
+            <LineGraph  labels= {[1,2,3,4,5,6]} data={[19,21,32,45,213,13]}/>
 
         </div>
     )

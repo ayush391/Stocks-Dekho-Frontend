@@ -6,11 +6,12 @@ import { Button } from '@mui/material';
 import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {app} from './Firebase'
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 export const LoginComponent=()=>{
     const [email , setEmail] = useState("")
     const [password , setPassword] = useState("")
     const auth = getAuth(app)
+    const navigate = useNavigate()
     const handleEmail=(event)=>{
         setEmail(event.target.value)
     }
@@ -20,8 +21,13 @@ export const LoginComponent=()=>{
     const LoginBtnHandler =()=>{
         signInWithEmailAndPassword(auth , email , password).then((userCred)=>{
             const user = userCred.user
-        
+            console.log('logged in sucessfully')
+            navigate('/')
+            
         }).catch(e=>alert(e))
+       
+        
+        
     }
      return(
         <Box
@@ -42,7 +48,7 @@ export const LoginComponent=()=>{
             <Input id="component-simple" defaultValue="" type="password" onChange={handlePassword}/>
         </FormControl>
         
-        <Button onClick={LoginBtnHandler} style={{ backgroundColor:'purple',}}><Link to ="/" style={{color:'white'}}>LogIn</Link></Button>
+        <Button onClick={LoginBtnHandler} style={{ backgroundColor:'purple',color:'white'}}>LogIn</Button>
 
         </Box>
     )

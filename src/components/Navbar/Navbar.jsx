@@ -5,17 +5,19 @@ import { Link } from 'react-router-dom'
 import Search from './Search'
 import SearchBar from './SearchBar'
 import Hamburger from 'hamburger-react'
-import { useState } from 'react'
+import { useState  , useEffect} from 'react'
 import TemporaryDrawer from './Slidebar'
+import { getAuth  , signOut} from "firebase/auth";
+import {app} from '../Firebase'
+import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import { useAuthState } from "react-firebase-hooks/auth";
 
-// const RenderSideBar = (props) => {
-//     if (props.condition) {
-//         return <TemporaryDrawer onClose={props.onClose} />
-//     }
-
-// }
 const Navbar = () => {
     const [isOpen, setOpen] = useState(false)
+    const [loggedIn , setLoggedIn] = useState(false)
+    const auth = getAuth(app)
+    const [user, loading, error] = useAuthState(auth);
+    
     const RenderSideBar = (props) => {
 
         if (props.condition) {
@@ -25,7 +27,57 @@ const Navbar = () => {
         }
 
     }
+    const Logout=()=>{
+        // user = getAuth(app)
+        if(user!=null){
+            
+            signOut(auth).then(()=>{
+                console.log('logging out')
+                setLoggedIn(false)
+            }).catch(e=>alert(e))
+        }
+    }
+    const LoggedInComponent=()=>{
+        return (
+            <>
+            <Avatar style={{maxWidth:50}}src='https://bit.ly/broken-link'  onClick={Logout}/>
+            </>
+        )
+    }
+    const RenderComponent = (props)=>{
+            const user = getAuth(app)
+            if (user.currentUser!=null){
+            return <LoggedInComponent/>
+        }else{
+            return (
+                <>
+                <Button variant='contained' disableElevation component={Link} to='/login'
+                        sx={{
+                            backgroundColor: 'linear-gradient(55deg,#73b9ff,#73b9ff20)'
+                        }}
 
+                    >
+                        <AccountCircle />
+                        <Typography color='white' textTransform='none' marginX={1}>Login</Typography>
+                    </Button>
+                </>
+            )
+        }
+    }
+    useEffect(()=>{
+
+        if (loading){
+            
+        }else{
+        const user =  getAuth(app)
+        console.log(user.currentUser)
+        if (user.currentUser!=null){
+            setLoggedIn(true)
+        }else{
+            setLoggedIn(false)
+        }
+        }
+    },[user , loading])
     return (
         <>
             <AppBar position='sticky' color='transparent' elevation={0} sx={{
@@ -50,14 +102,7 @@ const Navbar = () => {
 
                     <Search />
 
-                    <Button variant='contained' disableElevation component={Link} to='/login'
-                        sx={{
-                            backgroundColor: 'linear-gradient(55deg,#73b9ff,#73b9ff20)'
-                        }}
-                    >
-                        <AccountCircle />
-                        <Typography color='white' textTransform='none' marginX={1}>Login</Typography>
-                    </Button>
+                    <RenderComponent loggedIn={loggedIn}/>
                 </Toolbar>
                 <TemporaryDrawer open={isOpen} onClose={() => setOpen(false)} />
             </AppBar>
