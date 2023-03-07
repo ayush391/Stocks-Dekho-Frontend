@@ -15,6 +15,8 @@ import StockPage from './pages/StockPage';
 import StockPanel from './components/StockPanel';
 import Home from './pages/Home';
 import { Profile } from './pages/profile';
+import BuyPage from './pages/BuyStock';
+import SellPage from './pages/SellStock';
 
 function App() {
 
@@ -31,6 +33,8 @@ function App() {
           <Route path='/:symbol' element={<StockPage />}></Route>
           <Route path='/search' element={<Search />}></Route>
           <Route path='/profile' element={<Profile/>}></Route>
+          <Route path='/Buy/:symbol' element={<BuyPage/>}></Route>
+          <Route path='/Sell/:symbol' element={<SellPage/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
