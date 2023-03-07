@@ -16,19 +16,19 @@ import TemporaryDrawer from './Slidebar'
 // }
 const Navbar = () => {
     const [isOpen, setOpen] = useState(false)
-    const RenderSideBar=(props)=>{
-        
-        if (props.condition){
-            
-        return (<TemporaryDrawer/>)
+    const RenderSideBar = (props) => {
+
+        if (props.condition) {
+
+            return (<TemporaryDrawer />)
 
         }
-    
+
     }
 
     return (
         <>
-            <AppBar position='sticky' color='transparent' elevation='0' sx={{
+            <AppBar position='sticky' color='transparent' elevation={0} sx={{
                 top: 0,
                 backgroundImage: 'linear-gradient(45deg,#73b9ff,#73b9ff20)',
                 backdropFilter: 'blur(5px)'

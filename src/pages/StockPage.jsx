@@ -1,16 +1,11 @@
-'use client'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
-import { CategoryScale, Chart, registerables } from 'chart.js'
-import { StockNews } from '../components/News/NewsCard';
-import { ChakraProvider } from '@chakra-ui/react'
-import { StockCard } from '../components/News/NewsCard';
 import News from '../components/News';
 import { Button } from '@mui/material';
 import { Navigate , Link , useParams } from 'react-router-dom';
+import LineGraph from '../components/Portfolio/LineGraph';
+import { Container, Typography } from '@mui/material';
 // import { StockNews } from '@/app/Component/StocksPage/StockNews';
-
 const StockPage = () => {
     const [stockPriceHistoryList, setStockPriceHistoryList] = useState([])
     const [labelsData, setLabels] = useState([])
@@ -18,52 +13,41 @@ const StockPage = () => {
     console.log(params)
     const [stockNewsList, setStockNewsList] = useState([])
     const pid =  params.symbol||'Stock'
-    const url = 'http://localhost:8000/graph/' + pid?.toString()
-    const newsUrl = 'http://localhost:8000/news/' + pid?.toString()
+
     
     // console.log('router' ,url)
+
+    const { symbol } = params
+
+    const url = process.env.REACT_APP_BASE_URL + '/graph/' + symbol?.toString()
+    const newsUrl = process.env.REACT_APP_BASE_URL + '/news/' + symbol?.toString()
 
     useEffect(() => {
         async function getStockPriceHistoryList() {
             const response = await axios.get(url)
-            // console.log()
             let tempLt = []
             let tempLtLabel = []
-            response.data.data.map((item) => {
+            response.data.data.forEach((item) => {
                 tempLt.push(parseFloat(item['HIGH '].replace(/,/g, '')))
                 tempLtLabel.push(item['Date '])
             })
-            // console.log('data' , tempLt)
-            // console.log('label' , tempLtLabel)
+
             setStockPriceHistoryList(tempLt)
             setLabels(tempLtLabel)
         }
 
         async function getStockNews() {
             const response = await axios.get(newsUrl)
-            // console.log(response.data)
-            if (response.data != null) {
+            console.log(response.data)
+            if (response.data !== null) {
                 setStockNewsList(response.data.data.articles)
-
             }
         }
-        getStockPriceHistoryList()
-        getStockNews()
-    }, [pid])
-
-    const data = {
-        labels: labelsData.slice(0, 60).reverse(),
-        datasets: [
-            {
-                label: 'high stock prices',
-                borderRadius: 30,
-                data: stockPriceHistoryList.slice(0, 60).reverse(),
-                barThickness: 10,
-                backgroundColor: "rgba(1,166,255,1)",
-            }
-        ]
-    }
-    Chart.register(CategoryScale, ...registerables)
+        if (symbol !== null) {
+            getStockPriceHistoryList()
+            getStockNews()
+        }
+    }, [symbol])
 
     const handleBuyBtn=()=>{
         console.log('Buy Btn')
@@ -84,9 +68,9 @@ const StockPage = () => {
 
     return (
 
-        <div style={{ width: '50%', minWidth: 400, marginRight: 'auto', marginLeft: 'auto' }}>
-            <h1 style={{ fontWeight: 'bold', fontSize: 22 }}>{pid}</h1>
-            <Line data={data} height={200} style={{ border: "1px solid", padding: 15, borderRadius: 10 }} />
+        <Container maxWidth='md'>
+            <Typography variant='h4'>{symbol}</Typography>
+            <LineGraph labels={labelsData.slice(0, 60).reverse()} data={stockPriceHistoryList.slice(0, 60).reverse()} />
             <News />
             {/* <ChakraProvider>
                 <StockCard item={pid} />
@@ -98,7 +82,8 @@ const StockPage = () => {
 
             </ChakraProvider> */}
             <BuySell/>
-        </div>
+        
+        </Container>
 
     )
 }

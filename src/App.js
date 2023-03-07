@@ -18,6 +18,7 @@ import { Profile } from './pages/profile';
 import BuyPage from './pages/BuyStock';
 import SellPage from './pages/SellStock';
 
+
 function App() {
 
 
@@ -35,6 +36,7 @@ function App() {
           <Route path='/profile' element={<Profile/>}></Route>
           <Route path='/Buy/:symbol' element={<BuyPage/>}></Route>
           <Route path='/Sell/:symbol' element={<SellPage/>}></Route>
+          <Route path='/profile' element={<Profile />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
