@@ -20,7 +20,13 @@ const StockTable = ({ stocksData }) => {
                                 {
                                     stocksData.map((stock, idx) => {
                                         return (
-                                            <TableRow key={stock.symbol} component={Link} to={'/' + stock.symbol}>
+                                            <TableRow key={stock.symbol} component={Link} to={'/' + stock.symbol}
+                                                sx={{
+                                                    '&:hover': {
+                                                        backgroundColor: '#00000010'
+                                                    }
+                                                }}
+                                            >
                                                 <TableCell >
                                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, fontWeight: 'bold', }}>
                                                         {
