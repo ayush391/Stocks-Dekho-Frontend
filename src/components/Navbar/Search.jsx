@@ -1,5 +1,5 @@
 import { ArrowDownwardRounded, ArrowUpwardRounded, SearchOff, SearchOutlined } from '@mui/icons-material'
-import { Box, Button, Card, CardContent, ClickAwayListener, Input, InputAdornment, List, ListItem, MenuItem, Table, TableBody, TableCell, TableRow, TextField } from '@mui/material'
+import { Box, Button, Card, CardContent, ClickAwayListener, Input, InputAdornment, List, ListItem, MenuItem, Stack, Table, TableBody, TableCell, TableRow, TextField, Typography } from '@mui/material'
 import { handleBreakpoints } from '@mui/system'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
@@ -92,12 +92,17 @@ const Search = () => {
                     <TableRow key={stock.symbol} component={Link} to={'/' + stock.symbol} onClickCapture={() => handleSuggest(false)}
                       sx={{
                         '&:hover': {
-                          backgroundColor: '#7cbcfd20'
+                          backgroundColor: '#00000010'
                         }
                       }}
                     >
                       <TableCell component="th" scope="row">
-                        {stock.symbol}
+                        <Stack>
+                          {stock.symbol}
+                          <Typography variant='caption'>
+                            {stock.meta?.companyName}
+                          </Typography>
+                        </Stack>
                       </TableCell>
                       <TableCell align="right">
                         ₹{parseFloat(stock.lastPrice).toFixed(2)}
