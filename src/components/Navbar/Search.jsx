@@ -1,7 +1,9 @@
 import { ArrowDownwardRounded, ArrowUpwardRounded, SearchOff, SearchOutlined } from '@mui/icons-material'
-import { Box, Button, Card, CardContent, Input, InputAdornment, List, ListItem, Table, TableBody, TableCell, TableRow, TextField } from '@mui/material'
+import { Box, Button, Card, CardContent, ClickAwayListener, Input, InputAdornment, List, ListItem, MenuItem, Table, TableBody, TableCell, TableRow, TextField } from '@mui/material'
+import { handleBreakpoints } from '@mui/system'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import StockPChange from '../Table/StockPChange'
 
 
@@ -38,82 +40,82 @@ const Search = () => {
     setShowSuggest(val)
   }
 
-
-  const RedArrow = () => {
-    return (
-      <ArrowDownwardRounded fontSize='small' color='red' />
-    )
-  }
-  const GreenArrow = () => {
-    return (
-      <ArrowUpwardRounded fontSize='small' color='green' />
-    )
-  }
   return (
-    <Box
-      width='350px'
+    <ClickAwayListener onClickAway={() => handleSuggest(false)}
     >
-      <Input
-        onChange={handleQuery}
-        value={searchQuery}
-        onFocus={() => handleSuggest(true)}
-        onBlur={() => handleSuggest(false)}
-        fullWidth
-        disableUnderline
-        placeholder="Search..."
-        startAdornment={
-          <InputAdornment position="start"  >
-            <SearchOutlined color='primary' />
-          </InputAdornment>
-        }
-        sx={{
-          backgroundColor: '#fff',
-          borderRadius: '10px',
-          padding: '5px',
-        }}
-      />
-      <Box
-        sx={{
-          position: 'relative',
-        }}
-      >
-        <Card
-          sx={{
-            display: (stocksData.length > 0 && showSuggest) ? 'block' : 'none',
-            top: '-5px',
-            position: 'absolute',
-            maxHeight: '500px',
-            overflow: 'scroll',
-            borderRadius: '20px',
-            borderTopLeftRadius: '0',
-            borderTopRightRadius: '0',
-            width: '100%'
 
+      <Box
+        width='350px'
+      >
+        <Input
+          onChange={handleQuery}
+          value={searchQuery}
+          onFocus={() => handleSuggest(true)}
+          fullWidth
+          disableUnderline
+          placeholder="Search..."
+          startAdornment={
+            <InputAdornment position="start"  >
+              <SearchOutlined color='primary' />
+            </InputAdornment>
+          }
+          sx={{
+            backgroundColor: '#fff',
+            borderRadius: '10px',
+            padding: '5px',
+          }}
+        />
+        <Box
+
+          sx={{
+            position: 'relative',
           }}
         >
-          <Table>
-            <TableBody>
-              {stocksData.map((stock) => {
-                return (
-                  <TableRow key={stock.symbol}>
-                    <TableCell component="th" scope="row">
-                      {stock.symbol}
-                    </TableCell>
-                    <TableCell align="right">
-                      ₹{parseFloat(stock.lastPrice).toFixed(2)}
-                    </TableCell>
-                    <TableCell align="right">
-                      <StockPChange pChange={stock.pChange} />
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </Card>
-      </Box >
+          <Card
+            sx={{
+              display: (stocksData.length > 0 && showSuggest) ? 'block' : 'none',
+              top: '-5px',
+              position: 'absolute',
+              maxHeight: '500px',
+              overflowY: 'scroll',
+              borderRadius: '20px',
+              borderTopLeftRadius: '0',
+              borderTopRightRadius: '0',
+              width: '100%'
 
-    </Box >
+            }}
+          >
+            <Table>
+              <TableBody>
+                {stocksData.map((stock) => {
+                  return (
+                    <TableRow key={stock.symbol} component={Link} to={'/' + stock.symbol} onClickCapture={() => handleSuggest(false)}
+                      sx={{
+                        '&:hover': {
+                          backgroundColor: '#7cbcfd20'
+                        }
+                      }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {stock.symbol}
+                      </TableCell>
+                      <TableCell align="right">
+                        ₹{parseFloat(stock.lastPrice).toFixed(2)}
+                      </TableCell>
+                      <TableCell align="right">
+                        <StockPChange pChange={stock.pChange} />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </Card>
+        </Box >
+
+      </Box >
+    </ClickAwayListener>
+
   );
 };
 
