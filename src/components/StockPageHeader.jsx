@@ -7,8 +7,11 @@ import StockSymbol from './Table/StockSymbol'
 
 const StockPageHeader = ({ symbol }) => {
     const stockUrl = process.env.REACT_APP_BASE_URL + '/stocks/' + symbol?.toString()
+    const priceUrl = process.env.REACT_APP_BASE_URL + '/prices/' + symbol?.toString()
 
     const [stockData, setStockData] = useState({})
+    const [stockPrice, setStockPrice] = useState(0)
+    const [stockPriceChange, setStockPriceChange] = useState(0)
 
     useEffect(() => {
         async function getStockData() {
@@ -18,7 +21,17 @@ const StockPageHeader = ({ symbol }) => {
                 setStockData(response.data.stockDetails)
             }
         }
+        async function getStockPrice() {
+            const response = await axios.get(priceUrl)
+            console.log(response.data)
+            if (response.data !== null) {
+                console.log('price' , response.data.data.lastPrice)
+                setStockPrice(response.data.data.lastPrice)
+                setStockPriceChange(response.data.data.pChange)
+            }
+        }
         getStockData()
+        getStockPrice()
     }, [symbol])
     return (
         <>
@@ -41,10 +54,10 @@ const StockPageHeader = ({ symbol }) => {
                             }}
                         >
                             <Typography variant='h3' >
-                                ₹{'410.65'}
+                                ₹{stockPrice}
                             </Typography>
                             {/* <StockChange change={102.8} /> */}
-                            <StockPChange pChange={22.1} />
+                            <StockPChange pChange={stockPriceChange} />
 
                         </Stack>
 
