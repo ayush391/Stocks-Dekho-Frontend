@@ -15,9 +15,22 @@ import {
 import LineGraph from './Portfolio/LineGraph';
 import { Button } from '@chakra-ui/react';
 import { useState } from 'react';
+import axios from 'axios';
+import { getAuth } from 'firebase/auth';
+import { app } from './Firebase';
 
 export default function BuyComp(props){
     const [stockQty , setStockQty] = useState(1)
+    const user = getAuth(app)
+    const buyUrl = process.env.REACT_APP_BASE_URL+'/transaction/review/buy'
+    const BuyReview=async()=>{
+        const response = await axios.post(buyUrl , {
+            "userId" : user.currentUser.uid,
+            "stockSymbol":param.data.data!=null?param.data.data.symbol : 'Symbol',
+            "quantity":stockQty
+        })
+        console.log(response.data)
+    }
     const StockVal=()=>{
         return(
             <div style={{marginLeft:26}}>
@@ -76,7 +89,7 @@ export default function BuyComp(props){
               
               </div>
               <p>Buying {stockQty} stock : {param.data.data!=null?param.data.data.symbol : 'Symbol'} at {param.data.data!=null?param.data.data.lastPrice*stockQty : 2452}</p>
-            <Button style={{width:'100%' , marginRight:'auto' , marginLeft:'auto' , color:'white' , backgroundColor:'green'}}> Buy {props.symbol  } </Button>
+            <Button style={{width:'100%' , marginRight:'auto' , marginLeft:'auto' , color:'white' , backgroundColor:'green'}} onClick={BuyReview}> Buy {props.symbol  } </Button>
 
         </div>
     )

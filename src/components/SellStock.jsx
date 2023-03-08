@@ -15,9 +15,14 @@ import {
 import LineGraph from './Portfolio/LineGraph';
 import { Button } from '@chakra-ui/react';
 import { useState } from 'react';
-
+import { getAuth } from 'firebase/auth';
+import axios from 'axios';
+import { app } from './Firebase';
 export default function SellComp(props){
     const [stockQty , setStockQty] = useState(1)
+    const user = getAuth(app)
+    const sellUrl = process.env.REACT_APP_BASE_URL+'/transaction/review/sell'
+
     const StockVal=()=>{
         return(
             <div style={{marginLeft:26}}>
@@ -40,6 +45,19 @@ export default function SellComp(props){
 
     const param = props
     console.log(param)
+
+    const SellReview=async()=>{
+        try{
+        const response = await axios.post(sellUrl , {
+            "userId" : user.currentUser.uid,
+            "stockSymbol":param.data.data!=null?param.data.data.symbol : 'Symbol',
+            "quantity":stockQty
+        })
+        console.log(response.data)
+        }catch(e){
+            alert('something went wrong')
+        }
+    }
     return (
         <div style={{marginLeft:'auto' , marginRight:'auto'}}>
 
@@ -76,7 +94,7 @@ export default function SellComp(props){
               
               </div>
             <p>Selling {stockQty} stock : {param.data.data!=null?param.data.data.symbol : 'Symbol'} at {param.data.data!=null?param.data.data.lastPrice*stockQty : 2452}</p>
-            <Button style={{width:'100%' , marginRight:'auto' , marginLeft:'auto', color:'white' , backgroundColor:'red'}}> Sell {props.symbol  } </Button>
+            <Button style={{width:'100%' , marginRight:'auto' , marginLeft:'auto', color:'white' , backgroundColor:'red'}} onClick={SellReview}> Sell {props.symbol  } </Button>
 
         </div>
     )
