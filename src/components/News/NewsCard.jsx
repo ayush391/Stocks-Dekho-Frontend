@@ -8,6 +8,7 @@ export const NewsCard = (props) => {
             variant='outlined'
             sx={{
                 width: "100%",
+                minWidth: '250px',
                 height: '100%',
                 backgroundImage: `url(${props.urlToImage})`,
                 backgroundSize: 'cover',
