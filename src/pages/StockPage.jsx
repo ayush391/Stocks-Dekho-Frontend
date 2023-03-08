@@ -13,6 +13,8 @@ import SellComp from '../components/SellStock';
 const StockPage = () => {
     const [stockPriceHistoryList, setStockPriceHistoryList] = useState([])
     const [labelsData, setLabels] = useState([])
+    const [stockData, setStockData] = useState({})
+    const [stockPrice, setStockPrice] = useState({})
     const params = useParams()
     console.log(params)
     const [stockNewsList, setStockNewsList] = useState([])
@@ -25,6 +27,8 @@ const StockPage = () => {
 
     const url = process.env.REACT_APP_BASE_URL + '/graph/' + symbol?.toString()
     const newsUrl = process.env.REACT_APP_BASE_URL + '/news/' + symbol?.toString()
+    const stockUrl = process.env.REACT_APP_BASE_URL+'/stocks/' + symbol?.toString()
+    const priceUrl = process.env.REACT_APP_BASE_URL+'/prices/' + symbol?.toString()
 
     useEffect(() => {
         async function getStockPriceHistoryList() {
@@ -47,11 +51,31 @@ const StockPage = () => {
                 setStockNewsList(response.data.data.articles)
             }
         }
-        if (symbol !== null) {
+
+        async function getStockDetails(){
+            const response = await axios.get(stockUrl)
+            if(response.data!=null){
+                console.log('Detials' , response.data)
+                setStockData(response.data)
+            }
+
+
+        }
+        async function getStockPrice(){
+            const response = await axios.get(priceUrl)
+            if(response.data!=null){
+                console.log( 'Price ', response.data)
+                setStockPrice(response.data)
+            }
+
+        }
+        
             getStockPriceHistoryList()
             getStockNews()
-        }
-    }, [symbol])
+            getStockDetails()
+            getStockPrice()
+        
+    }, [])
 
     const handleBuyBtn=()=>{
         console.log('Buy Btn')
@@ -82,10 +106,10 @@ const StockPage = () => {
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <BuyComp symbol={symbol}/>
+                        <BuyComp data={stockPrice}/>
                     </TabPanel>
                     <TabPanel>
-                        <SellComp symbol={symbol}/>
+                        <SellComp data={stockPrice}/>
                     </TabPanel>
                     
                 </TabPanels>
@@ -97,7 +121,10 @@ const StockPage = () => {
     return (
 
         <Container maxWidth='md'>
-            <Typography variant='h4'>{symbol}</Typography>
+            <div style={{display:'flex' , flexDirection:'row'}}>
+            <img src={stockData.stockDetails!=null?stockData.stockDetails.icon:symbol} style={{borderRadius:20 , width:'5%'}}/>
+            <Typography variant='h4'>{stockData.stockDetails!=null?stockData.stockDetails.name:symbol}</Typography>
+            </div>
             <ChakraProvider>
             <Tabs isFitted variant='enclosed' colorScheme='green'>
                 <TabList>
