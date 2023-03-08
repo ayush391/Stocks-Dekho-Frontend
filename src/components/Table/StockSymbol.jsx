@@ -2,7 +2,7 @@ import { Box } from '@mui/material'
 import React from 'react'
 import { getRandomColor } from '../../utils/randomColor'
 
-const StockSymbol = ({ symbol, idx }) => {
+const StockSymbol = ({ symbol = 'StockSymbol', idx = 1 }) => {
     return (
         <Box
             sx={{

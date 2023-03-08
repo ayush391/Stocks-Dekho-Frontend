@@ -7,41 +7,9 @@ import { BarChart, TrendingDown, TrendingUp } from '@mui/icons-material';
 
 import { styled } from '@mui/material/styles';
 import News from './News';
-
-const AntTabs = styled(Tabs)({
-    // borderBottom: '1px solid #e8e8e8',
-    '& .MuiTabs-indicator': {
-        display: 'none',
-        backgroundColor: '#1890ff',
-    },
-});
-
-const AntTab = styled(Tab)({
-    borderRadius: '10px',
-    '&.Mui-selected': {
-        backgroundImage: 'linear-gradient(0deg,#73b9ff30,#73b9ff00)',
-    },
-});
-
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <>
-                    {children}
-                </>
-            )}
-        </div>
-    );
-}
+import { AntTabs } from './Tabs/AntTabs';
+import { AntTab } from './Tabs/AntTab';
+import { TabPanel } from './Tabs/TabPanel';
 
 const StockPanel = () => {
     const [value, setValue] = React.useState(1);
