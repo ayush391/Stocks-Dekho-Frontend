@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Profile } from '../../pages/profile';
-import { Link , useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
@@ -29,7 +29,7 @@ export default function TemporaryDrawer() {
 
     setState({ ...state, [anchor]: open });
   };
-  const handleNav = (event) =>{
+  const handleNav = (event) => {
     // Do whatever you need to do then push to the new page
     console.log('handle navbar')
     navigate('/profile')
@@ -45,29 +45,29 @@ export default function TemporaryDrawer() {
 
     >
       <List>
-        
-      <ListItem key={'Home'} disablePadding >
-        <ListItemButton>
-          <ListItemIcon>
-          <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary={'Home'} />
-        </ListItemButton>
-      </ListItem>
-  
+
+        <ListItem key={'Home'} disablePadding >
+          <ListItemButton>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Home'} />
+          </ListItemButton>
+        </ListItem>
+
       </List>
       <Divider />
       <List>
-      
-      <ListItem key={'Profile'}   > 
-        <ListItemButton  onClick={handleNav}>
-          <ListItemIcon>
-            <InboxIcon /> 
-          </ListItemIcon>
-          <ListItemText primary={'Profile'} />
-        </ListItemButton>
-      </ListItem>
-      
+
+        <ListItem key={'Profile'}   >
+          <ListItemButton onClick={handleNav}>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Profile'} />
+          </ListItemButton>
+        </ListItem>
+
       </List>
     </Box>
   );
@@ -76,12 +76,12 @@ export default function TemporaryDrawer() {
     <div >
       {['left'].map((anchor) => (
         <React.Fragment key={anchor} >
-          
+
           <Drawer
             anchor={anchor}
             open={state[anchor]}
-            // onClose={toggleDrawer(anchor, false)}
-            
+          // onClose={toggleDrawer(anchor, false)}
+
           >
             {list(anchor)}
           </Drawer>
