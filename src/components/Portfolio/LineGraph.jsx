@@ -1,8 +1,9 @@
 import { Line } from "react-chartjs-2"
 import { CategoryScale, Chart, registerables } from 'chart.js'
 import { Box, Divider } from "@mui/material"
+import React from "react"
 
-export default function LineGraph({ labels, data }) {
+function LineGraph({ labels, data }) {
   Chart.register(CategoryScale, ...registerables)
   const graph = {
     labels: labels,
@@ -28,10 +29,10 @@ export default function LineGraph({ labels, data }) {
 
   let options = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
 
     interaction: {
-      mode: 'nearest',
+      mode: 'index',
       axis: 'x',
       intersect: false
     },
@@ -52,9 +53,14 @@ export default function LineGraph({ labels, data }) {
           display: true
         },
         ticks: {
-          beginAtZero: true
+          // beginAtZero: true,
+          backdropPadding: {
+            x: 10,
+            y: 4
+          }
         }
-      }
+      },
+
     },
 
     elements: {
@@ -178,3 +184,5 @@ export default function LineGraph({ labels, data }) {
     </Box>
   )
 }
+
+export default React.memo(LineGraph)

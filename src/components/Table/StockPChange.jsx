@@ -14,15 +14,16 @@ const GreenArrow = () => {
 }
 
 
-const StockPChange = ({ pChange }) => {
+const StockPChange = ({ pChange, style }) => {
     return (
         <Box sx={{
-            display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
             backgroundColor: pChange > 0 ? '#e6f4ea' : '#fce8e6',
             color: pChange > 0 ? 'green' : 'red',
             borderRadius: '5px',
             padding: '0.5rem 0.8rem',
             fontWeight: 'bold',
+            ...style
         }}>
             {pChange > 0 ? <GreenArrow /> : <RedArrow />}
             {Math.abs(parseFloat(pChange)).toFixed(2)}%
