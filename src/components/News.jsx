@@ -13,7 +13,7 @@ const News = () => {
     useEffect(() => {
         (async () => {
             const result = await axios.get(BASE_URL)
-            setNews(result.data.data.articles.slice(0,6)|| result.data.articles)
+            setNews(result.data.data.articles.slice(0, 6) || result.data.articles)
         })()
     }, [])
 
@@ -26,17 +26,15 @@ const News = () => {
                 </Typography>
             </Stack>
             {
-                news ? <Grid container columnSpacing={4} rowSpacing={3} justifyContent='space-between'>
+                news ? <Stack direction='row' spacing={2} sx={{ flexWrap: 'nowrap', overflow: 'scroll' }}>
                     {
                         news.map((article, idx) => {
                             return (
-                                <Grid item key={idx} xs={6} sm={6} md={2}>
-                                    <NewsCard {...article}  />
-                                </Grid>
+                                <NewsCard {...article} />
                             )
                         })
                     }
-                </Grid>
+                </Stack>
 
                     : <CircularLoading />
             }
