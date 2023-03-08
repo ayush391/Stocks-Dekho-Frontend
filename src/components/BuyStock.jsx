@@ -15,18 +15,31 @@ import {
 import LineGraph from './Portfolio/LineGraph';
 import { Button } from '@chakra-ui/react';
 import { useState } from 'react';
+import axios from 'axios';
+import { getAuth } from 'firebase/auth';
+import { app } from './Firebase';
 
 export default function BuyComp(props){
     const [stockQty , setStockQty] = useState(1)
+    const user = getAuth(app)
+    const buyUrl = process.env.REACT_APP_BASE_URL+'/transaction/review/buy'
+    const BuyReview=async()=>{
+        const response = await axios.post(buyUrl , {
+            "userId" : user.currentUser.uid,
+            "stockSymbol":param.data.data!=null?param.data.data.symbol : 'Symbol',
+            "quantity":stockQty
+        })
+        console.log(response.data)
+    }
     const StockVal=()=>{
         return(
             <div style={{marginLeft:26}}>
             <StatGroup>
                 <Stat>
-                <StatNumber>2452</StatNumber>
+                <StatNumber>{ param.data.data != null?param.data.data.lastPrice:2452}</StatNumber>
                 <StatHelpText>
-                    <StatArrow type='increase' />
-                    3.36%
+                    <StatArrow type={ param.data.data != null && param.data.data.pChange.substring(0,1)=='-' ?'decrease':'increase'} />
+                    { param.data.data != null?param.data.data.pChange:2452}
                 </StatHelpText>
             </Stat>
             </StatGroup>
@@ -38,8 +51,8 @@ export default function BuyComp(props){
             setStockQty(e.target.value)
         }
 
-    const param = props.symbol
-    console.log(param)
+    const param = props
+    console.log( 'buy',param.data.data == null? param.data : param.data.data.lastPrice)
     return (
         <div style={{marginLeft:'auto' , marginRight:'auto'}}>
 
@@ -75,8 +88,8 @@ export default function BuyComp(props){
               />
               
               </div>
-            <p>Buying {stockQty} stock:{param.symbol} at {2452*stockQty || 2452}</p>
-            <Button style={{width:'100%' , marginRight:'auto' , marginLeft:'auto' , color:'white' , backgroundColor:'green'}}> Buy {props.symbol  } </Button>
+              <p>Buying {stockQty} stock : {param.data.data!=null?param.data.data.symbol : 'Symbol'} at {param.data.data!=null?param.data.data.lastPrice*stockQty : 2452}</p>
+            <Button style={{width:'100%' , marginRight:'auto' , marginLeft:'auto' , color:'white' , backgroundColor:'green'}} onClick={BuyReview}> Buy {props.symbol  } </Button>
 
         </div>
     )

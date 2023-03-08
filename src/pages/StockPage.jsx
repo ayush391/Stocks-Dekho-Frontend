@@ -6,7 +6,6 @@ import PriceHistoryPanel from '../components/PriceHistoryPanel';
 import StockPageHeader from '../components/StockPageHeader';
 
 const StockPage = () => {
-
     const params = useParams()
     const { symbol } = params
 
