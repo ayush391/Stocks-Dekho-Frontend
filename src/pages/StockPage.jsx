@@ -1,10 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import News from '../components/News';
-import { Button } from '@mui/material';
+import { Button } from '@chakra-ui/react';
 import { Navigate , Link , useParams } from 'react-router-dom';
 import LineGraph from '../components/Portfolio/LineGraph';
 import { Container, Typography } from '@mui/material';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, ChakraProvider } from '@chakra-ui/react'
+import BuyComp from '../components/BuyStock';
+import SellComp from '../components/SellStock';
+
 // import { StockNews } from '@/app/Component/StocksPage/StockNews';
 const StockPage = () => {
     const [stockPriceHistoryList, setStockPriceHistoryList] = useState([])
@@ -56,12 +60,36 @@ const StockPage = () => {
         console.log('Sell Btn')
         
     }
+    const StockDetailCard=()=>{
+
+        return (
+            <div>
+
+            </div>
+        )
+    }
+
+
     const BuySell=()=>{
 
         return (
-            <div style={{display:'flex' , flexDirection:'row' , marginTop:30 , marginBottom:10 , fontSize:22 , fontWeight:'bolder'}}>
-                <Link  style={{width:'50%' , }} to={'/Sell/'+ pid||'symbol'}><Button style={{width:'100%' , color:'white' , backgroundColor:'red'}} onClick={handleSellBtn}>Sell</Button></Link>
-                <Link  style={{width:'50%' , }} to={'/Buy/'+pid||'symbol'}><Button style={{width:'100%' , color:'white' , backgroundColor:'green'}} onClick={handleBuyBtn}>Buy</Button></Link>
+            <div style={{display:'flex' , flexDirection:'column' , marginTop:30 , marginBottom:10 , fontSize:22 , fontWeight:'bolder'}}>
+              <Tabs isFitted variant='enclosed' colorScheme='green'>
+                <TabList>
+                    <Tab>Buy</Tab>
+                    <Tab>Sell</Tab>
+                    
+                </TabList>
+                <TabPanels>
+                    <TabPanel>
+                        <BuyComp symbol={symbol}/>
+                    </TabPanel>
+                    <TabPanel>
+                        <SellComp symbol={symbol}/>
+                    </TabPanel>
+                    
+                </TabPanels>
+            </Tabs>
             </div>
         )
     }
@@ -70,8 +98,36 @@ const StockPage = () => {
 
         <Container maxWidth='md'>
             <Typography variant='h4'>{symbol}</Typography>
-            <LineGraph labels={labelsData.slice(0, 60).reverse()} data={stockPriceHistoryList.slice(0, 60).reverse()} />
-            <News />
+            <ChakraProvider>
+            <Tabs isFitted variant='enclosed' colorScheme='green'>
+                <TabList>
+                    <Tab>5D</Tab>
+                    <Tab>1M</Tab>
+                    <Tab>6M</Tab>
+                    <Tab>1Y</Tab>
+                    <Tab>2Y</Tab>
+                </TabList>
+                <TabPanels>
+                    <TabPanel>
+                    <LineGraph labels={labelsData.slice(0, 5).reverse()} data={stockPriceHistoryList.slice(0, 5).reverse()} />
+                    </TabPanel>
+                    <TabPanel>
+                    <LineGraph labels={labelsData.slice(0, 30).reverse()} data={stockPriceHistoryList.slice(0, 30).reverse()} />
+                    </TabPanel>
+                    <TabPanel>
+                    <LineGraph labels={labelsData.slice(0, 180).reverse()} data={stockPriceHistoryList.slice(0, 180).reverse()} />
+                    </TabPanel>
+                    <TabPanel>
+                    <LineGraph labels={labelsData.slice(0, 365).reverse()} data={stockPriceHistoryList.slice(0, 365).reverse()} />
+                    </TabPanel>
+                    <TabPanel>
+                    <LineGraph labels={labelsData.slice(0, 710).reverse()} data={stockPriceHistoryList.slice(0, 710).reverse()} />
+                    </TabPanel>
+                    
+                </TabPanels>
+
+            </Tabs>
+            </ChakraProvider>
             {/* <ChakraProvider>
                 <StockCard item={pid} />
                 {
@@ -81,8 +137,10 @@ const StockPage = () => {
                 }
 
             </ChakraProvider> */}
+            <ChakraProvider>
             <BuySell/>
-        
+            </ChakraProvider>
+            <News />
         </Container>
 
     )
