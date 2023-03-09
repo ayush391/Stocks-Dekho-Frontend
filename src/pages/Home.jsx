@@ -6,37 +6,31 @@ import bgPatternPanel from '../assets/panelBg.jpg'
 import Navbar from '../components/Navbar/Navbar'
 const Home = () => {
     return (
-        <><Navbar />
-            <Box
-                sx={{
-                    paddingBottom: '2rem',
-                    marginTop: '0'
-                }}
-            >
-                <Container maxWidth='md' >
-                    <StockPanel />
-                </Container >
-            </Box>
+        <>
+            <Navbar />
 
-            <Box
+            <Container maxWidth='sm' >
+                <StockPanel />
+            </Container >
+
+            {/* <Box
                 sx={{
                     backgroundImage: `url(${bgPatternPanel})`,
                     backgroundSize: '40%',
 
                 }}
-            >
+            > */}
 
-                <Container maxWidth='md'
-                    sx={{
-                        backgroundImage: 'linear-gradient(180deg, #7abbfc80,#7abbfc00 400px)',
-                        borderRadius: '20px',
-                        py: 2,
-                        backdropFilter: 'blur(2px)'
-                    }}
-                >
-                    <News />
-                </Container >
-            </Box>
+            <Container maxWidth='sm'
+                sx={{
+                    my: 2,
+                    py: 2,
+                    // backdropFilter: 'blur(2px)'
+                }}
+            >
+                <News />
+            </Container >
+            {/* </Box> */}
         </>
     )
 }
