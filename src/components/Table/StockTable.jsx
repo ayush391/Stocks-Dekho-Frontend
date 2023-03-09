@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Container, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
+import { Card, Container, Stack, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import StockSymbol from '../Table/StockSymbol';
 import StockPChange from '../Table/StockPChange';
@@ -28,27 +28,43 @@ const StockTable = ({ stocksData }) => {
                                                 }}
                                             >
                                                 <TableCell >
-                                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, fontWeight: 'bold', }}>
+                                                    <Box sx={{ display: 'flex', flexDirection: 'column', placeItems: 'center', gap: 1, fontWeight: 'bold', width: 100, textAlign: 'center' }}>
                                                         {
                                                             stock.icon ?
-                                                                <img height={50} width={50} src={stock.icon}></img>
+                                                                <img height={40} width={40} src={stock.icon}></img>
                                                                 :
                                                                 <StockSymbol symbol={stock.symbol} idx={idx} />
                                                         }
                                                         <Typography
+                                                            fontWeight='bold'
                                                             sx={{
-                                                                whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
+                                                                textOverflow: 'ellipsis', overflow: 'hidden'
+                                                            }}
+                                                        >
+                                                            {stock.symbol}
+                                                        </Typography>
+                                                        <Typography
+                                                            variant='caption'
+
+                                                            sx={{
+                                                                textOverflow: 'ellipsis', overflow: 'hidden'
                                                             }}
                                                         >
                                                             {stock.meta ? stock.meta.companyName : stock.symbol}
                                                         </Typography>
                                                     </Box>
                                                 </TableCell>
-                                                <TableCell align="right">₹{parseFloat(stock.lastPrice).toFixed(2)}</TableCell>
-                                                <TableCell align="right"><StockChange change={stock.change} /></TableCell>
                                                 <TableCell align="right">
-                                                    <StockPChange pChange={stock.pChange} />
+                                                    <Stack alignItems='center'>
+                                                        ₹{parseFloat(stock.lastPrice).toFixed(2)}
+                                                        <StockPChange pChange={stock.pChange} />
+
+                                                    </Stack>
                                                 </TableCell>
+                                                {/* <TableCell align="right"><StockChange change={stock.change} /></TableCell> */}
+                                                {/* <TableCell align="right">
+                                                    <StockPChange pChange={stock.pChange} />
+                                                </TableCell> */}
                                             </TableRow>
                                         )
                                     }

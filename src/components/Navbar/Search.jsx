@@ -98,7 +98,9 @@ const Search = () => {
                     >
                       <TableCell component="th" scope="row">
                         <Stack>
-                          {stock.symbol}
+                          <Typography fontWeight='bold'>
+                            {stock.symbol}
+                          </Typography>
                           <Typography variant='caption'>
                             {stock.meta?.companyName}
                           </Typography>

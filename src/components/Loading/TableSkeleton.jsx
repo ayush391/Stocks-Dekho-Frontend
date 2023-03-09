@@ -14,7 +14,7 @@ const TableSkeleton = ({ rows = 5, columns = 4 }) => {
                                         [...Array(columns)].map((val, idx) => {
 
                                             return (
-                                                <TableCell width={idx ? 10 : 100} height={50}>
+                                                <TableCell width={idx ? 10 : 100} height={idx ? 50 : 100}>
                                                     <Typography>
                                                         <Skeleton variant="rounded" />
                                                     </Typography>
