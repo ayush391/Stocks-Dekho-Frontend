@@ -15,6 +15,7 @@ import StockPage from './pages/StockPage';
 import StockPanel from './components/StockPanel';
 import Home from './pages/Home';
 import { Profile } from './pages/profile';
+import ConfirmOrder from './components/ConfirmOrder';
 
 
 
@@ -32,10 +33,11 @@ function App() {
           <Route path='/login' element={<LoginPage />}></Route>
           <Route path='/:symbol' element={<StockPage />}></Route>
           <Route path='/search' element={<Search />}></Route>
-          <Route path='/profile' element={<Profile/>}></Route>
+          <Route path='/profile' element={<Profile />}></Route>
           {/* <Route path='/Buy/:symbol' element={<BuyPage/>}></Route>
           <Route path='/Sell/:symbol' element={<SellPage/>}></Route> */}
           <Route path='/profile' element={<Profile />}></Route>
+          <Route path='/confirm' element={<ConfirmOrder />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
