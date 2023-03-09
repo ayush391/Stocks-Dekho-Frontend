@@ -1,97 +1,48 @@
-import {
-    Stat,
-    StatLabel,
-    StatNumber,
-    StatHelpText,
-    StatArrow,
-    StatGroup,
-    ChakraProvider,
-} from '@chakra-ui/react'
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import { PieChart } from '../components/Portfolio/pie'
-import LineGraph from '../components/Portfolio/LineGraph'
-const StatComponent = () => {
+import { Avatar } from "@mui/joy";
+import Card from "@mui/joy/Card";
+import Stack from "@mui/joy/Stack";
+import { Typography } from "@mui/material";
+import CreateIcon from '@mui/icons-material/Create';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import CommentBankIcon from '@mui/icons-material/CommentBank';
+function Profile(){
     return (
-        <div style={{ marginLeft: 10 }}>
-            <StatGroup>
-                <Stat>
-                    <StatLabel>Portfolio</StatLabel>
-                    <StatNumber>345,670</StatNumber>
-                    <StatHelpText>
-                        <StatArrow type='increase' />
-                        23.36%
-                    </StatHelpText>
-                </Stat>
-            </StatGroup>
+        <div>
+
+            <Card size="sm" sx={{width:'80%' , marginRight:'auto' , marginLeft:'auto'}} >
+
+            <Stack direction='row' justifyContent={'center'} sx={{marginBottom:'2rem' , }}>
+            
+            <Avatar src="https://lens-storage.storage.googleapis.com/png/4cde995e-9c55-4ed0-8f6d-e9aebd5d5596"   sx={{marginRight:2 , width:'7%' , minWidth:80 , minHeight:80,height:'7%' }}  />
+            <Typography sx={{marginTop:'1rem' , fontSize:28 , marginRight:2}} >Deepak Singh</Typography>
+            <CreateIcon sx={{marginTop:'1.4rem' , color:'lightblue' , height:'3%' , width:'3%' , minWidth:30 , minHeight:30  }}/>
+            </Stack>
+
+            </Card>
+            <Card size="sm" sx={{width:'80%' , marginRight:'auto' , marginLeft:'auto' , marginTop:1}} >
+
+                <Stack direction='row' justifyContent={'center'} sx={{marginBottom:'2rem' , }}>
+                    <Avatar  sx={{ bgcolor: 'lightgreen',marginTop:'1rem' , color:'black' , height:'14%' , width:'4%' , minWidth:50 , minHeight:50 ,marginRight:2  }}>
+                <ReceiptLongIcon sx={{ height:'100%'}}/>
+                </Avatar>
+                <Typography sx={{marginTop:'1rem' , fontSize:28 , marginRight:2}} >Transaction History</Typography>
+                
+                </Stack>
+
+            </Card>
+            <Card size="sm" sx={{width:'80%' , marginRight:'auto' , marginLeft:'auto' , marginTop:1}} >
+
+                <Stack direction='row' justifyContent={'center'} sx={{marginBottom:'2rem' , }}>
+                    <Avatar  sx={{ bgcolor: 'lightblue',marginTop:'1rem' , color:'black' , height:'14%' , width:'4%' , minWidth:50 , minHeight:50 ,marginRight:2  }}>
+                <CommentBankIcon sx={{ height:'100%'}}/>
+                </Avatar>
+                <Typography sx={{marginTop:'1rem' , fontSize:28 , marginRight:2}} >Holdings</Typography>
+                
+                </Stack>
+
+            </Card>
         </div>
     )
 }
 
-
-export const Profile = () => {
-
-    const TabView = () => {
-        return (
-            <Tabs isFitted variant='enclosed' colorScheme='green'>
-                <TabList>
-                    <Tab>5D</Tab>
-                    <Tab>1M</Tab>
-                    <Tab>6M</Tab>
-                    <Tab>1Y</Tab>
-                    <Tab>2Y</Tab>
-                </TabList>
-                <TabPanels>
-                    <TabPanel>
-                        <HistoryGraph />
-                    </TabPanel>
-                    <TabPanel>
-                        <HistoryGraph />
-                    </TabPanel>
-                    <TabPanel>
-                        <HistoryGraph />
-                    </TabPanel>
-                    <TabPanel>
-                        <HistoryGraph />
-                    </TabPanel>
-                    <TabPanel>
-                        <HistoryGraph />
-                    </TabPanel>
-                </TabPanels>
-            </Tabs>
-        )
-    }
-
-    const HistoryGraph = () => {
-        return (
-            <div style={{ marginLeft: 'auto', marginRight: 'auto', width: '90%', height: '50%' }}>
-                <LineGraph style={{ marginLeft: 'auto', marginRight: 'auto', width: '60%', height: '50%' }} labels={[1, 2, 3, 4, 5, 6]} data={[19, 21, 32, 45, 213, 13]} />
-            </div>
-        )
-    }
-    return (
-        <div style={{ margin: 10, padding: 20 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '80%', backgroundColor: 'lightblue', color: 'white', fontWeight: 'bold', marginRight: 'auto', marginLeft: 'auto', padding: 10, borderRadius: 20, marginBottom: 20 }}>
-
-                <h1 style={{ fontSize: '29', fontWeight: 'bolder' }}>Deepak Singh</h1>
-
-                <div style={{ display: 'flex', flexDirection: 'row', height: '25%', width: '25%' }}>
-                    <ChakraProvider>
-                        <StatComponent />
-                    </ChakraProvider>
-
-                </div>
-            </div>
-            <div style={{ marginLeft: 'auto', marginRight: 'auto', maringTop: 20, paddingLeft: 10, paddingRight: 10 }}>
-                <ChakraProvider>
-
-
-                    <TabView />
-                    <div style={{ width: '80%', marginRight: 'auto', marginLeft: 'auto' }}>
-                        <PieChart />
-                    </div>
-                </ChakraProvider>
-
-            </div>
-        </div>
-    )
-}
+export default Profile;

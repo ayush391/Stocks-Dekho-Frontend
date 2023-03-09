@@ -39,10 +39,10 @@ const StockPageHeader = ({ symbol }) => {
                 <Stack direction='row' justifyContent='space-between' >
                     <Stack direction='column' justifyContent='flex-start' flex={1}>
                         <Typography variant='h5'>
-                            {stockData.symbol}
+                            {stockData!=null?stockData.symbol : ""}
                         </Typography>
                         <Typography variant='caption'>
-                            {stockData.meta?.['NAME OF COMPANY']}
+                            {stockData!=null?stockData.meta?.['NAME OF COMPANY']:''}
                         </Typography>
 
                         <Divider sx={{ my: 2 }} />
@@ -67,10 +67,10 @@ const StockPageHeader = ({ symbol }) => {
                     </Stack>
                 </Stack>
                 {
-                    stockData.icon ?
-                        <img height={100} src={stockData.icon}></img>
+                    stockData!=null && stockData.icon ?
+                        <img height={100} src={stockData!=null?stockData.icon:''}></img>
                         :
-                        <StockSymbol symbol={stockData.symbol} />
+                        <StockSymbol symbol={stockData!=null?stockData.symbol:''} />
                 }
 
             </Stack>

@@ -14,7 +14,8 @@ import Navbar from './components/Navbar/Navbar';
 import StockPage from './pages/StockPage';
 import StockPanel from './components/StockPanel';
 import Home from './pages/Home';
-import { Profile } from './pages/profile';
+import Profile  from './pages/profile';
+import { Portfolio } from './pages/Portoflio';
 
 
 
@@ -35,7 +36,7 @@ function App() {
           <Route path='/profile' element={<Profile/>}></Route>
           {/* <Route path='/Buy/:symbol' element={<BuyPage/>}></Route>
           <Route path='/Sell/:symbol' element={<SellPage/>}></Route> */}
-          <Route path='/profile' element={<Profile />}></Route>
+          <Route path='/portfolio' element={<Portfolio />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
