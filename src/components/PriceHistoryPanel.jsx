@@ -16,7 +16,7 @@ const PriceHistoryPanel = ({ symbol }) => {
     };
 
     return (
-        <Box>
+        <Box marginY={5}>
             <AntTabs variant='scrollable' allowScrollButtonsMobile value={value} onChange={handleChange} aria-label="basic tabs example" sx={{ marginBottom: 2 }}>
                 <AntTab label="5D" />
                 <AntTab label="1M" />

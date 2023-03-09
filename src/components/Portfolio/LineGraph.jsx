@@ -45,7 +45,7 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5, }) {
           above: ({ chart: { ctx, chartArea } }) => {
             const bg = ctx.createLinearGradient(chartArea.width / 2, chartArea.top, chartArea.width / 2, chartArea.bottom)
             bg.addColorStop(0, '#90ee9080')
-            bg.addColorStop(0.9, '#90ee9010')
+            bg.addColorStop(0.9, '#90ee9000')
             return bg;
           },
         }
