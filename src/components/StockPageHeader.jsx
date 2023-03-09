@@ -1,4 +1,4 @@
-import { Divider, Stack, Typography } from '@mui/material'
+import { Container, Divider, Stack, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import StockPChange from './Table/StockPChange'
@@ -35,45 +35,51 @@ const StockPageHeader = ({ symbol }) => {
     }, [symbol])
     return (
         <>
-            <Stack alignItems='center' flex={1} paddingY={5} sx={{
-                backgroundImage: 'linear-gradient(180deg, #7abbfc80,#7abbfc00 400px)',
+            <Stack alignItems='center' paddingY={5} sx={{
                 textAlign: 'center',
-                // borderRadius: '20px',
-
+                backgroundImage: 'linear-gradient(0deg, #7abbfc60 1%, #7abbfc00 100%)',
+                borderRadius: '20px',
+                width: '100%',
+                paddingY: 3
             }}>
 
-                <Typography variant='h4' fontWeight='bold'>
+                <Typography variant='h5' fontWeight='bold'>
                     {stockData != null ? stockData.meta?.['NAME OF COMPANY'] : ''}
                 </Typography>
-                <Typography variant='caption'>
+                <Typography variant='caption' gutterBottom>
                     {stockData != null ? stockData.symbol : ""}
                 </Typography>
-                {
-                    stockData != null && stockData.icon ?
-                        <img width={150} src={stockData != null ? stockData.icon : ''}></img>
-                        :
-                        <StockSymbol symbol={stockData != null ? stockData.symbol : ''} />
-                }
+                <Stack alignItems='center' sx={{
 
-                <Divider sx={{ my: 2 }} />
+                }}>
 
-                <Stack gap={2}
-                    sx={{
-                        flexDirection: { md: 'row' },
-                        alignItems: { md: 'center' }
-                    }}
-                >
-                    <Typography variant='h3' >
-                        ₹{stockPrice}
+                    {
+                        stockData != null && stockData.icon ?
+                            <img width={150} src={stockData != null ? stockData.icon : ''}></img>
+                            :
+                            <StockSymbol symbol={stockData != null ? stockData.symbol : ''} />
+                    }
+
+                    <Divider sx={{ my: 2 }} />
+
+                    <Stack gap={2}
+                        sx={{
+                            flexDirection: { md: 'row' },
+                            alignItems: { md: 'center' }
+                        }}
+                    >
+                        <Typography variant='h1' fontWeight='bold'>
+                            ₹{stockPrice}
+                        </Typography>
+                        {/* <StockChange change={102.8} /> */}
+                        <StockPChange pChange={stockPriceChange} />
+
+                    </Stack>
+
+                    <Typography variant='caption' fontSize='0.8rem' my={2} >
+                        {new Date().toUTCString()}
                     </Typography>
-                    {/* <StockChange change={102.8} /> */}
-                    <StockPChange pChange={stockPriceChange} />
-
                 </Stack>
-
-                <Typography variant='caption' fontSize='0.8rem' my={2} >
-                    {new Date().toUTCString()}
-                </Typography>
             </Stack>
         </>
     )

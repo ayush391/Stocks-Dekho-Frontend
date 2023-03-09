@@ -1,16 +1,43 @@
 import { Line } from "react-chartjs-2"
 import { CategoryScale, Chart, registerables } from 'chart.js'
 import { Box, Divider } from "@mui/material"
-import React from "react"
+import React, { useState, useEffect } from "react"
+import axios from "axios"
 
-function LineGraph({ labels, data }) {
+function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5, }) {
   Chart.register(CategoryScale, ...registerables)
+
+  const [stockPriceHistoryList, setStockPriceHistoryList] = useState([])
+  const [labelsData, setLabels] = useState([])
+
+
+  const url = process.env.REACT_APP_BASE_URL + `/${endpoint}?` + `stockSymbol=${symbol}&` + `timeframe=${timeFrame}`
+
+  useEffect(() => {
+    async function getStockPriceHistoryList() {
+      const response = await axios.get(url)
+      let tempLt = []
+      let tempLtLabel = []
+      response.data.data.forEach((item) => {
+        tempLt.push(parseFloat(item['HIGH '].replace(/,/g, '')))
+        tempLtLabel.push(item['Date '])
+      })
+
+      setStockPriceHistoryList(tempLt)
+      setLabels(tempLtLabel)
+    }
+
+    if (symbol !== null) {
+      getStockPriceHistoryList()
+    }
+  }, [symbol])
+
   const graph = {
-    labels: labels,
+    labels: labelsData,
     datasets: [
       {
         label: 'Price',
-        data: data,
+        data: stockPriceHistoryList,
         borderColor: '#34a853',
         pointRadius: 0,
         fill: {
@@ -18,7 +45,7 @@ function LineGraph({ labels, data }) {
           above: ({ chart: { ctx, chartArea } }) => {
             const bg = ctx.createLinearGradient(chartArea.width / 2, chartArea.top, chartArea.width / 2, chartArea.bottom)
             bg.addColorStop(0, '#90ee9080')
-            bg.addColorStop(0.9, '#90ee9000')
+            bg.addColorStop(0.9, '#90ee9010')
             return bg;
           },
         }
@@ -39,7 +66,7 @@ function LineGraph({ labels, data }) {
 
     scales: {
       x: {
-        display: true,
+        display: false,
         grid: {
           display: false
         },
@@ -48,7 +75,7 @@ function LineGraph({ labels, data }) {
         }
       },
       y: {
-        display: true,
+        display: false,
         grid: {
           display: true
         },

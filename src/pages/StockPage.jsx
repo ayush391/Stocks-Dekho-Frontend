@@ -11,8 +11,8 @@ const StockPage = () => {
 
     return (
         <>
-            <StockPageHeader symbol={symbol} />
             <Container maxWidth='md'>
+                <StockPageHeader symbol={symbol} />
                 <PriceHistoryPanel symbol={symbol} />
                 <BuySellPanel symbol={symbol} />
             </Container >
