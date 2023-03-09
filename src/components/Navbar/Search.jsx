@@ -96,32 +96,28 @@ const Search = () => {
                         }
                       }}
                     >
-                      <TableCell component="th" scope="row">
-                        <Stack>
-                          <Typography fontWeight='bold'>
+                      <TableCell>
+                        <Stack width={30}>
+                          <Typography variant='caption' fontWeight='bold'>
                             {stock.symbol}
                           </Typography>
-                          <Typography variant='caption'>
+                          {/* <Typography variant='caption'>
                             {stock.meta?.companyName}
-                          </Typography>
+                          </Typography> */}
+                          ₹{parseFloat(stock.lastPrice).toFixed(2)}
+
                         </Stack>
                       </TableCell>
                       <TableCell align="right">
-                        ₹{parseFloat(stock.lastPrice).toFixed(2)}
+                        <Stack alignItems='center'>
+                        </Stack>
                       </TableCell>
                       <TableCell align="right">
-                        <StockPChange pChange={stock.pChange} />
+                        <StockPChange pChange={stock.pChange} style={{ flexDirection: 'column' }} />
                       </TableCell>
                     </TableRow>
                   );
                 })}
-                <TableRow>
-                  <TableCell>
-                    <Typography variant='caption'>
-                      No more results found
-                    </Typography>
-                  </TableCell>
-                </TableRow>
               </TableBody>
             </Table>
           </Card>

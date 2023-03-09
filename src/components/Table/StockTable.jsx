@@ -56,7 +56,15 @@ const StockTable = ({ stocksData }) => {
                                                 </TableCell>
                                                 <TableCell align="right">
                                                     <Stack alignItems='center'>
-                                                        ₹{parseFloat(stock.lastPrice).toFixed(2)}
+                                                        <Typography
+                                                            variant='h5'
+
+                                                            sx={{
+                                                                textOverflow: 'ellipsis', overflow: 'hidden'
+                                                            }}
+                                                        >
+                                                            ₹{parseFloat(stock.lastPrice).toFixed(2)}
+                                                        </Typography>
                                                         <StockPChange pChange={stock.pChange} />
 
                                                     </Stack>

@@ -1,15 +1,14 @@
-import { AccountCircle, AccountCircleOutlined } from '@mui/icons-material'
+import { AccountCircle } from '@mui/icons-material'
 import { AppBar, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Search from './Search'
-import SearchBar from './SearchBar'
 import Hamburger from 'hamburger-react'
 import { useState, useEffect } from 'react'
 import TemporaryDrawer from './Slidebar'
 import { getAuth, signOut } from "firebase/auth";
 import { app } from '../Firebase'
-import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import { Avatar } from '@chakra-ui/react'
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const Navbar = () => {
@@ -40,7 +39,7 @@ const Navbar = () => {
     const LoggedInComponent = () => {
         return (
             <>
-                <Avatar style={{ maxWidth: 50 }} src='https://bit.ly/broken-link' onClick={Logout} />
+                <Avatar style={{ maxWidth: 50 }} src='#' onClick={Logout} />
             </>
         )
     }

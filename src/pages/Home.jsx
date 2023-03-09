@@ -13,7 +13,7 @@ const Home = () => {
                     marginTop: '0'
                 }}
             >
-                <Container maxWidth='md' sx={{ my: 3 }}>
+                <Container maxWidth='md' >
                     <StockPanel />
                 </Container >
             </Box>
