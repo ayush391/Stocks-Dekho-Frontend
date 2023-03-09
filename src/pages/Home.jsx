@@ -3,10 +3,10 @@ import React from 'react'
 import News from '../components/News'
 import StockPanel from '../components/StockPanel'
 import bgPatternPanel from '../assets/panelBg.jpg'
-
+import Navbar from '../components/Navbar/Navbar'
 const Home = () => {
     return (
-        <>
+        <><Navbar />
             <Box
                 sx={{
                     paddingBottom: '2rem',
