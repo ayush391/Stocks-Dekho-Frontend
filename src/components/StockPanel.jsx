@@ -21,9 +21,9 @@ const StockPanel = () => {
     return (
         <>
             <AntTabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-                <AntTab iconPosition='start' icon={<TrendingUp color='success' />} label="Top Gainers" />
-                <AntTab iconPosition='start' icon={<BarChart color='grey' />} label="Most Active" />
-                <AntTab iconPosition='start' icon={<TrendingDown color='error' />} label="Top Loosers" />
+                <AntTab iconPosition='top' icon={<TrendingUp color='success' />} label="Top Gainers" />
+                <AntTab iconPosition='top' icon={<BarChart color='grey' />} label="Most Active" />
+                <AntTab iconPosition='top' icon={<TrendingDown color='error' />} label="Top Loosers" />
             </AntTabs>
             <TabPanel value={value} index={0} >
                 <TopGainers />
