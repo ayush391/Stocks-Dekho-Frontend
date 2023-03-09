@@ -34,6 +34,7 @@ export default function TemporaryDrawer({ open, onClose }) {
           </ListItemButton>
         </ListItem>
         </Link>
+        <Link to='/holdings'>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
@@ -44,6 +45,7 @@ export default function TemporaryDrawer({ open, onClose }) {
             </ListItemText>
           </ListItemButton>
         </ListItem>
+        </Link>
         <Link to='/portfolio'>
         <ListItem disablePadding>
           <ListItemButton>

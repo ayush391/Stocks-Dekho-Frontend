@@ -16,8 +16,9 @@ import StockPanel from './components/StockPanel';
 import Home from './pages/Home';
 import Profile  from './pages/profile';
 import { Portfolio } from './pages/Portoflio';
-
-
+import { BankHistory } from './pages/BankHistory';
+import {TransactionHistory} from './pages/TransactionHistory';
+import {Holdings} from './pages/Holdings';
 
 function App() {
 
@@ -37,6 +38,9 @@ function App() {
           {/* <Route path='/Buy/:symbol' element={<BuyPage/>}></Route>
           <Route path='/Sell/:symbol' element={<SellPage/>}></Route> */}
           <Route path='/portfolio' element={<Portfolio />}></Route>
+          <Route path='/holdings' element={<Holdings />}></Route>
+          <Route path='/transactionHistory' element={<TransactionHistory />}></Route>
+          <Route path='/bankHistory' element={<BankHistory />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
