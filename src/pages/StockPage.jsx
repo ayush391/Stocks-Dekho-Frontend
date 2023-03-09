@@ -10,12 +10,14 @@ const StockPage = () => {
     const { symbol } = params
 
     return (
-        <Container maxWidth='md'>
+        <>
             <StockPageHeader symbol={symbol} />
-            <PriceHistoryPanel symbol={symbol} />
-            <BuySellPanel symbol={symbol} />
+            <Container maxWidth='md'>
+                <PriceHistoryPanel symbol={symbol} />
+                <BuySellPanel symbol={symbol} />
+            </Container >
             <News />
-        </Container >
+        </>
 
     )
 }

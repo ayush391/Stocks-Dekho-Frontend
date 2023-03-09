@@ -14,11 +14,13 @@ import Navbar from './components/Navbar/Navbar';
 import StockPage from './pages/StockPage';
 import StockPanel from './components/StockPanel';
 import Home from './pages/Home';
-import Profile  from './pages/profile';
+import Profile from './pages/profile';
 import { Portfolio } from './pages/Portoflio';
 import { BankHistory } from './pages/BankHistory';
-import {TransactionHistory} from './pages/TransactionHistory';
-import {Holdings} from './pages/Holdings';
+import { TransactionHistory } from './pages/TransactionHistory';
+import { Holdings } from './pages/Holdings';
+import { ThemeProvider } from '@mui/material';
+import AppTheme from './theme';
 
 function App() {
 
@@ -27,21 +29,22 @@ function App() {
 
     <div className="App">
       <BrowserRouter>
-        
-        <Routes>
-          <Route path='/' element={<Home />}></Route>
-          <Route path='/allstocks' element={<AllStocks />}></Route>
-          <Route path='/login' element={<LoginPage />}></Route>
-          <Route path='/:symbol' element={<StockPage />}></Route>
-          <Route path='/search' element={<Search />}></Route>
-          <Route path='/profile' element={<Profile/>}></Route>
-          {/* <Route path='/Buy/:symbol' element={<BuyPage/>}></Route>
+        <ThemeProvider theme={AppTheme}>
+          <Routes>
+            <Route path='/' element={<Home />}></Route>
+            <Route path='/allstocks' element={<AllStocks />}></Route>
+            <Route path='/login' element={<LoginPage />}></Route>
+            <Route path='/:symbol' element={<StockPage />}></Route>
+            <Route path='/search' element={<Search />}></Route>
+            <Route path='/profile' element={<Profile />}></Route>
+            {/* <Route path='/Buy/:symbol' element={<BuyPage/>}></Route>
           <Route path='/Sell/:symbol' element={<SellPage/>}></Route> */}
-          <Route path='/portfolio' element={<Portfolio />}></Route>
-          <Route path='/holdings' element={<Holdings />}></Route>
-          <Route path='/transactionHistory' element={<TransactionHistory />}></Route>
-          <Route path='/bankHistory' element={<BankHistory />}></Route>
-        </Routes>
+            <Route path='/portfolio' element={<Portfolio />}></Route>
+            <Route path='/holdings' element={<Holdings />}></Route>
+            <Route path='/transactionHistory' element={<TransactionHistory />}></Route>
+            <Route path='/bankHistory' element={<BankHistory />}></Route>
+          </Routes>
+        </ThemeProvider>
       </BrowserRouter>
     </div>
   );

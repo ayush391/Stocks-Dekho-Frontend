@@ -25,7 +25,7 @@ const StockPageHeader = ({ symbol }) => {
             const response = await axios.get(priceUrl)
             console.log(response.data)
             if (response.data !== null) {
-                console.log('price' , response.data.data.lastPrice)
+                console.log('price', response.data.data.lastPrice)
                 setStockPrice(response.data.data.lastPrice)
                 setStockPriceChange(response.data.data.pChange)
             }
@@ -35,44 +35,45 @@ const StockPageHeader = ({ symbol }) => {
     }, [symbol])
     return (
         <>
-            <Stack direction='row' justifyContent='space-between' alignItems='center' paddingY={3}>
-                <Stack direction='row' justifyContent='space-between' >
-                    <Stack direction='column' justifyContent='flex-start' flex={1}>
-                        <Typography variant='h5'>
-                            {stockData!=null?stockData.symbol : ""}
-                        </Typography>
-                        <Typography variant='caption'>
-                            {stockData!=null?stockData.meta?.['NAME OF COMPANY']:''}
-                        </Typography>
+            <Stack alignItems='center' flex={1} paddingY={5} sx={{
+                backgroundImage: 'linear-gradient(180deg, #7abbfc80,#7abbfc00 400px)',
+                textAlign: 'center',
+                // borderRadius: '20px',
 
-                        <Divider sx={{ my: 2 }} />
+            }}>
 
-                        <Stack gap={2}
-                            sx={{
-                                flexDirection: { md: 'row' },
-                                alignItems: { md: 'center' }
-                            }}
-                        >
-                            <Typography variant='h3' >
-                                ₹{stockPrice}
-                            </Typography>
-                            {/* <StockChange change={102.8} /> */}
-                            <StockPChange pChange={stockPriceChange} />
-
-                        </Stack>
-
-                        <Typography variant='caption' fontSize='0.9rem' my={2} >
-                            {new Date().toUTCString()}
-                        </Typography>
-                    </Stack>
-                </Stack>
+                <Typography variant='h4' fontWeight='bold'>
+                    {stockData != null ? stockData.meta?.['NAME OF COMPANY'] : ''}
+                </Typography>
+                <Typography variant='caption'>
+                    {stockData != null ? stockData.symbol : ""}
+                </Typography>
                 {
-                    stockData!=null && stockData.icon ?
-                        <img height={100} src={stockData!=null?stockData.icon:''}></img>
+                    stockData != null && stockData.icon ?
+                        <img width={150} src={stockData != null ? stockData.icon : ''}></img>
                         :
-                        <StockSymbol symbol={stockData!=null?stockData.symbol:''} />
+                        <StockSymbol symbol={stockData != null ? stockData.symbol : ''} />
                 }
 
+                <Divider sx={{ my: 2 }} />
+
+                <Stack gap={2}
+                    sx={{
+                        flexDirection: { md: 'row' },
+                        alignItems: { md: 'center' }
+                    }}
+                >
+                    <Typography variant='h3' >
+                        ₹{stockPrice}
+                    </Typography>
+                    {/* <StockChange change={102.8} /> */}
+                    <StockPChange pChange={stockPriceChange} />
+
+                </Stack>
+
+                <Typography variant='caption' fontSize='0.8rem' my={2} >
+                    {new Date().toUTCString()}
+                </Typography>
             </Stack>
         </>
     )
