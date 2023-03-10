@@ -1,27 +1,32 @@
-import { useParams } from 'react-router-dom'
 import * as React from 'react';
 
-import { FormControl, FormLabel, Input, Select } from '@chakra-ui/react';
+import { FormLabel, Input, Select } from '@chakra-ui/react';
 
 import {
     Stat,
-    StatLabel,
     StatNumber,
     StatHelpText,
     StatArrow,
     StatGroup,
     ChakraProvider,
 } from '@chakra-ui/react'
-import LineGraph from './Portfolio/LineGraph';
 import { Button } from '@chakra-ui/react';
 import { useState } from 'react';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { app } from './Firebase';
 import ConfirmOrder from './ConfirmOrder';
-import { ClickAwayListener } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import useStockData from '../hooks/StockHooks/useStockData';
 
-export default function BuyComp(props) {
+export default function BuyStock(props) {
+
+    const params = useParams()
+    const { symbol } = params
+
+    const stockData = useStockData(symbol)
+    // const stockPrice = useStockPrice(symbol)
+
     const [stockQty, setStockQty] = useState(1)
     const user = getAuth(app)
     const buyUrl = process.env.REACT_APP_BASE_URL + '/transaction/review/buy'
@@ -32,7 +37,7 @@ export default function BuyComp(props) {
     const BuyReview = async () => {
         const response = await axios.post(buyUrl, {
             "userId": user.currentUser.uid,
-            "stockSymbol": param.data.data != null ? param.data.data.symbol : 'Symbol',
+            "stockSymbol": stockData != null ? stockData.symbol : 'Symbol',
             "quantity": stockQty
         })
         console.log(response.data)
@@ -44,10 +49,10 @@ export default function BuyComp(props) {
             <div style={{ marginLeft: 26 }}>
                 <StatGroup>
                     <Stat>
-                        <StatNumber>{param.data.data != null ? param.data.data.lastPrice : 2452}</StatNumber>
+                        <StatNumber>{stockData != null ? stockData.lastPrice : 2452}</StatNumber>
                         <StatHelpText>
-                            <StatArrow type={param.data.data != null && param.data.data.pChange.substring(0, 1) == '-' ? 'decrease' : 'increase'} />
-                            {param.data.data != null ? param.data.data.pChange : 2452}
+                            <StatArrow type={stockData != null && stockData.pChange.substring(0, 1) == '-' ? 'decrease' : 'increase'} />
+                            {stockData != null ? stockData.pChange : 2452}
                         </StatHelpText>
                     </Stat>
                 </StatGroup>
@@ -59,8 +64,6 @@ export default function BuyComp(props) {
         setStockQty(e.target.value)
     }
 
-    const param = props
-    console.log('buy', param.data.data == null ? param.data : param.data.data.lastPrice)
     return (
         <div style={{ marginLeft: 'auto', marginRight: 'auto' }}>
 
@@ -96,9 +99,9 @@ export default function BuyComp(props) {
                 />
 
             </div>
-            <p>Buying {stockQty} stock : {param.data.data != null ? param.data.data.symbol : 'Symbol'} at {param.data.data != null ? param.data.data.lastPrice * stockQty : 2452}</p>
+            <p>Buying {stockQty} stock : {stockData != null ? stockData.symbol : 'Symbol'} at {stockData != null ? stockData.lastPrice * stockQty : 2452}</p>
             <Button style={{ width: '100%', marginRight: 'auto', marginLeft: 'auto', color: 'white', backgroundColor: 'green' }} onClick={BuyReview}> Buy {props.symbol} </Button>
-            <ConfirmOrder onClose={() => setOpen(false)} open={open} icon={param.data.data != null ? param.data.data.icon : 'Symbol'} reviewOrder={orderReview} />
+            <ConfirmOrder onClose={() => setOpen(false)} open={open} icon={stockData != null ? stockData.icon : 'Symbol'} reviewOrder={orderReview} />
         </div>
     )
 }

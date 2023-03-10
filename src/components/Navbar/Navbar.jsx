@@ -84,10 +84,14 @@ const Navbar = () => {
                 backgroundImage: 'linear-gradient(45deg,#73b9ff,#73b9ff40)',
                 backdropFilter: 'blur(5px)'
             }}>
-                <Button variant='text' component={Link} to='/'>
-                    <Typography variant='h4' fontWeight='bold' color='white' textTransform='none'
+                <Button component={Link} to='/' sx={{ color: '#fff', textDecoration: 'none' }}>
+                    <Typography variant='h4'
+                        fontWeight='bold'
+                        textTransform='none'
                         fontFamily='Righteous'
-                    >StoxDekho</Typography>
+                    >
+                        StoxDekho
+                    </Typography>
                 </Button>
                 <Toolbar
                     sx={{

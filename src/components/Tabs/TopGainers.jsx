@@ -8,6 +8,7 @@ import StockPChange from '../Table/StockPChange';
 import StockChange from '../Table/StockChange';
 import TableSkeleton from '../Loading/TableSkeleton';
 import StockTable from '../Table/StockTable';
+import useAllStocks from '../../hooks/StockHooks/useAllStocks';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices/top-gainers'
 const LIMIT = 10
@@ -16,38 +17,11 @@ const LIMIT = 10
 
 
 const TopGainers = () => {
-    const [stocksData, setStocksData] = useState([])
-
-    const [currentPage, setCurrentPage] = useState(0)
-
-    useEffect(() => {
-        (
-            async () => {
-                const url = BASE_URL + '?skip=' + currentPage * LIMIT
-                const result = await axios.get(url)
-                console.log(result)
-                setStocksData(result.data.data)
-            }
-        )()
-    }, [currentPage])
-
-
-    const handlePrev = () => {
-        if (currentPage > 0) {
-            setCurrentPage(currentPage - 1)
-        }
-    }
-
-    const handleNext = () => {
-        setCurrentPage(currentPage + 1)
-    }
-
-
+    const { stocksData, loading, error } = useAllStocks('/top-gainers')
 
     return (
         <>
             <StockTable stocksData={stocksData} />
-
         </>
     )
 }

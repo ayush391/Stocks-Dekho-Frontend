@@ -37,7 +37,7 @@ export const NewsCard = (props) => {
                 />
                 <CardContent sx={{
                     backdropFilter: 'blur(10px) brightness(50%)',
-                    color: 'white',
+                    color: '#fff',
 
                 }}>
                     <Stack

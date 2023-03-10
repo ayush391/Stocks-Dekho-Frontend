@@ -18,7 +18,7 @@ import { useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import axios from 'axios';
 import { app } from './Firebase';
-export default function SellComp(props) {
+export default function SellStock(props) {
     const [stockQty, setStockQty] = useState(1)
     const user = getAuth(app)
     const sellUrl = process.env.REACT_APP_BASE_URL + '/transaction/review/sell'

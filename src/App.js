@@ -11,6 +11,8 @@ import Profile from './pages/profile';
 import { Portfolio } from './pages/Portoflio';
 import { BankHistory } from './pages/BankHistory';
 import { TransactionHistory } from './pages/TransactionHistory';
+import BuyStock from './components/BuyStock'
+import SellStock from './components/SellStock'
 import { Holdings } from './pages/Holdings';
 import { ThemeProvider } from '@mui/material';
 import AppTheme from './theme';
@@ -34,6 +36,8 @@ function App() {
             <Route path='/holdings' element={<Holdings />}></Route>
             <Route path='/transactionHistory' element={<TransactionHistory />}></Route>
             <Route path='/bankHistory' element={<BankHistory />}></Route>
+            <Route path='/buy/:symbol' element={<BuyStock />}></Route>
+            <Route path='/sell/:symbol' element={<SellStock />}></Route>
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

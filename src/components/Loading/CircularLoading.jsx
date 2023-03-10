@@ -6,8 +6,9 @@ const CircularLoading = () => {
         <Box sx={{
             display: 'flex',
             justifyContent: 'center',
+            padding: '1rem'
         }}>
-            <CircularProgress />
+            <CircularProgress size='2rem' />
         </Box>
     )
 }
