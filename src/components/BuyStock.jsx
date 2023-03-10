@@ -18,13 +18,15 @@ import { app } from './Firebase';
 import ConfirmOrder from './ConfirmOrder';
 import { useParams } from 'react-router-dom';
 import useStockData from '../hooks/StockHooks/useStockData';
+import { Typography } from '@mui/material';
+import CircularLoading from './Loading/CircularLoading';
 
 export default function BuyStock(props) {
 
     const params = useParams()
     const { symbol } = params
 
-    const stockData = useStockData(symbol)
+    const { stockData, loading, error } = useStockData(symbol)
     // const stockPrice = useStockPrice(symbol)
 
     const [stockQty, setStockQty] = useState(1)
@@ -66,42 +68,46 @@ export default function BuyStock(props) {
 
     return (
         <div style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+            {
+                error ? <Typography>An error occured</Typography> :
+                    loading ? <CircularLoading /> : <>
+                        <div style={{ display: 'flex', flexDirection: 'row' }}>
 
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            <h1 style={{ textAlign: 'initial', fontSize: 22, fontWeight: 'bold', margin: 10 }}>{"Price"}</h1>
 
-                <h1 style={{ textAlign: 'initial', fontSize: 22, fontWeight: 'bold', margin: 10 }}>{"Price"}</h1>
+                            <ChakraProvider>
+                                <StockVal />
+                            </ChakraProvider>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'row' }} >
 
-                <ChakraProvider>
-                    <StockVal />
-                </ChakraProvider>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row' }} >
+                            <FormLabel style={{ marginRight: 10, fontWeight: 'bold', fontSize: 22 }} >QTY</FormLabel>
+                            <Input
 
-                <FormLabel style={{ marginRight: 10, fontWeight: 'bold', fontSize: 22 }} >QTY</FormLabel>
-                <Input
+                                onChange={handleQty}
+                                endDecorator={
+                                    <React.Fragment>
 
-                    onChange={handleQty}
-                    endDecorator={
-                        <React.Fragment>
+                                        <Select
+                                            variant="plain"
+                                            value={'INR'}
 
-                            <Select
-                                variant="plain"
-                                value={'INR'}
-
-                                sx={{ mr: -1.5, '&:hover': { bgcolor: 'transparent' } }}
-                            >
+                                            sx={{ mr: -1.5, '&:hover': { bgcolor: 'transparent' } }}
+                                        >
 
 
-                            </Select>
-                        </React.Fragment>
-                    }
-                    sx={{ width: 300 }}
-                />
+                                        </Select>
+                                    </React.Fragment>
+                                }
+                                sx={{ width: 300 }}
+                            />
 
-            </div>
-            <p>Buying {stockQty} stock : {stockData != null ? stockData.symbol : 'Symbol'} at {stockData != null ? stockData.lastPrice * stockQty : 2452}</p>
-            <Button style={{ width: '100%', marginRight: 'auto', marginLeft: 'auto', color: 'white', backgroundColor: 'green' }} onClick={BuyReview}> Buy {props.symbol} </Button>
-            <ConfirmOrder onClose={() => setOpen(false)} open={open} icon={stockData != null ? stockData.icon : 'Symbol'} reviewOrder={orderReview} />
+                        </div>
+                        <p>Buying {stockQty} stock : {stockData != null ? stockData.symbol : 'Symbol'} at {stockData != null ? stockData.lastPrice * stockQty : 2452}</p>
+                        <Button style={{ width: '100%', marginRight: 'auto', marginLeft: 'auto', color: 'white', backgroundColor: 'green' }} onClick={BuyReview}> Buy {props.symbol} </Button>
+                        <ConfirmOrder onClose={() => setOpen(false)} open={open} icon={stockData != null ? stockData.icon : 'Symbol'} reviewOrder={orderReview} />
+                    </>
+            }
         </div>
     )
 }

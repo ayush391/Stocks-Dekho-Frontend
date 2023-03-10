@@ -17,7 +17,7 @@ const useStockData = (symbol) => {
                 try {
                     const url = process.env.REACT_APP_BASE_URL + '/prices/' + symbol?.toString()
                     const result = await axios.get(url)
-                    const data = await result?.data
+                    const data = await result.data
                     // console.log(data)
                     setStocksData(data.data)
                     setLoading(false)

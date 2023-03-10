@@ -12,12 +12,12 @@ const StockPage = () => {
 
     return (
         <>
-            <Container maxWidth='md'>
+            <Container maxWidth='sm'>
                 <StockPageHeader symbol={symbol} />
                 <PriceHistoryPanel symbol={symbol} />
                 {/* <BuySellPanel symbol={symbol} /> */}
+                <News />
             </Container >
-            <News />
             <BuySellBar symbol={symbol} />
         </>
 

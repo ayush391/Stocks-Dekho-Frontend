@@ -1,3 +1,5 @@
+import { Fade, Slide } from "@mui/material";
+
 export function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -9,11 +11,11 @@ export function TabPanel(props) {
             aria-labelledby={`simple-tab-${index}`}
             {...other}
         >
-            {value === index && (
-                <>
+            <Fade timeout={1000} in={value === index}>
+                <div>
                     {children}
-                </>
-            )}
+                </div>
+            </Fade>
         </div>
     );
 }
