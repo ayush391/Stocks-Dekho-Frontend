@@ -1,19 +1,8 @@
-import React, { useEffect, useState } from 'react'
-
-import axios from 'axios'
-import { Card, Container, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import StockSymbol from '../Table/StockSymbol';
-import StockPChange from '../Table/StockPChange';
-import StockChange from '../Table/StockChange';
-import TableSkeleton from '../Loading/TableSkeleton';
+import React from 'react'
+import { Typography } from '@mui/material';
 import StockTable from '../Table/StockTable';
 import useAllStocks from '../../hooks/StockHooks/useAllStocks';
-
-const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices/top-gainers'
-const LIMIT = 10
-
-
+import CircularLoading from '../Loading/CircularLoading';
 
 
 const TopGainers = () => {
@@ -21,7 +10,11 @@ const TopGainers = () => {
 
     return (
         <>
-            <StockTable stocksData={stocksData} />
+            {
+                error ? <Typography>An error occured</Typography> :
+                    loading ? <CircularLoading /> :
+                        <StockTable stocksData={stocksData} />
+            }
         </>
     )
 }

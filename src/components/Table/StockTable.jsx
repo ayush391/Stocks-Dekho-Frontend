@@ -13,7 +13,7 @@ const StockTable = ({ stocksData }) => {
     return (
         <>
             {
-                stocksData.length > 0 ?
+                stocksData ?
                     <TableContainer component={Card} variant='outlined'>
                         <Table>
                             <TableBody>
