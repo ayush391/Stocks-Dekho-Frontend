@@ -13,7 +13,7 @@ import { BankHistory } from './pages/BankHistory';
 import { TransactionHistory } from './pages/TransactionHistory';
 import BuyStock from './components/BuyStock'
 import SellStock from './components/SellStock'
-import { Holdings } from './pages/Holdings';
+import { Holdings , HoldingPage } from './pages/Holdings';
 import { ThemeProvider } from '@mui/material';
 import AppTheme from './theme';
 
@@ -23,8 +23,9 @@ function App() {
   return (
 
     <div className="App">
+      
       <BrowserRouter>
-        <ThemeProvider theme={AppTheme}>
+          
           <Routes>
             <Route path='/' element={<Home />}></Route>
             <Route path='/allstocks' element={<AllStocks />}></Route>
@@ -33,13 +34,13 @@ function App() {
             <Route path='/search' element={<Search />}></Route>
             <Route path='/profile' element={<Profile />}></Route>
             <Route path='/portfolio' element={<Portfolio />}></Route>
-            <Route path='/holdings' element={<Holdings />}></Route>
+            <Route path='/holdings' element={<HoldingPage />}></Route>
             <Route path='/transactionHistory' element={<TransactionHistory />}></Route>
             <Route path='/bankHistory' element={<BankHistory />}></Route>
             <Route path='/buy/:symbol' element={<BuyStock />}></Route>
             <Route path='/sell/:symbol' element={<SellStock />}></Route>
           </Routes>
-        </ThemeProvider>
+      
       </BrowserRouter>
     </div>
   );

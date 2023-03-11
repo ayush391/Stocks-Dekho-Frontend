@@ -2,9 +2,15 @@ import { IconButton } from '@chakra-ui/react'
 import { Close } from '@mui/icons-material'
 import { Box, Button, Card, CardContent, Container, Divider, Modal, Slide, Stack, Typography } from '@mui/material'
 import React from 'react'
-
+import axios from 'axios'
+import {getAuth} from 'firebase/auth'
+import { app } from './Firebase'
 const ConfirmOrder = ({ open, icon, reviewOrder, onClose }) => {
-
+    const buyUrl = process.env.REACT_APP_BASE_URL + '/transaction/buy/'
+    const user = getAuth(app)
+    const handleOrder=async()=>{
+        const response = await axios.post(buyUrl , {...reviewOrder , userId :user.currentUser.uid })
+    }
 
     return (
         <Modal open={open}>
@@ -46,7 +52,8 @@ const ConfirmOrder = ({ open, icon, reviewOrder, onClose }) => {
                                 <Typography sx={{ color: '#52565b' }}>Rs.{reviewOrder.orderAmount}</Typography>
                             </Stack>
                         </CardContent>
-                        <Button size='large' variant='contained' fullWidth>Place Order</Button>
+                        <Button size='large' variant='contained' fullWidth onClick={handleOrder}>Place Order</Button>
+                      
                     </Card>
                 </Container>
             </Slide>

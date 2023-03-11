@@ -7,9 +7,15 @@ import {
     StatGroup,
     ChakraProvider,
 } from '@chakra-ui/react'
+import { Stack } from '@mui/joy'
+import {Avatar} from "@mui/material"
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { PieChart } from '../components/Portfolio/pie'
 import LineGraph from '../components/Portfolio/LineGraph'
+import { Holdings } from './Holdings'
+import { Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom';
 const StatComponent = () => {
     return (
         <div style={{ marginLeft: 10 }}>
@@ -42,35 +48,45 @@ export const Portfolio = () => {
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <HistoryGraph />
+                        <HistoryGraph timeFrame={5} />
                     </TabPanel>
                     <TabPanel>
-                        <HistoryGraph />
+                        <HistoryGraph  timeFrame={30}/>
                     </TabPanel>
                     <TabPanel>
-                        <HistoryGraph />
+                        <HistoryGraph timeFrame={180}/>
                     </TabPanel>
                     <TabPanel>
-                        <HistoryGraph />
+                        <HistoryGraph timeFrame={365}/>
                     </TabPanel>
                     <TabPanel>
-                        <HistoryGraph />
+                        <HistoryGraph timeFrame={730} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
         )
     }
 
-    const HistoryGraph = () => {
+    const HistoryGraph = ({timeFrame}) => {
         return (
             <div style={{ marginLeft: 'auto', marginRight: 'auto', width: '90%', height: '50%' }}>
-                <LineGraph style={{ marginLeft: 'auto', marginRight: 'auto', width: '60%', height: '50%' }} labels={[1, 2, 3, 4, 5, 6]} data={[19, 21, 32, 45, 213, 13]} />
+                <LineGraph symbol={'INFY'} timeFrame={timeFrame} />            
             </div>
         )
     }
+
+    const navigate = useNavigate()
+    const backBtn=()=>{
+            navigate(-1)
+    }
     return (
         <div style={{ margin: 10, padding: 20 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '80%', backgroundColor: 'lightblue', color: 'white', fontWeight: 'bold', marginRight: 'auto', marginLeft: 'auto', padding: 10, borderRadius: 20, marginBottom: 20 }}>
+
+            <Stack direction={'row'} sx={{alignItems: 'center',}} >
+            <Avatar sx={{marginRight:1}} ><ArrowBackIcon  onClick={backBtn}/></Avatar>
+            <h1>Portfolio</h1>
+            </Stack>
+            <div style={{ display: 'flex', flexDirection: 'column', width: '80%', backgroundColor: 'lightgreen', color: 'white', fontWeight: 'bold', marginRight: 'auto', marginLeft: 'auto', padding: 10, borderRadius: 20, marginBottom: 20 }}>
 
                 <h1 style={{ fontSize: '29', fontWeight: 'bolder' }}>Deepak Singh</h1>
 
@@ -86,10 +102,14 @@ export const Portfolio = () => {
 
 
                     <TabView />
-                    <div style={{ width: '80%', marginRight: 'auto', marginLeft: 'auto' }}>
+                    <div style={{ width: '80%', marginRight: 'auto', marginLeft: 'auto' , marginBottom:2 }}>
                         <PieChart />
                     </div>
+
+                
                 </ChakraProvider>
+                <Typography textAlign={'intial'} sx={{margin:1 ,fontFamily: 'Raleway, Arial',}} variant='h5'>Holdings</Typography>
+                <Holdings/>
 
             </div>
         </div>

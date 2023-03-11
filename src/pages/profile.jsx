@@ -26,9 +26,11 @@ function Profile() {
                 </Stack>
 
                 <Stack direction='row' gap={2} flex={1} justifyContent='center'>
-                    <Button size="large" sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'primary.light', textTransform: 'none' }}>
+                    <Button  size="large" sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'primary.light', textTransform: 'none' }}>
+                        <Link to={'/transactionHistory'}>
                         <AccountBalanceWallet fontSize="large" color="primary" />
-                        <Typography variant="caption" display='block'>Holdings</Typography>
+                        </Link>
+                        <Typography variant="caption" display='block'>Transaction</Typography>
                     </Button>
 
                     <Button size="large" sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'primary.light', textTransform: 'none' }}>
@@ -38,7 +40,7 @@ function Profile() {
 
                     <Button size="large" sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'primary.light', textTransform: 'none' }}>
                         <MonetizationOn fontSize="large" color="primary" />
-                        <Typography variant="caption" display='block'>Holdings</Typography>
+                        <Typography variant="caption" display='block'>Balance</Typography>
                     </Button>
 
                     <Button size="large" sx={{ display: 'flex', flexDirection: 'column', backgroundColor: 'primary.light', textTransform: 'none' }}>
