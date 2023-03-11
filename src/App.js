@@ -13,8 +13,8 @@ import { BankHistory } from './pages/BankHistory';
 import { TransactionHistory } from './pages/TransactionHistory';
 import BuyStock from './components/BuyStock'
 import SellStock from './components/SellStock'
-import { Holdings , HoldingPage } from './pages/Holdings';
-import { ThemeProvider } from '@mui/material';
+import { Holdings, HoldingPage } from './pages/Holdings';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import AppTheme from './theme';
 
 function App() {
@@ -23,9 +23,10 @@ function App() {
   return (
 
     <div className="App">
-      
+
       <BrowserRouter>
-          
+        <CssBaseline />
+        <ThemeProvider theme={AppTheme}>
           <Routes>
             <Route path='/' element={<Home />}></Route>
             <Route path='/allstocks' element={<AllStocks />}></Route>
@@ -40,7 +41,7 @@ function App() {
             <Route path='/buy/:symbol' element={<BuyStock />}></Route>
             <Route path='/sell/:symbol' element={<SellStock />}></Route>
           </Routes>
-      
+        </ThemeProvider>
       </BrowserRouter>
     </div>
   );
