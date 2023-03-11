@@ -9,8 +9,8 @@ export const PieChart=()=>{
           'EdTech'
         ],
         datasets: [{
-          label: 'My First Dataset',
-          data: [300, 50, 100],
+          label: 'Stock Investment',
+          data: [300, 500, 200],
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
