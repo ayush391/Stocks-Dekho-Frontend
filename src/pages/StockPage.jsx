@@ -15,7 +15,6 @@ const StockPage = () => {
             <Container maxWidth='sm'>
                 <StockPageHeader symbol={symbol} />
                 <PriceHistoryPanel symbol={symbol} />
-                {/* <BuySellPanel symbol={symbol} /> */}
                 <News />
             </Container >
             <BuySellBar symbol={symbol} />
