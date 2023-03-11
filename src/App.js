@@ -11,8 +11,8 @@ import Profile from './pages/profile';
 import { Portfolio } from './pages/Portoflio';
 import { BankHistory } from './pages/BankHistory';
 import { TransactionHistory } from './pages/TransactionHistory';
-import BuyStock from './components/BuyStock'
-import SellStock from './components/SellStock'
+import BuyStock from './pages/BuyStock'
+import SellStock from './pages/SellStock'
 import { Holdings, HoldingPage } from './pages/Holdings';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import AppTheme from './theme';
