@@ -40,10 +40,11 @@ export default function BuyStock(props) {
         const response = await axios.post(buyUrl, {
             "userId": user.currentUser.uid,
             "stockSymbol": stockData != null ? stockData.symbol : 'Symbol',
-            "quantity": stockQty
+            "quantity": Number(stockQty)
         })
         console.log(response.data)
         setOrderReview(response.data)
+        
         setOpen(true)
     }
     const StockVal = () => {

@@ -7,10 +7,11 @@ import { getAuth } from 'firebase/auth'
 import { app } from '../Firebase'
 
 import OrderSuccessfullImg from '../../assets/orderSuccessfull.png'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate , useRoutes } from 'react-router-dom'
 
 const OrderSuccessfull = ({ open, icon, reviewOrder, onClose, transactionType }) => {
     const navigate = useNavigate()
+    
     const handleClick = () => {
         navigate(-1)
     }

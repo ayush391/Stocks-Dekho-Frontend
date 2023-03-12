@@ -6,7 +6,7 @@ import axios from 'axios'
 import { getAuth } from 'firebase/auth'
 import { app } from '../Firebase'
 import OrderSuccessfull from './OrderSuccessful'
-const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => {
+const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType  }) => {
     const url = process.env.REACT_APP_BASE_URL + (transactionType === 'buy' ? '/transaction/buy/' : '/transaction/sell/')
     const user = getAuth(app)
 

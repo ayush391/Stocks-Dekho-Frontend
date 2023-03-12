@@ -16,22 +16,28 @@ import LineGraph from '../components/Portfolio/LineGraph';
 import { Button } from '@chakra-ui/react';
 import { useState } from 'react';
 import { getAuth } from 'firebase/auth';
+import ConfirmOrder from '../components/Order/ConfirmOrder';
 import axios from 'axios';
 import { app } from '../components/Firebase';
+import useStockData from '../hooks/StockHooks/useStockData';
 export default function SellStock(props) {
     const [stockQty, setStockQty] = useState(1)
     const user = getAuth(app)
     const sellUrl = process.env.REACT_APP_BASE_URL + '/transaction/review/sell'
-
+    const [open, setOpen] = useState(false)
+    const [orderReview, setOrderReview] = useState({})
+    const parameter = useParams()
+    const { symbol } = parameter
+    const { stockData, loading, error } = useStockData(symbol)
     const StockVal = () => {
         return (
             <div style={{ marginLeft: 26 }}>
                 <StatGroup>
                     <Stat>
-                        <StatNumber>{param.data.data != null ? param.data.data.lastPrice : 2452}</StatNumber>
+                        <StatNumber>{stockData != null ? stockData.lastPrice : 2452}</StatNumber>
                         <StatHelpText>
-                            <StatArrow type={param.data.data != null && param.data.data.pChange.substring(0, 1) == '-' ? 'decrease' : 'increase'} />
-                            {param.data.data != null ? param.data.data.pChange : 2452}
+                            <StatArrow type={stockData != null && stockData.pChange.substring(0, 1) == '-' ? 'decrease' : 'increase'} />
+                            {stockData != null ? stockData.pChange : 2452}
                         </StatHelpText>
                     </Stat>
                 </StatGroup>
@@ -46,17 +52,20 @@ export default function SellStock(props) {
     const param = props
     console.log(param)
 
+
     const SellReview = async () => {
-        try {
+       
             const response = await axios.post(sellUrl, {
                 "userId": user.currentUser.uid,
-                "stockSymbol": param.data.data != null ? param.data.data.symbol : 'Symbol',
+                "stockSymbol": symbol != null ?symbol : 'Symbol',
                 "quantity": stockQty
             })
             console.log(response.data)
-        } catch (e) {
-            alert('something went wrong')
-        }
+            setOrderReview(response.data)
+            setOpen(true)
+
+
+        
     }
     return (
         <div style={{ marginLeft: 'auto', marginRight: 'auto' }}>
@@ -93,8 +102,9 @@ export default function SellStock(props) {
                 />
 
             </div>
-            <p>Selling {stockQty} stock : {param.data.data != null ? param.data.data.symbol : 'Symbol'} at {param.data.data != null ? param.data.data.lastPrice * stockQty : 2452}</p>
+            <p>Buying {stockQty} stock : {stockData != null ? stockData.symbol : 'Symbol'} at {stockData != null ? stockData.lastPrice * stockQty : 2452}</p>
             <Button style={{ width: '100%', marginRight: 'auto', marginLeft: 'auto', color: 'white', backgroundColor: 'red' }} onClick={SellReview}> Sell {props.symbol} </Button>
+            <ConfirmOrder onClose={() => setOpen(false)} open={open} icon={stockData != null ? stockData.icon : 'Symbol'} reviewOrder={orderReview} transactionType='sell' />
 
         </div>
     )
