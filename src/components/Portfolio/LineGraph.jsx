@@ -1,36 +1,39 @@
-import { Line } from "react-chartjs-2"
-import { CategoryScale, Chart, registerables } from 'chart.js'
-import { Box, Divider } from "@mui/material"
-import React, { useState, useEffect } from "react"
-import axios from "axios"
+import { Box } from '@mui/material';
+import axios from 'axios';
+import { CategoryScale, Chart, registerables } from 'chart.js';
+import React, { useEffect, useState } from 'react';
+import { Line } from 'react-chartjs-2';
 
-function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5, }) {
-  Chart.register(CategoryScale, ...registerables)
+function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5 }) {
+  Chart.register(CategoryScale, ...registerables);
 
-  const [stockPriceHistoryList, setStockPriceHistoryList] = useState([])
-  const [labelsData, setLabels] = useState([])
+  const [stockPriceHistoryList, setStockPriceHistoryList] = useState([]);
+  const [labelsData, setLabels] = useState([]);
 
-
-  const url = process.env.REACT_APP_BASE_URL + `/${endpoint}?` + `stockSymbol=${symbol}&` + `timeframe=${timeFrame}`
+  const url =
+    process.env.REACT_APP_BASE_URL +
+    `/${endpoint}?` +
+    `stockSymbol=${symbol}&` +
+    `timeframe=${timeFrame}`;
 
   useEffect(() => {
     async function getStockPriceHistoryList() {
-      const response = await axios.get(url)
-      let tempLt = []
-      let tempLtLabel = []
+      const response = await axios.get(url);
+      let tempLt = [];
+      let tempLtLabel = [];
       response.data.data.forEach((item) => {
-        tempLt.push(parseFloat(item['HIGH '].replace(/,/g, '')))
-        tempLtLabel.push(item['Date '])
-      })
+        tempLt.push(parseFloat(item['HIGH '].replace(/,/g, '')));
+        tempLtLabel.push(item['Date ']);
+      });
 
-      setStockPriceHistoryList(tempLt)
-      setLabels(tempLtLabel)
+      setStockPriceHistoryList(tempLt);
+      setLabels(tempLtLabel);
     }
 
     if (symbol !== null) {
-      getStockPriceHistoryList()
+      getStockPriceHistoryList();
     }
-  }, [symbol])
+  }, [symbol]);
 
   const graph = {
     labels: labelsData,
@@ -43,16 +46,20 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5, }) {
         fill: {
           target: 'origin',
           above: ({ chart: { ctx, chartArea } }) => {
-            const bg = ctx.createLinearGradient(chartArea.width / 2, chartArea.top, chartArea.width / 2, chartArea.bottom)
-            bg.addColorStop(0, '#90ee9080')
-            bg.addColorStop(0.9, '#90ee9000')
+            const bg = ctx.createLinearGradient(
+              chartArea.width / 2,
+              chartArea.top,
+              chartArea.width / 2,
+              chartArea.bottom
+            );
+            bg.addColorStop(0, '#90ee9080');
+            bg.addColorStop(0.9, '#90ee9000');
             return bg;
-          },
+          }
         }
       }
-    ],
-
-  }
+    ]
+  };
 
   let options = {
     responsive: true,
@@ -86,8 +93,7 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5, }) {
             y: 4
           }
         }
-      },
-
+      }
     },
 
     elements: {
@@ -112,104 +118,93 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5, }) {
         caretPadding: 15,
         displayColors: false,
         backgroundColor: ({ chart: { ctx, chartArea } }) => {
-          const bg = ctx.createLinearGradient(chartArea.width / 2, chartArea.top, chartArea.width / 2, chartArea.bottom)
-          bg.addColorStop(0, '#1565c050')
-          bg.addColorStop(0.5, '#1565c099')
-          bg.addColorStop(1, '#1565c050')
+          const bg = ctx.createLinearGradient(
+            chartArea.width / 2,
+            chartArea.top,
+            chartArea.width / 2,
+            chartArea.bottom
+          );
+          bg.addColorStop(0, '#1565c050');
+          bg.addColorStop(0.5, '#1565c099');
+          bg.addColorStop(1, '#1565c050');
           return bg;
         },
         callbacks: {
           label: function (ctx) {
-            return ('INR ₹' + ctx.parsed.y);
+            return 'INR ₹' + ctx.parsed.y;
           }
         }
-      },
+      }
     }
-
   };
 
-  const plugins = [{
-    id: 'corsair',
-    afterInit: (chart) => {
-      chart.corsair = {
-        x: 0,
-        y: 0
-      }
-    },
-    afterEvent: (chart, evt) => {
-      const {
-        chartArea: {
-          top,
-          bottom,
-          left,
-          right
+  const plugins = [
+    {
+      id: 'corsair',
+      afterInit: (chart) => {
+        chart.corsair = {
+          x: 0,
+          y: 0
+        };
+      },
+      afterEvent: (chart, evt) => {
+        const {
+          chartArea: { top, bottom, left, right }
+        } = chart;
+        const {
+          event: { x, y }
+        } = evt;
+        if (x < left || x > right || y < top || y > bottom) {
+          chart.corsair = {
+            x,
+            y,
+            draw: false
+          };
+          chart.draw();
+          return;
         }
-      } = chart;
-      const {
-        event: {
-          x,
-          y
-        }
-      } = evt;
-      if (x < left || x > right || y < top || y > bottom) {
+
         chart.corsair = {
           x,
           y,
-          draw: false
-        }
+          draw: true
+        };
+
         chart.draw();
-        return;
-      }
+      },
+      afterDatasetsDraw: (chart, _, opts) => {
+        const {
+          ctx,
+          chartArea: { top, bottom, left, right }
+        } = chart;
+        const { x, y, draw } = chart.corsair;
 
-      chart.corsair = {
-        x,
-        y,
-        draw: true
-      }
-
-      chart.draw();
-    },
-    afterDatasetsDraw: (chart, _, opts) => {
-      const {
-        ctx,
-        chartArea: {
-          top,
-          bottom,
-          left,
-          right
+        if (!draw) {
+          return;
         }
-      } = chart;
-      const {
-        x,
-        y,
-        draw
-      } = chart.corsair;
 
-      if (!draw) {
-        return;
+        ctx.lineWidth = opts.width || 0;
+        ctx.setLineDash(opts.dash || []);
+        ctx.strokeStyle = opts.color || 'black';
+
+        let dataY = chart.tooltip.caretY;
+        let dataX = chart.tooltip.caretX;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(dataX, dataY);
+        ctx.lineTo(dataX, bottom);
+        ctx.stroke();
+        ctx.restore();
       }
-
-      ctx.lineWidth = opts.width || 0;
-      ctx.setLineDash(opts.dash || []);
-      ctx.strokeStyle = opts.color || 'black'
-
-      let dataY = chart.tooltip.caretY
-      let dataX = chart.tooltip.caretX
-
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(dataX, dataY);
-      ctx.lineTo(dataX, bottom);
-      ctx.stroke();
-      ctx.restore();
     }
-  }]
+  ];
 
   return (
-    <Box >
+    <Box>
       <Line data={graph} options={options} plugins={plugins} />
     </Box>
-  )
+  );
 }
 
-export default React.memo(LineGraph)
+export default React.memo(LineGraph);
