@@ -1,4 +1,3 @@
-import './App.css';
 import AllStocks from './pages/AllStocks';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Search from './components/Navbar/Search';
