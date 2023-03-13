@@ -1,16 +1,28 @@
-import { IconButton } from '@chakra-ui/react'
-import { Close } from '@mui/icons-material'
-import { Box, Button, Card, CardContent, Container, Divider, Modal, Slide, Stack, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import axios from 'axios'
-import { getAuth } from 'firebase/auth'
-import { app } from '../Firebase'
-import OrderSuccessfull from './OrderSuccessful'
+import { IconButton } from '@chakra-ui/react';
+import { Close } from '@mui/icons-material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Divider,
+  Modal,
+  Slide,
+  Stack,
+  Typography
+} from '@mui/material';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { getAuth } from 'firebase/auth';
+import { app } from '../Firebase';
+import OrderSuccessfull from './OrderSuccessful';
 
-const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType  }) => {
-    const url = process.env.REACT_APP_BASE_URL + (transactionType === 'buy' ? '/transaction/buy/' : '/transaction/sell/')
-    const user = getAuth(app)
-
+const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => {
+  const url =
+    process.env.REACT_APP_BASE_URL +
+    (transactionType === 'buy' ? '/transaction/buy/' : '/transaction/sell/');
+  const user = getAuth(app);
 
   const [showResult, setShowResult] = useState(false);
 
