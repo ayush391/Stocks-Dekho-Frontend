@@ -13,6 +13,7 @@ import SellStock from './pages/SellStock';
 import StockPage from './pages/StockPage';
 import { TransactionHistory } from './pages/TransactionHistory';
 import AppTheme from './theme';
+import './App.css';
 
 function App() {
   return (
