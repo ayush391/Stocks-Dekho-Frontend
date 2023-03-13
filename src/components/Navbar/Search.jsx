@@ -1,52 +1,54 @@
-import { ArrowDownwardRounded, ArrowUpwardRounded, SearchOff, SearchOutlined } from '@mui/icons-material'
-import { Box, Button, Card, CardContent, ClickAwayListener, Input, InputAdornment, List, ListItem, MenuItem, Stack, Table, TableBody, TableCell, TableRow, TextField, Typography } from '@mui/material'
-import { handleBreakpoints } from '@mui/system'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import StockPChange from '../Table/StockPChange'
+import { SearchOutlined } from '@mui/icons-material';
+import {
+  Box,
+  Card,
+  ClickAwayListener,
+  Input,
+  InputAdornment,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography
+} from '@mui/material';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import StockPChange from '../Table/StockPChange';
 
-
-const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices/search'
+const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices/search';
 
 const Search = () => {
-
-  const [stocksData, setStocksData] = useState([])
-  const [searchQuery, setSearchQuery] = useState('')
-  const [showSuggest, setShowSuggest] = useState(false)
-
+  const [stocksData, setStocksData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSuggest, setShowSuggest] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(async () => {
-      const url = BASE_URL + '?symbol=' + searchQuery
+      const url = BASE_URL + '?symbol=' + searchQuery;
       if (searchQuery.length > 0) {
-        const result = await axios.get(url)
-        setStocksData(result.data.data)
+        const result = await axios.get(url);
+        setStocksData(result.data.data);
+      } else {
+        setStocksData([]);
       }
-      else {
-        setStocksData([])
-      }
-    }, 500)
+    }, 500);
 
-    return () => clearTimeout(timeout)
-  }, [searchQuery])
-
+    return () => clearTimeout(timeout);
+  }, [searchQuery]);
 
   const handleQuery = (e) => {
-    setSearchQuery(e.target.value)
-  }
+    setSearchQuery(e.target.value);
+  };
 
   const handleSuggest = (val) => {
-    setShowSuggest(val)
-  }
+    setShowSuggest(val);
+  };
 
   return (
-    <ClickAwayListener onClickAway={() => handleSuggest(false)}
-    >
-
-      <Box
-        width='350px'
-      >
+    <ClickAwayListener onClickAway={() => handleSuggest(false)}>
+      <Box width="350px">
         <Input
           onChange={handleQuery}
           value={searchQuery}
@@ -55,25 +57,23 @@ const Search = () => {
           disableUnderline
           placeholder="Search..."
           startAdornment={
-            <InputAdornment position="start"  >
-              <SearchOutlined color='primary' />
+            <InputAdornment position="start">
+              <SearchOutlined color="primary" />
             </InputAdornment>
           }
           sx={{
             backgroundColor: '#fff',
             borderRadius: '10px',
-            padding: '5px',
+            padding: '5px'
           }}
         />
         <Box
-
           sx={{
-            position: 'relative',
-          }}
-        >
+            position: 'relative'
+          }}>
           <Card
             sx={{
-              display: (stocksData.length > 0 && showSuggest) ? 'block' : 'none',
+              display: stocksData.length > 0 && showSuggest ? 'block' : 'none',
               top: '-5px',
               position: 'absolute',
               maxHeight: '500px',
@@ -82,35 +82,34 @@ const Search = () => {
               borderTopLeftRadius: '0',
               borderTopRightRadius: '0',
               width: '100%'
-
-            }}
-          >
+            }}>
             <Table>
               <TableBody>
                 {stocksData.map((stock) => {
                   return (
-                    <TableRow key={stock.symbol} component={Link} to={'/' + stock.symbol} onClickCapture={() => handleSuggest(false)}
+                    <TableRow
+                      key={stock.symbol}
+                      component={Link}
+                      to={'/' + stock.symbol}
+                      onClickCapture={() => handleSuggest(false)}
                       sx={{
                         '&:hover': {
                           backgroundColor: '#00000010'
                         }
-                      }}
-                    >
+                      }}>
                       <TableCell>
                         <Stack width={30}>
-                          <Typography variant='caption' fontWeight='bold'>
+                          <Typography variant="caption" fontWeight="bold">
                             {stock.symbol}
                           </Typography>
                           {/* <Typography variant='caption'>
                             {stock.meta?.companyName}
                           </Typography> */}
                           ₹{parseFloat(stock.lastPrice).toFixed(2)}
-
                         </Stack>
                       </TableCell>
                       <TableCell align="right">
-                        <Stack alignItems='center'>
-                        </Stack>
+                        <Stack alignItems="center"></Stack>
                       </TableCell>
                       <TableCell align="right">
                         <StockPChange pChange={stock.pChange} style={{ flexDirection: 'column' }} />
@@ -121,11 +120,9 @@ const Search = () => {
               </TableBody>
             </Table>
           </Card>
-        </Box >
-
-      </Box >
+        </Box>
+      </Box>
     </ClickAwayListener>
-
   );
 };
 
