@@ -1,8 +1,3 @@
-import { useParams } from 'react-router-dom'
-import * as React from 'react';
-
-import { FormControl, FormLabel, Input, Select } from '@chakra-ui/react';
-
 import {
     Stat,
     StatLabel,
@@ -18,6 +13,8 @@ import { useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import ConfirmOrder from '../components/Order/ConfirmOrder';
 import axios from 'axios';
+import { getAuth } from 'firebase/auth';
+import { useState } from 'react';
 import { app } from '../components/Firebase';
 import useStockData from '../hooks/StockHooks/useStockData';
 export default function SellStock(props) {
