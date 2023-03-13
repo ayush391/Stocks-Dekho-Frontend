@@ -10,6 +10,8 @@ import { AntTab } from '../components/Tabs/AntTab';
 import { AntTabs } from '../components/Tabs/AntTabs';
 import { TabPanel } from '../components/Tabs/TabPanel';
 
+const url = process.env.REACT_APP_BASE_URL + '/transaction/history/';
+
 export const TransactionHistory = () => {
   const [value, setValue] = useState(0);
   const auth = getAuth(app);
@@ -31,9 +33,7 @@ export const TransactionHistory = () => {
   }, [loading, user]);
 
   async function getLogList() {
-    const response = await axios.get(
-      'https://us-central1-stock-dekho-b417c.cloudfunctions.net/app/transaction/history/' + user.uid
-    );
+    const response = await axios.get(url + user.uid);
     console.log(response.data);
     // setLogList(response.data.allTransactions)
     setBuyList(response.data.allTransactions.filter((item) => item.type == 'BUY'));
