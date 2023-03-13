@@ -1,4 +1,4 @@
-import { Box, Button, Container, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Modal, Stack, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import * as React from 'react';
@@ -22,15 +22,26 @@ export default function BuyStock(props) {
   const [open, setOpen] = useState(false);
   const [orderReview, setOrderReview] = useState({});
 
+  const [loadingConfirmOrder, setloadingConfirmOrder] = useState(false);
+
   const BuyReview = async () => {
-    const response = await axios.post(buyUrl, {
-      userId: user.currentUser.uid,
-      stockSymbol: stockData != null ? stockData.symbol : 'Symbol',
-      quantity: stockQty
-    });
-    console.log(response.data);
-    setOrderReview(response.data);
-    setOpen(true);
+    try {
+      setloadingConfirmOrder(true);
+      const response = await axios.post(buyUrl, {
+        userId: user.currentUser.uid,
+        stockSymbol: stockData != null ? stockData.symbol : 'Symbol',
+        quantity: stockQty
+      });
+      console.log(response.data);
+      if (response.status === 200) {
+        setOrderReview(response.data);
+        setOpen(true);
+        setloadingConfirmOrder(false);
+      }
+    } catch (err) {
+      // setError(err.message);
+      setloadingConfirmOrder(false);
+    }
   };
 
   const handleQty = (e) => {
@@ -82,13 +93,19 @@ export default function BuyStock(props) {
               onClick={BuyReview}>
               Buy
             </Button>
-            <ConfirmOrder
-              onClose={() => setOpen(false)}
-              open={open}
-              icon={stockData != null ? stockData.icon : 'Symbol'}
-              reviewOrder={orderReview}
-              transactionType="buy"
-            />
+            {loadingConfirmOrder ? (
+              <Modal open={true}>
+                <CircularLoading />
+              </Modal>
+            ) : (
+              <ConfirmOrder
+                onClose={() => setOpen(false)}
+                open={open}
+                icon={stockData != null ? stockData.icon : 'Symbol'}
+                reviewOrder={orderReview}
+                transactionType="buy"
+              />
+            )}
           </Stack>
         )}
       </Box>

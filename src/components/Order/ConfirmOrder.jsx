@@ -16,6 +16,7 @@ import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import React, { useState } from 'react';
 import { app } from '../Firebase';
+import CircularLoading from '../Loading/CircularLoading';
 import OrderSuccessfull from './OrderSuccessful';
 
 const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => {
@@ -25,11 +26,20 @@ const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => 
   const user = getAuth(app);
 
   const [showResult, setShowResult] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleOrder = async () => {
-    const response = await axios.post(url, { ...reviewOrder, userId: user.currentUser.uid });
-    if (response.status === 200) {
-      setShowResult(true);
+    try {
+      setLoading(true);
+      const response = await axios.post(url, { ...reviewOrder, userId: user.currentUser.uid });
+      if (response.status === 200) {
+        setShowResult(true);
+        setLoading(false);
+      }
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
     }
   };
 
@@ -38,6 +48,10 @@ const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => 
       <Slide direction="left" in={open}>
         {showResult ? (
           <OrderSuccessfull reviewOrder={reviewOrder} onClose={onClose} />
+        ) : error ? (
+          <Typography>An error occured</Typography>
+        ) : loading ? (
+          <CircularLoading />
         ) : (
           <Container maxWidth="sm" sx={{ position: 'relative', top: '50%' }}>
             <Card sx={{ borderRadius: '20px', transform: 'translateY(-50%)' }}>
