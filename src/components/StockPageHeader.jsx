@@ -5,9 +5,6 @@ import StockPChange from './Table/StockPChange';
 import StockSymbol from './Table/StockSymbol';
 
 const StockPageHeader = ({ symbol }) => {
-  const stockUrl = process.env.REACT_APP_BASE_URL + '/stocks/' + symbol?.toString();
-  const priceUrl = process.env.REACT_APP_BASE_URL + '/prices/' + symbol?.toString();
-
   const { stockData, loading, error } = useStockData(symbol);
 
   return error ? (

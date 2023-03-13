@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices';
-
 const useStockData = (symbol) => {
   const [stockData, setStocksData] = useState(null);
   const [loading, setLoading] = useState(false);
