@@ -8,8 +8,8 @@ const OrderSuccessfull = ({ open, icon, reviewOrder, onClose, transactionType })
     navigate(-1);
   };
   return (
-    <Container maxWidth="sm">
-      <Card sx={{ borderRadius: '20px' }}>
+    <Container maxWidth="sm" sx={{ position: 'relative', top: '50%' }}>
+      <Card sx={{ borderRadius: '20px', transform: 'translateY(-50%)' }}>
         <CardContent>
           <Stack justifyContent="center" alignItems="center">
             <img src={OrderSuccessfullImg} width={120} />

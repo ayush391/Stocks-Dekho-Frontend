@@ -12,9 +12,9 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import React, { useState } from 'react';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
+import React, { useState } from 'react';
 import { app } from '../Firebase';
 import OrderSuccessfull from './OrderSuccessful';
 
@@ -39,8 +39,8 @@ const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => 
         {showResult ? (
           <OrderSuccessfull reviewOrder={reviewOrder} onClose={onClose} />
         ) : (
-          <Container maxWidth="sm">
-            <Card sx={{ borderRadius: '20px' }}>
+          <Container maxWidth="sm" sx={{ position: 'relative', top: '50%' }}>
+            <Card sx={{ borderRadius: '20px', transform: 'translateY(-50%)' }}>
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '0.5rem 1rem' }}>
                 <IconButton onClick={onClose} sx={{}}>
                   <Close />
