@@ -1,4 +1,3 @@
-import { IconButton } from '@chakra-ui/react';
 import { Close } from '@mui/icons-material';
 import {
   Box,
@@ -7,6 +6,7 @@ import {
   CardContent,
   Container,
   Divider,
+  IconButton,
   Modal,
   Slide,
   Stack,
@@ -42,7 +42,7 @@ const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => 
           <Container maxWidth="sm" sx={{ position: 'relative', top: '50%' }}>
             <Card sx={{ borderRadius: '20px', transform: 'translateY(-50%)' }}>
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '0.5rem 1rem' }}>
-                <IconButton onClick={onClose} sx={{}}>
+                <IconButton onClick={onClose}>
                   <Close />
                 </IconButton>
               </Box>
@@ -76,19 +76,19 @@ const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => 
                   <Typography sx={{ color: '#52565b' }}>{reviewOrder.quantity}</Typography>
                 </Stack>
                 <Divider />
-                <Stack direction="row" justifyContent="space-between">
+                {/* <Stack direction="row" justifyContent="space-between">
                   <Typography sx={{ color: '#a0a4a8' }}>Transaction Fee</Typography>
                   <Typography sx={{ color: '#52565b' }}>Free</Typography>
-                </Stack>
-                <Divider />
+                </Stack> */}
+                {/* <Divider /> */}
                 <Stack direction="row" justifyContent="space-between">
                   <Typography sx={{ color: '#a0a4a8' }}>Order Total</Typography>
                   <Typography sx={{ color: '#52565b' }}>Rs.{reviewOrder.orderAmount}</Typography>
                 </Stack>
+                <Button size="large" variant="contained" fullWidth onClick={handleOrder}>
+                  Place Order
+                </Button>
               </CardContent>
-              <Button size="large" variant="contained" fullWidth onClick={handleOrder}>
-                Place Order
-              </Button>
             </Card>
           </Container>
         )}
