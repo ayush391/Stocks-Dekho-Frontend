@@ -33,9 +33,14 @@ const Navbar = () => {
     }
   };
   const LoggedInComponent = () => {
+    console.log('photo', user != null && user.photoURL != null ? user.photoURL : '');
     return (
       <>
-        <Avatar style={{ maxWidth: 50 }} src="#" onClick={Logout} />
+        <Avatar
+          style={{ maxWidth: 50 }}
+          src={user != null && user.photoURL != null ? user.photoURL.toString() : ''}
+          onClick={Logout}
+        />
       </>
     );
   };

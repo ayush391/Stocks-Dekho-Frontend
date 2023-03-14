@@ -13,9 +13,12 @@ import {
   Typography
 } from '@mui/material';
 import { Container } from '@mui/system';
+import { getAuth } from 'firebase/auth';
 import { Link } from 'react-router-dom';
+import { app } from '../components/Firebase';
 
 function Profile() {
+  const user = getAuth(app);
   return (
     <Container maxWidth="sm">
       <Box
@@ -27,11 +30,15 @@ function Profile() {
         }}>
         <Stack alignItems="center" sx={{ my: 2 }}>
           <Avatar
-            src="https://lens-storage.storage.googleapis.com/png/4cde995e-9c55-4ed0-8f6d-e9aebd5d5596"
+            src={
+              user.currentUser != null && user.currentUser.photoURL != null
+                ? user.currentUser.photoURL
+                : 'https://lens-storage.storage.googleapis.com/png/4cde995e-9c55-4ed0-8f6d-e9aebd5d5596'
+            }
             sx={{ width: '150px', height: '150px' }}
           />
           <Typography variant="h5" textAlign="center">
-            Deepak Singh
+            {user.currentUser != null ? user.currentUser.displayName : 'Name'}
           </Typography>
           <Stack direction="column" flex={1} justifyContent="center" marginTop={2}>
             <Typography variant="caption" textAlign="center">
