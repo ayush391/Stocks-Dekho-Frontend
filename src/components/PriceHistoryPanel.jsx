@@ -13,7 +13,7 @@ const PriceHistoryPanel = ({ symbol }) => {
   };
 
   return (
-    <Box marginY={5}>
+    <Box marginY={3}>
       <TabPanel value={value} index={0}>
         <LineGraph symbol={symbol} timeFrame={5} />
       </TabPanel>
@@ -35,7 +35,7 @@ const PriceHistoryPanel = ({ symbol }) => {
         value={value}
         onChange={handleChange}
         aria-label="basic tabs example"
-        sx={{ marginBottom: 2 }}>
+        sx={{ marginY: 5 }}>
         <AntTab label="5D" />
         <AntTab label="1M" />
         <AntTab label="6M" />
