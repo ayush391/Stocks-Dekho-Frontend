@@ -3,12 +3,14 @@ import axios from 'axios';
 import { CategoryScale, Chart, registerables } from 'chart.js';
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
+import CircularLoading from '../Loading/CircularLoading';
 
 function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5 }) {
   Chart.register(CategoryScale, ...registerables);
 
   const [stockPriceHistoryList, setStockPriceHistoryList] = useState([]);
   const [labelsData, setLabels] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const url =
     import.meta.env.VITE_BASE_URL +
@@ -18,6 +20,7 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5 }) {
 
   useEffect(() => {
     async function getStockPriceHistoryList() {
+      setLoading(true);
       const response = await axios.get(url);
       let tempLt = [];
       let tempLtLabel = [];
@@ -28,6 +31,7 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5 }) {
 
       setStockPriceHistoryList(tempLt);
       setLabels(tempLtLabel);
+      setLoading(false);
     }
 
     if (symbol !== null) {
@@ -52,8 +56,8 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5 }) {
               chartArea.width / 2,
               chartArea.bottom
             );
-            bg.addColorStop(0, '#90ee9080');
-            bg.addColorStop(0.9, '#90ee9000');
+            bg.addColorStop(0, '#90ee9090');
+            bg.addColorStop(1, '#90ee9000');
             return bg;
           }
         }
@@ -202,7 +206,7 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5 }) {
 
   return (
     <Box>
-      <Line data={graph} options={options} plugins={plugins} />
+      {loading ? <CircularLoading /> : <Line data={graph} options={options} plugins={plugins} />}
     </Box>
   );
 }
