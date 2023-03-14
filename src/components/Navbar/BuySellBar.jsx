@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const BuySellBar = ({ symbol }) => {
   return (
     <AppBar
-      position="sticky"
+      position="fixed"
       elevation={0}
       color="transparent"
       sx={{
