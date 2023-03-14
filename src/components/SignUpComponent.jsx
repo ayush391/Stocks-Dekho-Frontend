@@ -26,7 +26,7 @@ export const SignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCred) => {
         const user = userCred.user;
-        const response = await axios.post(process.env.REACT_APP_BASE_URL + '/user/signup', {
+        const response = await axios.post(import.meta.env.VITE_BASE_URL + '/user/signup', {
           userId: user.uid.toString()
         });
         sendEmailVerification(user).then(() => {

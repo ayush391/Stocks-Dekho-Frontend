@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import CircularLoading from './Loading/CircularLoading';
 import { NewsCard } from './News/NewsCard';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL + '/news' + '/PAYTM';
+const BASE_URL = import.meta.env.VITE_BASE_URL + '/news' + '/PAYTM';
 
 const News = () => {
   const [news, setNews] = useState([]);

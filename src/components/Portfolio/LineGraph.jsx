@@ -11,7 +11,7 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5 }) {
   const [labelsData, setLabels] = useState([]);
 
   const url =
-    process.env.REACT_APP_BASE_URL +
+    import.meta.env.VITE_BASE_URL +
     `/${endpoint}?` +
     `stockSymbol=${symbol}&` +
     `timeframe=${timeFrame}`;

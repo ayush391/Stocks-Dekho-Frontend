@@ -10,7 +10,7 @@ import { AntTab } from '../components/Tabs/AntTab';
 import { AntTabs } from '../components/Tabs/AntTabs';
 import { TabPanel } from '../components/Tabs/TabPanel';
 
-const url = process.env.REACT_APP_BASE_URL + '/transaction/history/';
+const url = import.meta.env.VITE_BASE_URL + '/transaction/history/';
 
 export const TransactionHistory = () => {
   const [value, setValue] = useState(0);

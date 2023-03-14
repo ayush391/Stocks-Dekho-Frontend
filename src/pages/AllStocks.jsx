@@ -17,7 +17,7 @@ import StockChange from '../components/Table/StockChange';
 import StockPChange from '../components/Table/StockPChange';
 import StockSymbol from '../components/Table/StockSymbol';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices';
+const BASE_URL = import.meta.env.VITE_BASE_URL + '/prices';
 const LIMIT = 10;
 
 const AllStocks = () => {

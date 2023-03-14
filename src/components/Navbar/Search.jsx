@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import StockPChange from '../Table/StockPChange';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices/search';
+const BASE_URL = import.meta.env.VITE_BASE_URL + '/prices/search';
 
 const Search = () => {
   const [stocksData, setStocksData] = useState([]);
