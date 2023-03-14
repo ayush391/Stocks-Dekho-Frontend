@@ -56,7 +56,8 @@ export const SignUp = () => {
       .then(async (userCred) => {
         const user = userCred.user;
         await uploadImage(user.uid.toString());
-        const response = await axios.post(process.env.REACT_APP_BASE_URL + '/user/signup', {
+       
+        const response = await axios.post(import.meta.env.VITE_BASE_URL + '/user/signup', {
           userId: user.uid.toString()
         });
 

@@ -16,7 +16,7 @@ export default function SellStock(props) {
 
   const [stockQty, setStockQty] = useState(1);
   const user = getAuth(app);
-  const sellUrl = process.env.REACT_APP_BASE_URL + '/transaction/review/sell';
+  const sellUrl = import.meta.env.VITE_BASE_URL + '/transaction/review/sell';
 
   const [open, setOpen] = useState(false);
   const [orderReview, setOrderReview] = useState({});

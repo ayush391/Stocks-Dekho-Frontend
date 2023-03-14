@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices';
+const BASE_URL = import.meta.env.VITE_BASE_URL + '/prices';
 
 const useSearchStock = (searchQuery) => {
   const [stocksData, setStocksData] = useState([]);

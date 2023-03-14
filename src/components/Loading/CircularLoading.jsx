@@ -8,7 +8,7 @@ const CircularLoading = () => {
         justifyContent: 'center',
         alignItems: 'center',
         padding: '1rem',
-        height: '75vh'
+        height: '50vh'
       }}>
       <CircularProgress size="4rem" />
     </Box>

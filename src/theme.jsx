@@ -14,6 +14,10 @@ const theme = createTheme({
     white: {
       main: '#fff',
       contrastText: '#000'
+    },
+    danger: {
+      main: '#FB2576',
+      contrastText: '#fff'
     }
   },
   components: {

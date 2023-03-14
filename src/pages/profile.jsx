@@ -1,17 +1,5 @@
 import { AccountBalanceWallet, History, MonetizationOn, Wallet } from '@mui/icons-material';
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Typography
-} from '@mui/material';
+import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { getAuth } from 'firebase/auth';
 import { Link } from 'react-router-dom';
@@ -20,6 +8,7 @@ import { app } from '../components/Firebase';
 function Profile() {
   const user = getAuth(app);
   return (
+    <>
     <Container maxWidth="sm">
       <Box
         sx={{
@@ -47,286 +36,87 @@ function Profile() {
             <Typography variant="h1" fontWeight="bold" textAlign="center">
               ₹16.55
             </Typography>
+            <Stack direction="column" flex={1} justifyContent="center" marginTop={2}>
+              <Typography variant="caption" textAlign="center">
+                Current Balance
+              </Typography>
+              <Typography variant="h1" fontWeight="bold" textAlign="center">
+                ₹16.55
+              </Typography>
+            </Stack>
           </Stack>
-        </Stack>
 
-        <Stack direction="row" gap={2} flex={1} justifyContent="center">
-          <Button
-            size="large"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              backgroundColor: 'primary.light',
-              textTransform: 'none'
-            }}>
-            <Link to={'/transactionHistory'}>
+          <Stack direction="row" gap={2} flex={1} justifyContent="center">
+            <Button
+              size="large"
+              component={Link}
+              to={'/transactionHistory'}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: 'primary.light',
+                textTransform: 'none'
+              }}>
               <AccountBalanceWallet fontSize="large" color="primary" />
-            </Link>
-            <Typography variant="caption" display="block">
-              Transaction
+              <Typography variant="caption" display="block">
+                Transaction
+              </Typography>
+            </Button>
+
+            <Button
+              size="large"
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: 'primary.light',
+                textTransform: 'none'
+              }}>
+              <History fontSize="large" color="primary" />
+              <Typography variant="caption" display="block">
+                History
+              </Typography>
+            </Button>
+
+            <Button
+              size="large"
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: 'primary.light',
+                textTransform: 'none'
+              }}>
+              <MonetizationOn fontSize="large" color="primary" />
+              <Typography variant="caption" display="block">
+                Balance
+              </Typography>
+            </Button>
+
+            <Button
+              size="large"
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: 'primary.light',
+                textTransform: 'none'
+              }}>
+              <Wallet fontSize="large" color="primary" />
+              <Typography variant="caption" display="block">
+                Holdings
+              </Typography>
+            </Button>
+          </Stack>
+
+          <Box marginTop={5}>
+            <Typography variant="h5" fontWeight="bold" gutterBottom>
+              Recent Transactions
             </Typography>
-          </Button>
-
-          <Button
-            size="large"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              backgroundColor: 'primary.light',
-              textTransform: 'none'
-            }}>
-            <History fontSize="large" color="primary" />
-            <Typography variant="caption" display="block">
-              History
-            </Typography>
-          </Button>
-
-          <Button
-            size="large"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              backgroundColor: 'primary.light',
-              textTransform: 'none'
-            }}>
-            <MonetizationOn fontSize="large" color="primary" />
-            <Typography variant="caption" display="block">
-              Balance
-            </Typography>
-          </Button>
-
-          <Button
-            size="large"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              backgroundColor: 'primary.light',
-              textTransform: 'none'
-            }}>
-            <Wallet fontSize="large" color="primary" />
-            <Typography variant="caption" display="block">
-              Holdings
-            </Typography>
-          </Button>
-        </Stack>
-
-        <Box marginY={5}>
-          <Typography variant="h5" fontWeight="bold" gutterBottom>
-            Recent Transactions
-          </Typography>
-          <TableContainer component={Card} variant="outlined">
-            <Table>
-              <TableBody>
-                <TableRow
-                  sx={{
-                    '&:hover': {
-                      backgroundColor: '#00000010'
-                    }
-                  }}>
-                  <TableCell>
-                    <img
-                      src="https://download.logo.wine/logo/Paytm/Paytm-Logo.wine.png"
-                      width={50}
-                    />
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        fontWeight: 'bold',
-                        width: 100
-                      }}>
-                      <Typography
-                        fontWeight="bold"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        PAYTM
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        One97 Communications
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Stack alignItems="center">
-                      <Typography
-                        variant="h5"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        ₹{4502.55}
-                      </Typography>
-                    </Stack>
-                  </TableCell>
-                </TableRow>
-                <TableRow
-                  sx={{
-                    '&:hover': {
-                      backgroundColor: '#00000010'
-                    }
-                  }}>
-                  <TableCell>
-                    <img
-                      src="https://download.logo.wine/logo/Paytm/Paytm-Logo.wine.png"
-                      width={50}
-                    />
-
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        fontWeight: 'bold',
-                        width: 100
-                      }}>
-                      <Typography
-                        fontWeight="bold"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        PAYTM
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        One97 Communications
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Stack alignItems="center">
-                      <Typography
-                        variant="h5"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        ₹{4502.55}
-                      </Typography>
-                    </Stack>
-                  </TableCell>
-                </TableRow>
-                <TableRow
-                  sx={{
-                    '&:hover': {
-                      backgroundColor: '#00000010'
-                    }
-                  }}>
-                  <TableCell>
-                    <img
-                      src="https://download.logo.wine/logo/Paytm/Paytm-Logo.wine.png"
-                      width={50}
-                    />
-
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        fontWeight: 'bold',
-                        width: 100
-                      }}>
-                      <Typography
-                        fontWeight="bold"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        PAYTM
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        One97 Communications
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Stack alignItems="center">
-                      <Typography
-                        variant="h5"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        ₹{4502.55}
-                      </Typography>
-                    </Stack>
-                  </TableCell>
-                </TableRow>
-                <TableRow
-                  sx={{
-                    '&:hover': {
-                      backgroundColor: '#00000010'
-                    }
-                  }}>
-                  <TableCell>
-                    <img
-                      src="https://download.logo.wine/logo/Paytm/Paytm-Logo.wine.png"
-                      width={50}
-                    />
-
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        fontWeight: 'bold',
-                        width: 100
-                      }}>
-                      <Typography
-                        fontWeight="bold"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        PAYTM
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        One97 Communications
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Stack alignItems="center">
-                      <Typography
-                        variant="h5"
-                        sx={{
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden'
-                        }}>
-                        ₹{4502.55}
-                      </Typography>
-                    </Stack>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
+          </Box>
+          </Stack>
         </Box>
-      </Box>
-    </Container>
-  );
+      </Container>
+      <TransactionLogCard log={transactions.slice(0, 5)} loading={loading} error={error} />
+    </>
+  )
 }
 
 export default Profile;

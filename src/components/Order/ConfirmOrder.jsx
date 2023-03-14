@@ -21,7 +21,7 @@ import OrderSuccessfull from './OrderSuccessful';
 
 const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => {
   const url =
-    process.env.REACT_APP_BASE_URL +
+    import.meta.env.VITE_BASE_URL +
     (transactionType === 'buy' ? '/transaction/buy/' : '/transaction/sell/');
   const user = getAuth(app);
 

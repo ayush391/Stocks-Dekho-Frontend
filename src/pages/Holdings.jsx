@@ -11,7 +11,7 @@ import { app } from '../components/Firebase';
 const StockCard = (props) => {
   const holdings = props.holdings;
   const [priceTick, setPriceTick] = useState({});
-  const baseUrl = process.env.REACT_APP_BASE_URL + '/prices/';
+  const baseUrl = import.meta.env.VITE_BASE_URL + '/prices/';
 
   useEffect(() => {
     async function getPrice() {
@@ -55,7 +55,7 @@ const StockCard = (props) => {
 };
 export const Holdings = () => {
   const auth = getAuth(app);
-  const baseUrl = process.env.REACT_APP_BASE_URL + '/portfolio/';
+  const baseUrl = import.meta.env.VITE_BASE_URL + '/portfolio/';
   const [HoldingsList, setHoldingsList] = useState([]);
   const [user, loading, error] = useAuthState(auth);
   useEffect(() => {

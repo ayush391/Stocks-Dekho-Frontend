@@ -1,5 +1,6 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
 import Search from './components/Navbar/Search';
 import AllStocks from './pages/AllStocks';
 import { BankHistory } from './pages/BankHistory';
@@ -13,12 +14,11 @@ import SellStock from './pages/SellStock';
 import StockPage from './pages/StockPage';
 import { TransactionHistory } from './pages/TransactionHistory';
 import AppTheme from './theme';
-import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <CssBaseline />
         <ThemeProvider theme={AppTheme}>
           <Routes>
@@ -36,7 +36,7 @@ function App() {
             <Route path="/sell/:symbol" element={<SellStock />}></Route>
           </Routes>
         </ThemeProvider>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

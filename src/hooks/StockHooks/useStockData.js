@@ -10,7 +10,7 @@ const useStockData = (symbol) => {
     (async () => {
       setLoading(true);
       try {
-        const url = process.env.REACT_APP_BASE_URL + '/prices/' + symbol?.toString();
+        const url = import.meta.env.VITE_BASE_URL + '/prices/' + symbol?.toString();
         const result = await axios.get(url);
         const data = await result.data;
         // console.log(data)
