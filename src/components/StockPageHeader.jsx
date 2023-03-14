@@ -15,9 +15,10 @@ const StockPageHeader = ({ symbol }) => {
     <Stack
       alignItems="center"
       paddingY={5}
+      marginY={2}
       sx={{
         textAlign: 'center',
-        backgroundImage: 'linear-gradient(0deg, #7abbfc60 1%, #7abbfc00 100%)',
+        backgroundImage: 'linear-gradient(180deg, #7abbfc60 1%, #7abbfc00 80%)',
         borderRadius: '20px',
         width: '100%',
         paddingY: 3

@@ -14,19 +14,6 @@ const PriceHistoryPanel = ({ symbol }) => {
 
   return (
     <Box marginY={5}>
-      <AntTabs
-        variant="scrollable"
-        allowScrollButtonsMobile
-        value={value}
-        onChange={handleChange}
-        aria-label="basic tabs example"
-        sx={{ marginBottom: 2 }}>
-        <AntTab label="5D" />
-        <AntTab label="1M" />
-        <AntTab label="6M" />
-        <AntTab label="1Y" />
-        <AntTab label="2Y" />
-      </AntTabs>
       <TabPanel value={value} index={0}>
         <LineGraph symbol={symbol} timeFrame={5} />
       </TabPanel>
@@ -42,6 +29,19 @@ const PriceHistoryPanel = ({ symbol }) => {
       <TabPanel value={value} index={4}>
         <LineGraph symbol={symbol} timeFrame={730} />
       </TabPanel>
+      <AntTabs
+        variant="scrollable"
+        allowScrollButtonsMobile
+        value={value}
+        onChange={handleChange}
+        aria-label="basic tabs example"
+        sx={{ marginBottom: 2 }}>
+        <AntTab label="5D" />
+        <AntTab label="1M" />
+        <AntTab label="6M" />
+        <AntTab label="1Y" />
+        <AntTab label="2Y" />
+      </AntTabs>
     </Box>
   );
 };
