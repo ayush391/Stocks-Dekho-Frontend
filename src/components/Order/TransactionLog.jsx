@@ -11,6 +11,7 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import CircularLoading from '../Loading/CircularLoading';
 
 export const TransactionLogCard = ({ log, loading, error }) => {
@@ -32,12 +33,12 @@ export const TransactionLogCard = ({ log, loading, error }) => {
                     }
                   }}>
                   <TableCell>
-                    <img
+                    {/* <img
                       src={
                         logItem.icon || 'https://download.logo.wine/logo/Paytm/Paytm-Logo.wine.png'
                       }
                       width={50}
-                    />
+                    /> */}
                     <Box
                       sx={{
                         display: 'flex',
@@ -47,10 +48,16 @@ export const TransactionLogCard = ({ log, loading, error }) => {
                         width: 150
                       }}>
                       <Typography
+                        component={Link}
+                        to={'/' + logItem.stockSymbol}
                         fontWeight="bold"
                         sx={{
+                          color: 'primary.main',
                           textOverflow: 'ellipsis',
-                          overflow: 'hidden'
+                          overflow: 'hidden',
+                          ':visited': {
+                            color: 'primary.main'
+                          }
                         }}>
                         {logItem.stockSymbol}
                       </Typography>
