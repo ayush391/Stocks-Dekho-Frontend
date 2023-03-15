@@ -55,7 +55,7 @@ function Profile() {
               <Typography variant="caption" textAlign="center">
                 Current Balance
               </Typography>
-              <Typography variant="h1" fontWeight="bold" textAlign="center">
+              <Typography variant="h1" fontWeight="bold" textAlign="center" gutterBottom>
                 ₹{price.toFixed(2)}
               </Typography>
             </Stack>
@@ -73,7 +73,7 @@ function Profile() {
                 }}>
                 <AccountBalanceWallet fontSize="large" color="primary" />
                 <Typography variant="caption" display="block">
-                  Transaction
+                  Transactions
                 </Typography>
               </Button>
 
@@ -119,12 +119,11 @@ function Profile() {
                 </Typography>
               </Button>
             </Stack>
-
-            <Typography variant="h5" fontWeight="bold" gutterBottom>
-              Recent Transactions
-            </Typography>
           </Stack>
         </Box>
+        <Typography variant="h5" fontWeight="bold" gutterBottom>
+          Recent Transactions
+        </Typography>
       </Container>
       <TransactionLogCard
         log={transactions.slice(0, 5)}
