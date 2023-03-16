@@ -1,4 +1,4 @@
-import { Avatar, Box, Button } from '@mui/material';
+import { Alert, Avatar, Box, Button, Snackbar } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
@@ -22,6 +22,16 @@ export const SignUp = () => {
   const [profileUrl, setProfileUrl] = useState('');
   const [file, setFile] = useState({});
   const [previewImage, setPreviewImage] = useState('');
+
+  const [alert, setAlert] = useState({ message: '', open: false, type: 'error' });
+
+  const handleOpen = (msg, type) => {
+    setAlert({ message: msg, open: true, type: type });
+  };
+  const handleClose = () => {
+    setAlert({ ...alert, open: false });
+  };
+
   const auth = getAuth(app);
   const navigate = useNavigate();
   const storage = getStorage();
@@ -66,6 +76,8 @@ export const SignUp = () => {
           photoURL: profileUrl.toString()
         }).then(() => {
           console.log('profile set up complete');
+          handleOpen('Registeration Successful', 'success');
+          setTimeout(() => navigate('/'), 2000);
         });
         sendEmailVerification(user)
           .then(() => {
@@ -74,7 +86,7 @@ export const SignUp = () => {
           })
           .catch((e) => navigate(-1));
       })
-      .catch((e) => alert(e));
+      .catch((e) => handleOpen(e.message, 'error'));
   };
   return (
     <Box
@@ -105,6 +117,12 @@ export const SignUp = () => {
       </FormControl>
 
       <Button onClick={SignBtnHandler}>SignUp</Button>
+
+      <Snackbar open={alert.open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={alert.type} sx={{ width: '100%' }}>
+          {alert.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

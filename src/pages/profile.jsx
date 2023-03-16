@@ -1,17 +1,22 @@
 import { AccountBalanceWallet, History, MonetizationOn, Wallet } from '@mui/icons-material';
 import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import { Container } from '@mui/system';
+import axios from 'axios';
 import { getAuth } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import { app } from '../components/Firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { TransactionLogCard } from '../components/Order/TransactionLog';
+import useTransactionHistory from '../hooks/OrderHooks/useTransactionHistory';
 function Profile() {
   const auth = getAuth(app);
   const [user, loading, error] = useAuthState(auth);
   const walletUrl = import.meta.env.VITE_BASE_URL + '/wallet/';
   const [price, setPrice] = useState(0);
+
+  const { transactions, transLoading, transError } = useTransactionHistory();
 
   useEffect(() => {
     async function getWallet() {
@@ -51,8 +56,8 @@ function Profile() {
               <Typography variant="caption" textAlign="center">
                 Current Balance
               </Typography>
-              <Typography variant="h1" fontWeight="bold" textAlign="center">
-                {price}
+              <Typography variant="h1" fontWeight="bold" textAlign="center" gutterBottom>
+                ₹{price.toFixed(2)}
               </Typography>
             </Stack>
 
@@ -69,7 +74,7 @@ function Profile() {
                 }}>
                 <AccountBalanceWallet fontSize="large" color="primary" />
                 <Typography variant="caption" display="block">
-                  Transaction
+                  Transactions
                 </Typography>
               </Button>
 
@@ -115,17 +120,17 @@ function Profile() {
                 </Typography>
               </Button>
             </Stack>
-
-            <Box marginTop={5}>
-              <Typography variant="h5" fontWeight="bold" gutterBottom>
-                Recent Transactions
-              </Typography>
-            </Box>
           </Stack>
-          s
         </Box>
+        <Typography variant="h5" fontWeight="bold" gutterBottom>
+          Recent Transactions
+        </Typography>
       </Container>
-      {/* <TransactionLogCard log={transactions.slice(0, 5)} loading={loading} error={error} /> */}
+      <TransactionLogCard
+        log={transactions.slice(0, 5)}
+        loading={transLoading}
+        error={transError}
+      />
     </>
   );
 }
