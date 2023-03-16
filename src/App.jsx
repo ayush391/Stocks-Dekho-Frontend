@@ -1,6 +1,7 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Navbar from './components/Navbar/Navbar';
 import Search from './components/Navbar/Search';
 import AllStocks from './pages/AllStocks';
 import { BankHistory } from './pages/BankHistory';
@@ -21,6 +22,7 @@ function App() {
       <HashRouter>
         <CssBaseline />
         <ThemeProvider theme={AppTheme}>
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/allstocks" element={<AllStocks />}></Route>
