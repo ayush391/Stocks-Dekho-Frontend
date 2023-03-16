@@ -1,5 +1,5 @@
-import { ArrowBackOutlined } from '@mui/icons-material';
-import { AppBar, IconButton, Toolbar } from '@mui/material';
+import { ArrowBackIosNewRounded } from '@mui/icons-material';
+import { AppBar, Button, Toolbar } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,18 +18,21 @@ const AppNavigation = () => {
         color="transparent"
         elevation={0}
         sx={{
-          top: 0
-          // backdropFilter: 'blur(5px)'
+          top: 0,
+          backgroundImage: 'linear-gradient(45deg,#73b9ff,#73b9ff20)',
+          backdropFilter: 'blur(5px)'
         }}>
         <Toolbar
+          variant="dense"
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
             gap: 3
           }}>
-          <IconButton onClick={handleBack} size="large">
-            <ArrowBackOutlined color="primary" />
-          </IconButton>
+          <Button onClick={handleBack} size="medium" color="white">
+            <ArrowBackIosNewRounded color="white" sx={{ marginRight: 1 }} />
+            Back
+          </Button>
         </Toolbar>
       </AppBar>
     </>
