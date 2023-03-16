@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Alert, Box, Button, Snackbar } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,6 +10,16 @@ import { app } from './Firebase';
 export const LoginComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [alert, setAlert] = useState({ message: '', open: false, type: 'error' });
+
+  const handleOpen = (msg, type) => {
+    setAlert({ message: msg, open: true, type: type });
+  };
+  const handleClose = () => {
+    setAlert({ ...alert, open: false });
+  };
+
   const auth = getAuth(app);
   const navigate = useNavigate();
   const handleEmail = (event) => {
@@ -23,9 +33,10 @@ export const LoginComponent = () => {
       .then((userCred) => {
         const user = userCred.user;
         console.log('logged in sucessfully');
-        navigate('/');
+        handleOpen('Login Successful', 'success');
+        setTimeout(() => navigate('/'), 2000);
       })
-      .catch((e) => alert(e));
+      .catch((e) => handleOpen(e.message, 'error'));
   };
   return (
     <Box
@@ -49,6 +60,12 @@ export const LoginComponent = () => {
       <Button onClick={LoginBtnHandler} style={{ backgroundColor: 'purple', color: 'white' }}>
         LogIn
       </Button>
+
+      <Snackbar open={alert.open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={alert.type} sx={{ width: '100%' }}>
+          {alert.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
