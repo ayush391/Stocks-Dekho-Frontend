@@ -35,6 +35,13 @@ const theme = createTheme({
           borderRadius: '20px'
         }
       }
+    },
+    MuiTextField: {
+      root: {
+        [`& fieldset`]: {
+          borderRadius: 0
+        }
+      }
     }
   }
 });
