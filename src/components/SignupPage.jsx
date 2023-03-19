@@ -65,7 +65,9 @@ export const SignUpPage = () => {
       const url = await getDownloadURL(storageRef);
       console.log(url);
       setProfileUrl(url);
+      return url.toString()
     }
+    return ""
   };
   const handleFile = (event) => {
     console.log(event.target.files[0]);
@@ -76,7 +78,7 @@ export const SignUpPage = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCred) => {
         const user = userCred.user;
-        await uploadImage(user.uid.toString());
+        let picUrl = await uploadImage(user.uid.toString());
 
         const response = await axios.post(import.meta.env.VITE_BASE_URL + '/user/signup', {
           userId: user.uid.toString()
@@ -84,7 +86,7 @@ export const SignUpPage = () => {
 
         updateProfile(user, {
           displayName: name.toString(),
-          photoURL: profileUrl.toString()
+          photoURL: picUrl
         }).then(() => {
           console.log('profile set up complete');
           setLoading(false);
