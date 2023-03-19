@@ -7,3 +7,8 @@ body * {
 a {
   text-decoration: none;
 }
+
+/* for mui textfield border radius */
+.MuiOutlinedInput-root {
+  border-radius: 15px !important;
+}

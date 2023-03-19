@@ -13,14 +13,14 @@ const AppNavigation = () => {
   return (
     <>
       <AppBar
-        variant="elevation"
+        variant="outlined"
         position="sticky"
-        color="transparent"
+        color="white"
         elevation={0}
         sx={{
-          top: 0,
-          backgroundImage: 'linear-gradient(45deg,#73b9ff,#73b9ff20)',
-          backdropFilter: 'blur(5px)'
+          top: 0
+          // backgroundImage: 'linear-gradient(45deg,#73b9ff,#73b9ff20)',
+          // backdropFilter: 'blur(5px)'
         }}>
         <Toolbar
           variant="dense"
@@ -29,8 +29,8 @@ const AppNavigation = () => {
             justifyContent: 'space-between',
             gap: 3
           }}>
-          <Button onClick={handleBack} size="medium" color="white">
-            <ArrowBackIosNewRounded color="white" sx={{ marginRight: 1 }} />
+          <Button onClick={handleBack} size="medium">
+            <ArrowBackIosNewRounded sx={{ marginRight: 1 }} />
             Back
           </Button>
         </Toolbar>

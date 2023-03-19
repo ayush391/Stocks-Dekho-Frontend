@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import { app } from '../components/Firebase';
-import axios from 'axios';
 import { TransactionLogCard } from '../components/Order/TransactionLog';
 import useTransactionHistory from '../hooks/OrderHooks/useTransactionHistory';
 function Profile() {
