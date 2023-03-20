@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { Link } from 'react-router-dom';
-import TableSkeleton from '../Loading/TableSkeleton';
 import StockPChange from '../Table/StockPChange';
 import StockSymbol from '../Table/StockSymbol';
 
@@ -89,9 +88,8 @@ const StockTable = ({ stocksData }) => {
             </TableBody>
           </Table>
         </TableContainer>
-      ) : (
-        <TableSkeleton rows={7} columns={4} />
-      )}
+      ) : // <TableSkeleton rows={7} columns={4} />
+      null}
     </>
   );
 };
