@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from '@mui/material';
 
-const CircularLoading = () => {
+const CircularLoading = ({ style }) => {
   return (
     <Box
       sx={{
@@ -8,7 +8,8 @@ const CircularLoading = () => {
         justifyContent: 'center',
         alignItems: 'center',
         padding: '1rem',
-        height: '50vh'
+        height: '50vh',
+        ...style
       }}>
       <CircularProgress size="4rem" />
     </Box>

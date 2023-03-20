@@ -10,7 +10,7 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5 }) {
 
   const [stockPriceHistoryList, setStockPriceHistoryList] = useState([]);
   const [labelsData, setLabels] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const url =
     import.meta.env.VITE_BASE_URL +
@@ -206,7 +206,11 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5 }) {
 
   return (
     <Box>
-      {loading ? <CircularLoading /> : <Line data={graph} options={options} plugins={plugins} />}
+      {loading ? (
+        <CircularLoading style={{ height: '250px', width: '100%' }} />
+      ) : (
+        <Line data={graph} options={options} plugins={plugins} />
+      )}
     </Box>
   );
 }

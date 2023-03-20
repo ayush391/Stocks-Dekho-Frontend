@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import useStockData from '../hooks/StockHooks/useStockData';
-import CircularLoading from './Loading/CircularLoading';
+import StockPageHeaderSkeleton from './Loading/StockPageHeaderSkeleton';
 import StockPChange from './Table/StockPChange';
 import StockSymbol from './Table/StockSymbol';
 
@@ -10,7 +10,7 @@ const StockPageHeader = ({ symbol }) => {
   return error ? (
     <Typography>An error occured</Typography>
   ) : loading ? (
-    <CircularLoading />
+    <StockPageHeaderSkeleton />
   ) : (
     <Stack
       alignItems="center"
