@@ -5,7 +5,7 @@ import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { app } from '../components/Firebase';
 import { TransactionLogCard } from '../components/Order/TransactionLog';
 import useTransactionHistory from '../hooks/OrderHooks/useTransactionHistory';
@@ -17,6 +17,8 @@ function Profile() {
 
   const { transactions, transLoading, transError } = useTransactionHistory();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     async function getWallet() {
       if (loading) {
@@ -27,7 +29,12 @@ function Profile() {
         }
       }
     }
-    getWallet();
+
+    if (user) {
+      getWallet();
+    } else {
+      navigate('/login');
+    }
   }, [loading, user]);
   return (
     <>

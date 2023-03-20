@@ -1,4 +1,4 @@
-import { AccountBox, House, LogoutRounded, VerifiedUser, Wallet } from '@mui/icons-material';
+import { AccountBox, House, Login, LogoutRounded, VerifiedUser, Wallet } from '@mui/icons-material';
 import { List } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -9,12 +9,22 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { getAuth, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { app } from '../Firebase';
 
 export default function TemporaryDrawer({ open, onClose }) {
   const auth = getAuth(app);
   const [user, loading, error] = useAuthState(auth);
+
+  const navigate = useNavigate();
+
+  const checkUser = () => {
+    if (user === null) {
+      navigate('/login');
+      return false;
+    }
+    return true;
+  };
 
   const Logout = () => {
     if (user != null) {
@@ -34,55 +44,60 @@ export default function TemporaryDrawer({ open, onClose }) {
       // onKeyDown={() => toggleDrawer(anchor, false)}
     >
       <List>
-        <Link to="/">
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <House />
-              </ListItemIcon>
-              <ListItemText>Home</ListItemText>
-            </ListItemButton>
-          </ListItem>
-        </Link>
-        <Link to="/holdings">
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <Wallet />
-              </ListItemIcon>
-              <ListItemText>Holdings</ListItemText>
-            </ListItemButton>
-          </ListItem>
-        </Link>
-        <Link to="/portfolio">
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <VerifiedUser />
-              </ListItemIcon>
-              <ListItemText>Portfolio</ListItemText>
-            </ListItemButton>
-          </ListItem>
-        </Link>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => navigate('/')}>
+            <ListItemIcon>
+              <House />
+            </ListItemIcon>
+            <ListItemText>Home</ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => checkUser() && navigate('/holdings')}>
+            <ListItemIcon>
+              <Wallet />
+            </ListItemIcon>
+            <ListItemText>Holdings</ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => checkUser() && navigate('/profile')}>
+            <ListItemIcon>
+              <VerifiedUser />
+            </ListItemIcon>
+            <ListItemText>Portfolio</ListItemText>
+          </ListItemButton>
+        </ListItem>
       </List>
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="#">
+          <ListItemButton onClick={() => checkUser() && navigate('/profile')}>
             <ListItemIcon>
               <AccountBox />
             </ListItemIcon>
             <ListItemText>Profile</ListItemText>
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton onClick={Logout}>
-            <ListItemIcon>
-              <LogoutRounded />
-            </ListItemIcon>
-            <ListItemText>Logout</ListItemText>
-          </ListItemButton>
-        </ListItem>
+        {user ? (
+          <ListItem disablePadding>
+            <ListItemButton onClick={Logout}>
+              <ListItemIcon>
+                <LogoutRounded />
+              </ListItemIcon>
+              <ListItemText>Logout</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        ) : (
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate('/login')}>
+              <ListItemIcon>
+                <Login />
+              </ListItemIcon>
+              <ListItemText>Login</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        )}
       </List>
     </Box>
   );
