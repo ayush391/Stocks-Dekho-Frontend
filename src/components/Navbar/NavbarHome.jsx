@@ -1,6 +1,5 @@
-import { Avatar } from '@chakra-ui/react';
 import { AccountCircle } from '@mui/icons-material';
-import { AppBar, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
+import { AppBar, Avatar, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
 import { getAuth, signOut } from 'firebase/auth';
 import Hamburger from 'hamburger-react';
 import { useEffect, useState } from 'react';
@@ -16,13 +15,7 @@ const NavbarHome = () => {
   const auth = getAuth(app);
   const [user, loading, error] = useAuthState(auth);
 
-  const RenderSideBar = (props) => {
-    if (props.condition) {
-      return <TemporaryDrawer />;
-    }
-  };
   const Logout = () => {
-    // user = getAuth(app)
     if (user != null) {
       signOut(auth)
         .then(() => {
@@ -35,13 +28,12 @@ const NavbarHome = () => {
   const LoggedInComponent = () => {
     console.log('photo', user != null && user.photoURL != null ? user.photoURL : '');
     return (
-      <>
+      <IconButton component={Link} to="/profile">
         <Avatar
-          style={{ maxWidth: 50 }}
-          src={user != null && user.photoURL != null ? user.photoURL.toString() : ''}
-          onClick={Logout}
+          style={{ width: 40, height: 40 }}
+          src={user?.photoURL ? user.photoURL.toString() : ''}
         />
-      </>
+      </IconButton>
     );
   };
   const RenderComponent = (props) => {
@@ -61,7 +53,6 @@ const NavbarHome = () => {
               backgroundColor: 'linear-gradient(55deg,#73b9ff,#73b9ff20)'
             }}>
             <AccountCircle fontSize="large" color="info" />
-            {/* <Typography color='white' textTransform='none' marginX={1}>Login</Typography> */}
           </IconButton>
         </>
       );
@@ -104,11 +95,6 @@ const NavbarHome = () => {
           }}>
           <Stack direction="row">
             <Hamburger color="white" toggled={isOpen} toggle={setOpen} />
-            {/* <Button variant='text' component={Link} to='/'>
-                            <Typography variant='h5' fontWeight='bold' color='white' textTransform='none'
-                                fontFamily='Righteous'
-                            >StoxDekho</Typography>
-                        </Button> */}
           </Stack>
 
           <Search />
@@ -117,7 +103,6 @@ const NavbarHome = () => {
         </Toolbar>
         <TemporaryDrawer open={isOpen} onClose={() => setOpen(false)} />
       </AppBar>
-      {/* <RenderSideBar condition={isOpen} onClose={() => setOpen(false)} /> */}
     </>
   );
 };
