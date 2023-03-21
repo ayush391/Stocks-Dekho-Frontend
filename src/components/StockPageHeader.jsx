@@ -1,29 +1,25 @@
-import { Divider, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import useStockData from '../hooks/StockHooks/useStockData';
-import CircularLoading from './Loading/CircularLoading';
+import StockPageHeaderSkeleton from './Loading/StockPageHeaderSkeleton';
 import StockPChange from './Table/StockPChange';
 import StockSymbol from './Table/StockSymbol';
 
 const StockPageHeader = ({ symbol }) => {
-  const stockUrl = process.env.REACT_APP_BASE_URL + '/stocks/' + symbol?.toString();
-  const priceUrl = process.env.REACT_APP_BASE_URL + '/prices/' + symbol?.toString();
-
   const { stockData, loading, error } = useStockData(symbol);
 
   return error ? (
     <Typography>An error occured</Typography>
   ) : loading ? (
-    <CircularLoading />
+    <StockPageHeaderSkeleton />
   ) : (
     <Stack
       alignItems="center"
-      paddingY={5}
+      paddingY={2}
       sx={{
         textAlign: 'center',
-        backgroundImage: 'linear-gradient(0deg, #7abbfc60 1%, #7abbfc00 100%)',
+        // backgroundImage: 'linear-gradient(180deg, #7abbfc60 1%, #7abbfc00 80%)',
         borderRadius: '20px',
-        width: '100%',
-        paddingY: 3
+        width: '100%'
       }}>
       <Typography variant="h5" fontWeight="bold">
         {stockData?.meta?.companyName}
@@ -37,8 +33,6 @@ const StockPageHeader = ({ symbol }) => {
         ) : (
           <StockSymbol symbol={stockData?.symbol} />
         )}
-
-        <Divider sx={{ my: 2 }} />
 
         <Stack
           gap={2}

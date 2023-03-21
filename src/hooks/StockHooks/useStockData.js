@@ -1,18 +1,16 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices';
-
 const useStockData = (symbol) => {
   const [stockData, setStocksData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
       try {
-        const url = process.env.REACT_APP_BASE_URL + '/prices/' + symbol?.toString();
+        const url = import.meta.env.VITE_BASE_URL + '/prices/' + symbol?.toString();
         const result = await axios.get(url);
         const data = await result.data;
         // console.log(data)

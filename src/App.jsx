@@ -1,12 +1,15 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import { LoginPage } from './components/LoginPage';
+import Navbar from './components/Navbar/Navbar';
 import Search from './components/Navbar/Search';
+import { SignUpPage } from './components/SignupPage';
 import AllStocks from './pages/AllStocks';
 import { BankHistory } from './pages/BankHistory';
 import BuyStock from './pages/BuyStock';
 import { HoldingPage } from './pages/Holdings';
 import Home from './pages/Home';
-import { LoginPage } from './pages/Login';
 import { Portfolio } from './pages/Portoflio';
 import Profile from './pages/profile';
 import SellStock from './pages/SellStock';
@@ -17,13 +20,15 @@ import AppTheme from './theme';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <CssBaseline />
         <ThemeProvider theme={AppTheme}>
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/allstocks" element={<AllStocks />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
+            <Route path="/signup" element={<SignUpPage />}></Route>
             <Route path="/:symbol" element={<StockPage />}></Route>
             <Route path="/search" element={<Search />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
@@ -35,7 +40,7 @@ function App() {
             <Route path="/sell/:symbol" element={<SellStock />}></Route>
           </Routes>
         </ThemeProvider>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

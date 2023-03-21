@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import useAllStocks from '../../hooks/StockHooks/useAllStocks';
-import CircularLoading from '../Loading/CircularLoading';
+import TableSkeletonPhone from '../Loading/TableSkeletonPhone';
 import StockTable from '../Table/StockTable';
 
 const MostActive = () => {
@@ -11,7 +11,7 @@ const MostActive = () => {
       {error ? (
         <Typography>An error occured</Typography>
       ) : loading ? (
-        <CircularLoading />
+        <TableSkeletonPhone rows={5} />
       ) : (
         <StockTable stocksData={stocksData} />
       )}

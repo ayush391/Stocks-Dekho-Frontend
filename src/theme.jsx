@@ -14,6 +14,10 @@ const theme = createTheme({
     white: {
       main: '#fff',
       contrastText: '#000'
+    },
+    danger: {
+      main: '#FB2576',
+      contrastText: '#fff'
     }
   },
   components: {
@@ -29,6 +33,13 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '20px'
+        }
+      }
+    },
+    MuiTextField: {
+      root: {
+        [`& fieldset`]: {
+          borderRadius: 0
         }
       }
     }

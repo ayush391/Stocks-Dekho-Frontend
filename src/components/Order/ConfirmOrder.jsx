@@ -1,4 +1,3 @@
-import { IconButton } from '@chakra-ui/react';
 import { Close } from '@mui/icons-material';
 import {
   Box,
@@ -7,6 +6,7 @@ import {
   CardContent,
   Container,
   Divider,
+  IconButton,
   Modal,
   Slide,
   Stack,
@@ -14,22 +14,32 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { app } from '../Firebase';
+import CircularLoading from '../Loading/CircularLoading';
 import OrderSuccessfull from './OrderSuccessful';
 
 const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => {
   const url =
-    process.env.REACT_APP_BASE_URL +
+    import.meta.env.VITE_BASE_URL +
     (transactionType === 'buy' ? '/transaction/buy/' : '/transaction/sell/');
   const user = getAuth(app);
 
   const [showResult, setShowResult] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleOrder = async () => {
-    const response = await axios.post(url, { ...reviewOrder, userId: user.currentUser.uid });
-    if (response.status === 200) {
-      setShowResult(true);
+    try {
+      setLoading(true);
+      const response = await axios.post(url, { ...reviewOrder, userId: user.currentUser.uid });
+      if (response.status === 200) {
+        setShowResult(true);
+        setLoading(false);
+      }
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
     }
   };
 
@@ -38,11 +48,15 @@ const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => 
       <Slide direction="left" in={open}>
         {showResult ? (
           <OrderSuccessfull reviewOrder={reviewOrder} onClose={onClose} />
+        ) : error ? (
+          <Typography>An error occured</Typography>
+        ) : loading ? (
+          <CircularLoading />
         ) : (
-          <Container maxWidth="sm">
-            <Card sx={{ borderRadius: '20px' }}>
+          <Container maxWidth="sm" sx={{ position: 'relative', top: '50%' }}>
+            <Card sx={{ borderRadius: '20px', transform: 'translateY(-50%)' }}>
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '0.5rem 1rem' }}>
-                <IconButton onClick={onClose} sx={{}}>
+                <IconButton onClick={onClose}>
                   <Close />
                 </IconButton>
               </Box>
@@ -76,19 +90,19 @@ const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => 
                   <Typography sx={{ color: '#52565b' }}>{reviewOrder.quantity}</Typography>
                 </Stack>
                 <Divider />
-                <Stack direction="row" justifyContent="space-between">
+                {/* <Stack direction="row" justifyContent="space-between">
                   <Typography sx={{ color: '#a0a4a8' }}>Transaction Fee</Typography>
                   <Typography sx={{ color: '#52565b' }}>Free</Typography>
-                </Stack>
-                <Divider />
+                </Stack> */}
+                {/* <Divider /> */}
                 <Stack direction="row" justifyContent="space-between">
                   <Typography sx={{ color: '#a0a4a8' }}>Order Total</Typography>
                   <Typography sx={{ color: '#52565b' }}>Rs.{reviewOrder.orderAmount}</Typography>
                 </Stack>
+                <Button size="large" variant="contained" fullWidth onClick={handleOrder}>
+                  Place Order
+                </Button>
               </CardContent>
-              <Button size="large" variant="contained" fullWidth onClick={handleOrder}>
-                Place Order
-              </Button>
             </Card>
           </Container>
         )}

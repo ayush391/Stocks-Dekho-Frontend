@@ -1,46 +1,25 @@
-import {
-  Button,
-  ChakraProvider,
-  FormLabel,
-  Input,
-  Select,
-  Stat,
-  StatArrow,
-  StatGroup,
-  StatHelpText,
-  StatNumber
-} from '@chakra-ui/react';
+import { Box, Button, Container, Modal, Stack, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { app } from '../components/Firebase';
+import CircularLoading from '../components/Loading/CircularLoading';
+import ConfirmOrder from '../components/Order/ConfirmOrder';
+import useStockData from '../hooks/StockHooks/useStockData';
 
 export default function SellStock(props) {
+  const params = useParams();
+  const { symbol } = params;
+
+  const { stockData, loading, error } = useStockData(symbol);
+
   const [stockQty, setStockQty] = useState(1);
   const user = getAuth(app);
-  const sellUrl = process.env.REACT_APP_BASE_URL + '/transaction/review/sell';
+  const sellUrl = import.meta.env.VITE_BASE_URL + '/transaction/review/sell';
 
-  const StockVal = () => {
-    return (
-      <div style={{ marginLeft: 26 }}>
-        <StatGroup>
-          <Stat>
-            <StatNumber>{param.data.data != null ? param.data.data.lastPrice : 2452}</StatNumber>
-            <StatHelpText>
-              <StatArrow
-                type={
-                  param.data.data != null && param.data.data.pChange.substring(0, 1) == '-'
-                    ? 'decrease'
-                    : 'increase'
-                }
-              />
-              {param.data.data != null ? param.data.data.pChange : 2452}
-            </StatHelpText>
-          </Stat>
-        </StatGroup>
-      </div>
-    );
-  };
+  const [open, setOpen] = useState(false);
+  const [orderReview, setOrderReview] = useState({});
 
   const handleQty = (e) => {
     setStockQty(e.target.value);
@@ -49,59 +28,89 @@ export default function SellStock(props) {
   const param = props;
   console.log(param);
 
+  const [loadingConfirmOrder, setloadingConfirmOrder] = useState(false);
+
   const SellReview = async () => {
     try {
+      setloadingConfirmOrder(true);
       const response = await axios.post(sellUrl, {
         userId: user.currentUser.uid,
-        stockSymbol: param.data.data != null ? param.data.data.symbol : 'Symbol',
+        stockSymbol: stockData != null ? stockData.symbol : 'Symbol',
         quantity: stockQty
       });
       console.log(response.data);
-    } catch (e) {
-      alert('something went wrong');
+      if (response.status === 200) {
+        setOrderReview(response.data);
+        setOpen(true);
+        setloadingConfirmOrder(false);
+      }
+    } catch (err) {
+      // setError(err.message);
+      setloadingConfirmOrder(false);
     }
   };
   return (
-    <div style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <h1 style={{ textAlign: 'initial', fontSize: 22, fontWeight: 'bold', margin: 10 }}>
-          {'Price'}
-        </h1>
+    <Container maxWidth="sm">
+      <Box
+        sx={{
+          textAlign: 'center'
+        }}>
+        {error ? (
+          <Typography>An error occured</Typography>
+        ) : loading ? (
+          <CircularLoading />
+        ) : (
+          <Stack direction="column" alignItems="center">
+            <Box marginY={2}>
+              <img width={150} src={stockData?.icon}></img>
 
-        <ChakraProvider>
-          <StockVal />
-        </ChakraProvider>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <FormLabel style={{ marginRight: 10, fontWeight: 'bold', fontSize: 22 }}>QTY</FormLabel>
-        <Input
-          onChange={handleQty}
-          endDecorator={
-            <>
-              <Select
-                variant="plain"
-                value={'INR'}
-                sx={{ mr: -1.5, '&:hover': { bgcolor: 'transparent' } }}></Select>
-            </>
-          }
-          sx={{ width: 300 }}
-        />
-      </div>
-      <p>
-        Selling {stockQty} stock : {param.data.data != null ? param.data.data.symbol : 'Symbol'} at{' '}
-        {param.data.data != null ? param.data.data.lastPrice * stockQty : 2452}
-      </p>
-      <Button
-        style={{
-          width: '100%',
-          marginRight: 'auto',
-          marginLeft: 'auto',
-          color: 'white',
-          backgroundColor: 'red'
-        }}
-        onClick={SellReview}>
-        Sell {props.symbol}{' '}
-      </Button>
-    </div>
+              <Typography>{'Total Amount'}</Typography>
+              <Typography variant="h1" fontWeight="bold" color="secondary">
+                ₹{stockData ? (stockData.lastPrice * stockQty).toFixed(2) : 2452}
+              </Typography>
+              <Typography variant="body1" color="grey" gutterBottom>
+                1 Stock ≈ ₹{stockData ? stockData.lastPrice.toFixed(2) : 2452}
+              </Typography>
+
+              <TextField
+                fullWidth
+                autoFocus
+                placeholder="Quantity"
+                type="number"
+                inputProps={{ style: { textAlign: 'center', fontSize: '2rem' }, min: '1' }}
+                onChange={handleQty}
+                sx={{
+                  marginY: 5,
+                  fontSize: '5rem'
+                }}
+              />
+            </Box>
+
+            <Button
+              color="secondary"
+              size="large"
+              disabled={stockQty <= 0}
+              variant="contained"
+              fullWidth
+              onClick={SellReview}>
+              Sell
+            </Button>
+            {loadingConfirmOrder ? (
+              <Modal open={true}>
+                <CircularLoading />
+              </Modal>
+            ) : (
+              <ConfirmOrder
+                onClose={() => setOpen(false)}
+                open={open}
+                icon={stockData != null ? stockData.icon : 'Symbol'}
+                reviewOrder={orderReview}
+                transactionType="sell"
+              />
+            )}
+          </Stack>
+        )}
+      </Box>
+    </Container>
   );
 }

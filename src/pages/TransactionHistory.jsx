@@ -1,63 +1,32 @@
-import { Typography } from '@mui/material';
-import axios from 'axios';
-import { getAuth } from 'firebase/auth';
-import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
-import { app } from '../components/Firebase';
+import { Box, Typography } from '@mui/material';
+import { useState } from 'react';
 import { TransactionLogCard } from '../components/Order/TransactionLog';
 import { AntTab } from '../components/Tabs/AntTab';
 import { AntTabs } from '../components/Tabs/AntTabs';
 import { TabPanel } from '../components/Tabs/TabPanel';
+import useTransactionHistory from '../hooks/OrderHooks/useTransactionHistory';
+
+const url = import.meta.env.VITE_BASE_URL + '/transaction/history/';
 
 export const TransactionHistory = () => {
   const [value, setValue] = useState(0);
-  const auth = getAuth(app);
-  const [user, loading, error] = useAuthState(auth);
+
+  const { transactions, loading, error } = useTransactionHistory();
+
+  const buyList = transactions.filter((item) => item.type == 'BUY');
+  const sellList = transactions.filter((item) => item.type == 'SELL');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const [buyList, setBuyList] = useState([]);
-  const [sellList, setSellList] = useState([]);
-
-  useEffect(() => {
-    if (loading) {
-      /* empty */
-    } else {
-      getLogList();
-    }
-  }, [loading, user]);
-
-  async function getLogList() {
-    const response = await axios.get(
-      'https://us-central1-stock-dekho-b417c.cloudfunctions.net/app/transaction/history/' + user.uid
-    );
-    console.log(response.data);
-    // setLogList(response.data.allTransactions)
-    setBuyList(response.data.allTransactions.filter((item) => item.type == 'BUY'));
-    setSellList(response.data.allTransactions.filter((item) => item.type == 'SELL'));
-  }
-
   return (
-    <div style={{ width: '100%' }}>
-      <Typography
-        component={Link}
-        to="/"
-        textAlign={'center'}
-        marginBottom={1}
-        sx={{
-          backgroundColor: ' #c3defd',
-          fontSize: 22,
-          borderRadius: 3,
-          color: 'white',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center'
-        }}>
-        Transaction History
-      </Typography>
+    <>
+      <Box marginY={2}>
+        <Typography textAlign="center" variant="h5" fontWeight="bold" gutterBottom>
+          Transactions History
+        </Typography>
+      </Box>
       <AntTabs
         style={{ width: '100%' }}
         value={value}
@@ -68,11 +37,11 @@ export const TransactionHistory = () => {
         <AntTab style={{ width: '50%' }} label="Sell" />
       </AntTabs>
       <TabPanel value={value} index={0}>
-        <TransactionLogCard log={buyList} />
+        <TransactionLogCard log={buyList} loading={loading} error={error} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TransactionLogCard log={sellList} />
+        <TransactionLogCard log={sellList} loading={loading} error={error} />
       </TabPanel>
-    </div>
+    </>
   );
 };

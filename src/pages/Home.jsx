@@ -1,12 +1,11 @@
 import { Container } from '@mui/material';
-import Navbar from '../components/Navbar/Navbar';
+import Navbar from '../components/Navbar/NavbarHome';
 import News from '../components/News';
 import StockPanel from '../components/StockPanel';
 
 const Home = () => {
   return (
     <>
-      <Navbar />
       <Container maxWidth="sm">
         <StockPanel />
       </Container>

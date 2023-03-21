@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL + '/prices';
+const BASE_URL = import.meta.env.VITE_BASE_URL + '/prices';
 
 const useAllStocks = (endpoint = '', skip = 0, limit = 10) => {
   const [stocksData, setStocksData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(0);

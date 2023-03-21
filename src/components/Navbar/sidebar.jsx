@@ -42,7 +42,7 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}>
       <List>
         <ListItem key={'Home'} disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate('/')}>
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
@@ -53,7 +53,7 @@ export default function TemporaryDrawer() {
       <Divider />
       <List>
         <ListItem key={'Profile'}>
-          <ListItemButton onClick={handleNav}>
+          <ListItemButton onClick={() => navigate('/profile')}>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
