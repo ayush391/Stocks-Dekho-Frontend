@@ -22,7 +22,7 @@ const Home = () => {
           py: 2
           // backdropFilter: 'blur(2px)'
         }}>
-          <SectorTab/>
+        <SectorTab />
         <News />
       </Container>
       {/* </Box> */}

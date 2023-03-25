@@ -11,10 +11,16 @@ const url = import.meta.env.VITE_BASE_URL + '/transaction/history/';
 export const TransactionHistory = () => {
   const [value, setValue] = useState(0);
 
-  const { transactions:transactionsBuy, loading:loadingBuy, error:errorBuy } = useTransactionHistory('BUY' , "");
-  const { transactions:transactionsSell,loading: loadingSell, error:errorSell } = useTransactionHistory('SELL' ,"");
-
- 
+  const {
+    transactions: transactionsBuy,
+    loading: loadingBuy,
+    error: errorBuy
+  } = useTransactionHistory('BUY', '');
+  const {
+    transactions: transactionsSell,
+    loading: loadingSell,
+    error: errorSell
+  } = useTransactionHistory('SELL', '');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
