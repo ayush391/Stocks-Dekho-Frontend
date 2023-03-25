@@ -11,10 +11,10 @@ const url = import.meta.env.VITE_BASE_URL + '/transaction/history/';
 export const TransactionHistory = () => {
   const [value, setValue] = useState(0);
 
-  const { transactions, loading, error } = useTransactionHistory();
+  const { transactions:transactionsBuy, loading:loadingBuy, error:errorBuy } = useTransactionHistory('BUY' , "");
+  const { transactions:transactionsSell,loading: loadingSell, error:errorSell } = useTransactionHistory('SELL' ,"");
 
-  const buyList = transactions.filter((item) => item.type == 'BUY');
-  const sellList = transactions.filter((item) => item.type == 'SELL');
+ 
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -37,10 +37,10 @@ export const TransactionHistory = () => {
         <AntTab style={{ width: '50%' }} label="Sell" />
       </AntTabs>
       <TabPanel value={value} index={0}>
-        <TransactionLogCard log={buyList} loading={loading} error={error} />
+        <TransactionLogCard log={transactionsBuy} loading={loadingBuy} error={errorBuy} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TransactionLogCard log={sellList} loading={loading} error={error} />
+        <TransactionLogCard log={transactionsSell} loading={loadingSell} error={errorSell} />
       </TabPanel>
     </>
   );

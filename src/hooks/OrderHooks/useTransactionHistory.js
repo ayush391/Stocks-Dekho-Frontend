@@ -26,7 +26,7 @@ const useTransactionHistory = (type, stockSymbol) => {
   async function getLogList() {
     try {
       setLoading(true);
-      const response = await axios.get(url + user.uid);
+      const response = await axios.get(url + user.uid + `?type=${type.toString()}`);
       if (response.status === 200) {
         console.log(response.data);
         setTransactions([...response.data.allTransactions]);
