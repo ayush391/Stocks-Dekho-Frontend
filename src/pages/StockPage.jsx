@@ -13,7 +13,7 @@ const StockPage = () => {
   return (
     <>
       <Container maxWidth="sm">
-        <WatchListAndTransactionHistory/>
+        <WatchListAndTransactionHistory symbol={symbol}/>
         <StockPageHeader symbol={symbol} />
         <PriceHistoryPanel symbol={symbol} />
         <News />

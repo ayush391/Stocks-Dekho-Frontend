@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { TransactionLogCard } from '../components/Order/TransactionLog';
 import { AntTab } from '../components/Tabs/AntTab';
 import { AntTabs } from '../components/Tabs/AntTabs';
@@ -10,17 +11,24 @@ const url = import.meta.env.VITE_BASE_URL + '/transaction/history/';
 
 export const TransactionHistory = () => {
   const [value, setValue] = useState(0);
+  const location = useLocation()
 
+  let stockSymbol = null
+  if (location.state!=null){
+    
+    stockSymbol = location.state.stockSymbol
+    console.log(stockSymbol ,"locate")
+  }
   const {
     transactions: transactionsBuy,
     loading: loadingBuy,
     error: errorBuy
-  } = useTransactionHistory('BUY', '');
+  } = useTransactionHistory('BUY', stockSymbol!=null? stockSymbol:'');
   const {
     transactions: transactionsSell,
     loading: loadingSell,
     error: errorSell
-  } = useTransactionHistory('SELL', '');
+  } = useTransactionHistory('SELL', stockSymbol!=null? stockSymbol:'');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
