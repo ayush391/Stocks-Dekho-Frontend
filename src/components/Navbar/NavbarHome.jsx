@@ -63,7 +63,6 @@ const NavbarHome = () => {
       /* empty */
     } else {
       const user = getAuth(app);
-      console.log(user.currentUser);
       if (user.currentUser != null) {
         setLoggedIn(true);
       } else {
