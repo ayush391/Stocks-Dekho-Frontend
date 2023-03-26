@@ -47,7 +47,7 @@ export const LoginPage = () => {
         console.log('logged in sucessfully');
         setLoading(false);
         handleOpen('Login Successful', 'success');
-        setTimeout(() => navigate('/'), 2000);
+        setTimeout(() => navigate('/'), 500);
       })
       .catch((e) => {
         setLoading(false);
