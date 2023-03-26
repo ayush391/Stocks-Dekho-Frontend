@@ -61,7 +61,7 @@ export default function TemporaryDrawer({ open, onClose }) {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => checkUser() && navigate('/profile')}>
+          <ListItemButton onClick={() => checkUser() && navigate('/portfolio')}>
             <ListItemIcon>
               <VerifiedUser />
             </ListItemIcon>

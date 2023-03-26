@@ -65,9 +65,9 @@ export const SignUpPage = () => {
       const url = await getDownloadURL(storageRef);
       console.log(url);
       setProfileUrl(url);
-      return url.toString()
+      return url.toString();
     }
-    return ""
+    return '';
   };
   const handleFile = (event) => {
     console.log(event.target.files[0]);
