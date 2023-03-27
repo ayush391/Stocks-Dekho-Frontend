@@ -17,7 +17,6 @@ const useAllStocks = (endpoint = '', skip = 0, limit = 10) => {
         const url = BASE_URL + endpoint + '?skip=' + currentPage * limit;
         const result = await axios.get(url);
         const data = await result?.data;
-        console.log(url);
         setStocksData(data.data);
         setLoading(false);
       } catch (err) {

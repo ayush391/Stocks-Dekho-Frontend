@@ -6,7 +6,7 @@ import NavbarHome from './NavbarHome';
 const Navbar = () => {
   const route = useLocation();
   const [currentRoute, setCurrentRoute] = useState(route);
-  useEffect(() => console.log(route.pathname));
+  useEffect(() =>{},[]);
   return <>{route.pathname === '/' ? <NavbarHome /> : <AppNavigation />}</>;
 };
 
