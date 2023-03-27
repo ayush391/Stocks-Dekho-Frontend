@@ -8,6 +8,7 @@ import { SignUpPage } from './components/SignupPage';
 import AllStocks from './pages/AllStocks';
 import { BankHistory } from './pages/BankHistory';
 import BuyStock from './pages/BuyStock';
+import { ForgetPassword } from './pages/ForgetPassword';
 import { HoldingPage } from './pages/Holdings';
 import Home from './pages/Home';
 import { Portfolio } from './pages/Portoflio';
@@ -29,6 +30,7 @@ function App() {
             <Route path="/allstocks" element={<AllStocks />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/signup" element={<SignUpPage />}></Route>
+            <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
             <Route path="/:symbol" element={<StockPage />}></Route>
             <Route path="/search" element={<Search />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
