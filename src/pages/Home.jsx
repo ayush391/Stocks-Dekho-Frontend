@@ -1,8 +1,7 @@
 import { Container } from '@mui/material';
-import Navbar from '../components/Navbar/NavbarHome';
 import News from '../components/News';
 import StockPanel from '../components/StockPanel';
-import { SectorTab } from '../components/Tabs/sectors';
+import { SectorTab } from '../components/Tabs/Sectors';
 
 const Home = () => {
   return (

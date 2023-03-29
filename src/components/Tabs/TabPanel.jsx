@@ -11,7 +11,7 @@ export function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}>
       <Fade timeout={1000} in={value === index}>
-        <div>{children}</div>
+        <div>{value === index ? children : 'No Data'}</div>
       </Fade>
     </div>
   );

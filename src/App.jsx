@@ -5,6 +5,7 @@ import { LoginPage } from './components/LoginPage';
 import Navbar from './components/Navbar/Navbar';
 import Search from './components/Navbar/Search';
 import { SignUpPage } from './components/SignupPage';
+import { SectorTab } from './components/Tabs/Sectors';
 import AllStocks from './pages/AllStocks';
 import { BankHistory } from './pages/BankHistory';
 import BuyStock from './pages/BuyStock';
@@ -38,6 +39,7 @@ function App() {
             <Route path="/bankHistory" element={<BankHistory />}></Route>
             <Route path="/buy/:symbol" element={<BuyStock />}></Route>
             <Route path="/sell/:symbol" element={<SellStock />}></Route>
+            <Route path="/test" element={<SectorTab />}></Route>
           </Routes>
         </ThemeProvider>
       </HashRouter>
