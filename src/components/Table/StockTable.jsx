@@ -25,7 +25,7 @@ const StockTable = ({ stocksData }) => {
                   <TableRow
                     key={stock.symbol}
                     component={Link}
-                    to={'/' + stock.symbol}
+                    to={'/' + stock!=null?stock.symbol:""}
                     sx={{
                       '&:hover': {
                         backgroundColor: '#00000010'
