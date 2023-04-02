@@ -21,6 +21,8 @@ const StockTable = ({ stocksData }) => {
           <Table>
             <TableBody>
               {stocksData.map((stock, idx) => {
+
+                if(stock!=null){
                 return (
                   <TableRow
                     key={stock.symbol}
@@ -83,7 +85,8 @@ const StockTable = ({ stocksData }) => {
                                                     <StockPChange pChange={stock.pChange} />
                                                 </TableCell> */}
                   </TableRow>
-                );
+                )}
+                
               })}
             </TableBody>
           </Table>
