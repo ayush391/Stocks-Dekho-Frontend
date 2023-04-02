@@ -12,7 +12,7 @@ import {
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { app } from './Firebase';
+import { app } from '../components/Firebase';
 import CircularLoading from './Loading/CircularLoading';
 
 export const LoginPage = () => {
@@ -75,7 +75,7 @@ export const LoginPage = () => {
           onChange={handlePassword}
         />
 
-        <Typography variant="caption" color="grey">
+        <Typography variant="caption" color="grey" component={Link} to="/forgetpassword">
           Forgot Password?
         </Typography>
 

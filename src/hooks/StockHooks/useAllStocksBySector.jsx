@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const BASE_URL = import.meta.env.VITE_BASE_URL + '/prices';
+const BASE_URL = import.meta.env.VITE_BASE_URL + '/stocks/sectors';
 
-const useAllStocks = (endpoint = '', skip = 0, limit = 10) => {
+const useAllStocksBySector = (endpoint = '', skip = 0, limit = 10) => {
   const [stocksData, setStocksData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,7 +14,7 @@ const useAllStocks = (endpoint = '', skip = 0, limit = 10) => {
     (async () => {
       setLoading(true);
       try {
-        const url = BASE_URL + endpoint + '?skip=' + currentPage * limit;
+        const url = encodeURI(BASE_URL + endpoint + '?skip=' + currentPage * limit);
         const result = await axios.get(url);
         const data = await result?.data;
         setStocksData(data.data);
@@ -29,4 +29,4 @@ const useAllStocks = (endpoint = '', skip = 0, limit = 10) => {
   return { stocksData, loading, error };
 };
 
-export default useAllStocks;
+export default useAllStocksBySector;
