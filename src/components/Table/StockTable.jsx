@@ -21,11 +21,13 @@ const StockTable = ({ stocksData }) => {
           <Table>
             <TableBody>
               {stocksData.map((stock, idx) => {
+
+                if(stock!=null){
                 return (
                   <TableRow
                     key={stock.symbol}
                     component={Link}
-                    to={'/' + stock!=null?stock.symbol:""}
+                    to={'/' + stock.symbol}
                     sx={{
                       '&:hover': {
                         backgroundColor: '#00000010'
@@ -83,7 +85,8 @@ const StockTable = ({ stocksData }) => {
                                                     <StockPChange pChange={stock.pChange} />
                                                 </TableCell> */}
                   </TableRow>
-                );
+                )}
+                
               })}
             </TableBody>
           </Table>
