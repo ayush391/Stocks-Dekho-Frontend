@@ -9,7 +9,7 @@ import { app } from '../Firebase';
 import Search from './Search';
 import TemporaryDrawer from './Slidebar';
 
-const NavbarHome = () => {
+const NavbarHome = ({theme , setTheme}) => {
   const [isOpen, setOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const auth = getAuth(app);
@@ -100,7 +100,7 @@ const NavbarHome = () => {
 
           <RenderComponent loggedIn={loggedIn} />
         </Toolbar>
-        <TemporaryDrawer open={isOpen} onClose={() => setOpen(false)} />
+        <TemporaryDrawer open={isOpen} onClose={() => setOpen(false)}  theme={theme} setTheme={setTheme}/>
       </AppBar>
     </>
   );
