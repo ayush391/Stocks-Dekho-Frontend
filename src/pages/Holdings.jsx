@@ -1,5 +1,5 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Avatar, Card, Typography } from '@mui/material';
+import { Avatar, Card, CardActionArea, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
@@ -7,8 +7,9 @@ import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../components/Firebase';
+import { Link } from 'react-router-dom';
 
-const StockCard = (props) => {
+export const StockCard = (props) => {
   const holdings = props.holdings;
   const [priceTick, setPriceTick] = useState({});
   const baseUrl = import.meta.env.VITE_BASE_URL + '/prices/';
@@ -23,6 +24,7 @@ const StockCard = (props) => {
   }, []);
   return (
     <Card sx={{ borderRadius: 10, marginBottom: '1rem', padding: 2 }}>
+      <CardActionArea component={Link} to={"/"+ holdings.stockSymbol.toString()}>
       {priceTick.pChange != null ? (
         <Stack direction={'row'} justifyContent={'space-evenly'}>
           <Avatar src={priceTick.icon}></Avatar>
@@ -50,6 +52,9 @@ const StockCard = (props) => {
       ) : (
         <div></div>
       )}
+      
+
+      </CardActionArea>
     </Card>
   );
 };
@@ -90,9 +95,7 @@ export const HoldingPage = () => {
   return (
     <div style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
       <Stack direction={'row'} sx={{ alignItems: 'center' }}>
-        <Avatar sx={{ marginRight: 1 }}>
-          <ArrowBackIcon onClick={backBtn} />
-        </Avatar>
+        
         <h1>Holdings</h1>
       </Stack>
       <Holdings />

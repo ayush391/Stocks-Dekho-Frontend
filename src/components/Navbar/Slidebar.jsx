@@ -53,11 +53,11 @@ export default function TemporaryDrawer({ open, onClose }) {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => checkUser() && navigate('/holdings')}>
+          <ListItemButton onClick={() => checkUser() && navigate('/transactionHistory')}>
             <ListItemIcon>
               <Wallet />
             </ListItemIcon>
-            <ListItemText>Holdings</ListItemText>
+            <ListItemText>Transaction History</ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
