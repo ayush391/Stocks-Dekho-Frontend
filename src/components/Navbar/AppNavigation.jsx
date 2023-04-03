@@ -1,3 +1,4 @@
+import { background } from '@chakra-ui/react';
 import { ArrowBackIosNewRounded } from '@mui/icons-material';
 import { AppBar, Button, Toolbar } from '@mui/material';
 import React from 'react';
@@ -18,9 +19,10 @@ const AppNavigation = () => {
         color="white"
         elevation={0}
         sx={{
-          top: 0
+          top: 0,
           // backgroundImage: 'linear-gradient(45deg,#73b9ff,#73b9ff20)',
           // backdropFilter: 'blur(5px)'
+          backgroundColor:'primary'
         }}>
         <Toolbar
           variant="dense"

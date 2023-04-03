@@ -11,11 +11,13 @@ import { getAuth, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../Firebase';
+import Switch from '@mui/material/Switch';
+import { useState } from 'react';
 
-export default function TemporaryDrawer({ open, onClose }) {
+export default function TemporaryDrawer({ open, onClose ,theme , setTheme }) {
   const auth = getAuth(app);
   const [user, loading, error] = useAuthState(auth);
-
+  const [switchState , setSwitchState] = useState(false)
   const navigate = useNavigate();
 
   const checkUser = () => {
@@ -53,11 +55,11 @@ export default function TemporaryDrawer({ open, onClose }) {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => checkUser() && navigate('/holdings')}>
+          <ListItemButton onClick={() => checkUser() && navigate('/transactionHistory')}>
             <ListItemIcon>
               <Wallet />
             </ListItemIcon>
-            <ListItemText>Holdings</ListItemText>
+            <ListItemText>Transaction History</ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
@@ -97,7 +99,24 @@ export default function TemporaryDrawer({ open, onClose }) {
               <ListItemText>Login</ListItemText>
             </ListItemButton>
           </ListItem>
+          
         )}
+       
+      </List>
+      <List>
+      <Divider />
+      <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Switch  defaultChecked={switchState} onClick={()=>{theme=='LIGHT'?setTheme('dark'):setTheme('LIGHT');
+                setSwitchState(!switchState)
+              }} />
+              </ListItemIcon>
+              <ListItemText>Dark Theme</ListItemText>
+              <ListItemText sx={{color:'red'}}>Beta</ListItemText>
+            </ListItemButton>
+          </ListItem>
+          
       </List>
     </Box>
   );

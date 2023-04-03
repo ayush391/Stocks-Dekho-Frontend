@@ -12,20 +12,25 @@ import {
   TabPanels,
   Tabs
 } from '@chakra-ui/react';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Stack } from '@mui/joy';
-import { Avatar, Typography } from '@mui/material';
+import axios from 'axios';
+import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import LineGraph from '../components/Portfolio/LineGraph';
 import { PieChart } from '../components/Portfolio/pie';
-import { Holdings } from './Holdings';
-const StatComponent = () => {
+import { Holdings , StockCard } from './Holdings';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth } from 'firebase/auth';
+import {app} from '../components/Firebase'
+import { useEffect , useState } from 'react';
+const StatComponent = ({portfolio_value}) => {
+
+ 
   return (
     <div style={{ marginLeft: 10 }}>
       <StatGroup>
         <Stat>
           <StatLabel>Portfolio</StatLabel>
-          <StatNumber>345,670</StatNumber>
+          <StatNumber>{portfolio_value.toFixed(2)}</StatNumber>
           <StatHelpText>
             <StatArrow type="increase" />
             23.36%
@@ -35,38 +40,36 @@ const StatComponent = () => {
     </div>
   );
 };
-
-export const Portfolio = () => {
-  const TabView = () => {
-    return (
-      <Tabs isFitted variant="enclosed" colorScheme="green">
-        <TabList>
-          <Tab>5D</Tab>
-          <Tab>1M</Tab>
-          <Tab>6M</Tab>
-          <Tab>1Y</Tab>
-          <Tab>2Y</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <HistoryGraph timeFrame={5} />
-          </TabPanel>
-          <TabPanel>
-            <HistoryGraph timeFrame={30} />
-          </TabPanel>
-          <TabPanel>
-            <HistoryGraph timeFrame={180} />
-          </TabPanel>
-          <TabPanel>
-            <HistoryGraph timeFrame={365} />
-          </TabPanel>
-          <TabPanel>
-            <HistoryGraph timeFrame={730} />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    );
-  };
+const TabView = () => {
+  return (
+    <Tabs isFitted variant="enclosed" colorScheme="green">
+      <TabList>
+        <Tab>5D</Tab>
+        <Tab>1M</Tab>
+        <Tab>6M</Tab>
+        <Tab>1Y</Tab>
+        <Tab>2Y</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel>
+          <HistoryGraph timeFrame={5} />
+        </TabPanel>
+        <TabPanel>
+          <HistoryGraph timeFrame={30} />
+        </TabPanel>
+        <TabPanel>
+          <HistoryGraph timeFrame={180} />
+        </TabPanel>
+        <TabPanel>
+          <HistoryGraph timeFrame={365} />
+        </TabPanel>
+        <TabPanel>
+          <HistoryGraph timeFrame={730} />
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
+  );
+};
 
   const HistoryGraph = ({ timeFrame }) => {
     return (
@@ -76,18 +79,43 @@ export const Portfolio = () => {
     );
   };
 
+export const Portfolio = () => {
+  const auth = getAuth(app)
+
+  const [user , loading , error] = useAuthState(auth)
+  const [name , setName] = useState("")
+  const baseUrl = import.meta.env.VITE_BASE_URL + '/portfolio/';
+  const [HoldingsList, setHoldingsList] = useState([]);
+  const [portfolioValue , setPortfolioValue] = useState(0)
+
+  useEffect(()=>{
+    async function getHoldings() {
+      const response = await axios.get(baseUrl + user.uid);
+      console.log(response.data);
+      setHoldingsList(response.data.holdings);
+      setPortfolioValue(Number(response.data.portfolio_value))
+    }
+    if (loading){
+
+    }else{
+      if(user){
+        setName(user.displayName.toString())
+        getHoldings()
+      }
+    }
+  },[loading , user , error])
+  
+
   const navigate = useNavigate();
   const backBtn = () => {
     navigate(-1);
   };
   return (
-    <div style={{ margin: 10, padding: 20 }}>
-      <Stack direction={'row'} sx={{ alignItems: 'center' }}>
-        <Avatar sx={{ marginRight: 1 }}>
-          <ArrowBackIcon onClick={backBtn} />
-        </Avatar>
-        <h1>Portfolio</h1>
-      </Stack>
+    <div style={{ margin: 10, padding: 20  ,}}>
+     
+
+        <h1 style={{textAlign:'center' , fontSize:22 , padding:3 , color:'gray' , fontWeight:'bolder' , fontFamily:'fantasy'}}>Portfolio</h1>
+     
       <div
         style={{
           display: 'flex',
@@ -102,11 +130,11 @@ export const Portfolio = () => {
           borderRadius: 20,
           marginBottom: 20
         }}>
-        <h1 style={{ fontSize: '29', fontWeight: 'bolder' }}>Deepak Singh</h1>
+        <h1 style={{ fontSize: '29', fontWeight: 'bolder' }}>{name}</h1>
 
         <div style={{ display: 'flex', flexDirection: 'row', height: '25%', width: '25%' }}>
           <ChakraProvider>
-            <StatComponent />
+            <StatComponent portfolio_value={portfolioValue} />
           </ChakraProvider>
         </div>
       </div>
@@ -119,9 +147,9 @@ export const Portfolio = () => {
           paddingRight: 10
         }}>
         <ChakraProvider>
-          <TabView />
+          {/* <TabView /> */}
           <div style={{ width: '80%', marginRight: 'auto', marginLeft: 'auto', marginBottom: 2 }}>
-            <PieChart />
+            {/* <PieChart /> */}
           </div>
         </ChakraProvider>
         <Typography
@@ -130,7 +158,11 @@ export const Portfolio = () => {
           variant="h5">
           Holdings
         </Typography>
-        <Holdings />
+        <div>
+        {HoldingsList.map((holdings, idx) => (
+          <StockCard key={idx} holdings={holdings} />
+        ))}
+    </div>
       </div>
     </div>
   );
