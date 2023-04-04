@@ -15,7 +15,7 @@ const StockPage = () => {
         {/* <WatchListAndTransactionHistory symbol={symbol} /> */}
         <StockPageHeader symbol={symbol} />
         <PriceHistoryPanel symbol={symbol} />
-        <News />
+        <News symbol={symbol} />
       </Container>
       <BuySellBar symbol={symbol} />
     </>
