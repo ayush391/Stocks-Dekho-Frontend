@@ -108,7 +108,7 @@ export default function TemporaryDrawer({ open, onClose ,theme , setTheme }) {
       <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <Switch  defaultChecked={switchState} onClick={()=>{theme=='LIGHT'?setTheme('dark'):setTheme('LIGHT');
+                <Switch  defaultChecked={theme=='LIGHT'?false:true} onClick={()=>{theme=='LIGHT'?setTheme('dark'):setTheme('LIGHT');
                 setSwitchState(!switchState)
               }} />
               </ListItemIcon>

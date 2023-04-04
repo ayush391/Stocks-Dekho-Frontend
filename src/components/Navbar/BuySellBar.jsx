@@ -16,7 +16,7 @@ const BuySellBar = ({ symbol }) => {
       }}>
       <Toolbar sx={{ display: 'flex', flex: 1, gap: 2 }}>
         <Button
-          color="primary"
+          
           component={Link}
           to={'/buy/' + symbol}
           size="large"
