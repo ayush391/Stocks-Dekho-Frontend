@@ -30,7 +30,7 @@ function App() {
         <CssBaseline />
         <ThemeProvider theme={theme == 'LIGHT'?AppTheme:darkTheme}>
           <Navbar theme={theme} setTheme={setTheme} />
-          </ThemeProvider>
+        
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/allstocks" element={<AllStocks />}></Route>
@@ -48,6 +48,7 @@ function App() {
             <Route path="/sell/:symbol" element={<SellStock />}></Route>
             <Route path="/test" element={<SectorTab />}></Route>
           </Routes>
+          </ThemeProvider>
         
       </HashRouter>
     </div>
