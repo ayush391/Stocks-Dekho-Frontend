@@ -1,4 +1,5 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material';
+import { useContext } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { LoginPage } from './components/LoginPage';
@@ -6,6 +7,7 @@ import Navbar from './components/Navbar/Navbar';
 import Search from './components/Navbar/Search';
 import { SignUpPage } from './components/SignupPage';
 import { SectorTab } from './components/Tabs/Sectors';
+import AppContext from './context/AppContext';
 import AllStocks from './pages/AllStocks';
 import { BankHistory } from './pages/BankHistory';
 import BuyStock from './pages/BuyStock';
@@ -13,24 +15,26 @@ import { ForgetPassword } from './pages/ForgetPassword';
 import { HoldingPage } from './pages/Holdings';
 import Home from './pages/Home';
 import { Portfolio } from './pages/Portoflio';
-import Profile from './pages/profile';
 import SellStock from './pages/SellStock';
 import StockPage from './pages/StockPage';
 import { TransactionHistory } from './pages/TransactionHistory';
-import AppTheme from './theme';
-import { darkTheme } from './theme';
-import { useState } from 'react';
+import Profile from './pages/profile';
+import createThemeWithMode from './theme';
 
 function App() {
-  const [theme , setTheme] = useState('LIGHT')
- 
+  const context = useContext(AppContext);
+  const { themeMode } = context;
+
+  const AppTheme = createThemeWithMode(themeMode);
+  const theme = responsiveFontSizes(createTheme(AppTheme));
+
   return (
     <div className="App">
       <HashRouter>
-        <CssBaseline />
-        <ThemeProvider theme={theme == 'LIGHT'?AppTheme:darkTheme}>
-          <Navbar theme={theme} setTheme={setTheme} />
-        
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Navbar />
+
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/allstocks" element={<AllStocks />}></Route>
@@ -48,8 +52,7 @@ function App() {
             <Route path="/sell/:symbol" element={<SellStock />}></Route>
             <Route path="/test" element={<SectorTab />}></Route>
           </Routes>
-          </ThemeProvider>
-        
+        </ThemeProvider>
       </HashRouter>
     </div>
   );
