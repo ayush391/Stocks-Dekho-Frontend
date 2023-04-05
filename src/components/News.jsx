@@ -17,7 +17,7 @@ const News = ({symbol}) => {
     
       async function getNews(){
       const result = await axios.get(BASE_URL);
-      setNews(result.data.data.articles.slice(0, 6) || result.data.articles);
+      
       }
       getNews()
   }, []);
