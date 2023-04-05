@@ -13,9 +13,9 @@ const AppNavigation = () => {
   return (
     <>
       <AppBar
+        color="white"
         variant="outlined"
         position="sticky"
-        color="white"
         elevation={0}
         sx={{
           top: 0

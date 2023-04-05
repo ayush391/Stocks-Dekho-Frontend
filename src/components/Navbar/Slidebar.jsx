@@ -7,15 +7,21 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Switch from '@mui/material/Switch';
 import { getAuth, signOut } from 'firebase/auth';
+import { useContext, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import AppContext from '../../context/AppContext';
 import { app } from '../Firebase';
 
 export default function TemporaryDrawer({ open, onClose }) {
+  const context = useContext(AppContext);
+  const { themeMode, setThemeMode } = context;
+
   const auth = getAuth(app);
   const [user, loading, error] = useAuthState(auth);
-
+  const [switchState, setSwitchState] = useState(false);
   const navigate = useNavigate();
 
   const checkUser = () => {
@@ -53,11 +59,11 @@ export default function TemporaryDrawer({ open, onClose }) {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => checkUser() && navigate('/holdings')}>
+          <ListItemButton onClick={() => checkUser() && navigate('/transactionHistory')}>
             <ListItemIcon>
               <Wallet />
             </ListItemIcon>
-            <ListItemText>Holdings</ListItemText>
+            <ListItemText>Transaction History</ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
@@ -98,6 +104,24 @@ export default function TemporaryDrawer({ open, onClose }) {
             </ListItemButton>
           </ListItem>
         )}
+      </List>
+      <List>
+        <Divider />
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <Switch
+                defaultChecked={themeMode === 'dark'}
+                onClick={() => {
+                  themeMode === 'dark' ? setThemeMode('light') : setThemeMode('dark');
+                  setSwitchState(!switchState);
+                }}
+              />
+            </ListItemIcon>
+            <ListItemText>Dark Theme</ListItemText>
+            <ListItemText sx={{ color: 'red' }}>Beta</ListItemText>
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );

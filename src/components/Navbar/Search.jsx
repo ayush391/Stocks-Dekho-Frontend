@@ -50,6 +50,7 @@ const Search = () => {
     <ClickAwayListener onClickAway={() => handleSuggest(false)}>
       <Box width="350px">
         <Input
+          color="white"
           onChange={handleQuery}
           value={searchQuery}
           onFocus={() => handleSuggest(true)}
@@ -62,7 +63,7 @@ const Search = () => {
             </InputAdornment>
           }
           sx={{
-            backgroundColor: '#fff',
+            backgroundColor: 'white.main',
             borderRadius: '10px',
             padding: '5px'
           }}
