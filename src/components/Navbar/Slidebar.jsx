@@ -15,17 +15,17 @@ import { useNavigate } from 'react-router-dom';
 import AppContext from '../../context/AppContext';
 import { app } from '../Firebase';
 
-export default function TemporaryDrawer({ open, onClose }) {
+const Sidebar = ({ open, onClose }) => {
   const context = useContext(AppContext);
   const { themeMode, setThemeMode } = context;
 
   const auth = getAuth(app);
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const [switchState, setSwitchState] = useState(false);
   const navigate = useNavigate();
 
   const checkUser = () => {
-    if (user === null) {
+    if (!user) {
       navigate('/login');
       return false;
     }
@@ -33,7 +33,7 @@ export default function TemporaryDrawer({ open, onClose }) {
   };
 
   const Logout = () => {
-    if (user != null) {
+    if (user) {
       signOut(auth)
         .then(() => {
           console.log('logging out');
@@ -43,12 +43,7 @@ export default function TemporaryDrawer({ open, onClose }) {
   };
 
   const NavList = () => (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-      // onClick={() => toggleDrawer(anchor, false)}
-      // onKeyDown={() => toggleDrawer(anchor, false)}
-    >
+    <Box sx={{ width: 250 }} role="presentation">
       <List>
         <ListItem disablePadding>
           <ListItemButton onClick={() => navigate('/')}>
@@ -133,4 +128,6 @@ export default function TemporaryDrawer({ open, onClose }) {
       </Drawer>
     </>
   );
-}
+};
+
+export default Sidebar;

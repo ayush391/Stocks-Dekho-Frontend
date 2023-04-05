@@ -5,37 +5,28 @@ import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { app } from '../components/Firebase';
-import { TransactionLogCard } from '../components/Order/TransactionLog';
+import TransactionLogCard from '../components/Order/TransactionLog';
 import useTransactionHistory from '../hooks/OrderHooks/useTransactionHistory';
-function Profile() {
+
+const Profile = () => {
   const auth = getAuth(app);
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const walletUrl = import.meta.env.VITE_BASE_URL + '/wallet/';
   const [price, setPrice] = useState(0);
 
   const { transactions, transLoading, transError } = useTransactionHistory();
 
-  const navigate = useNavigate();
-
   useEffect(() => {
-    async function getWallet() {
-      if (loading) {
-      } else {
-        if (user != null) {
-          const response = await axios.get(walletUrl + user.uid.toString());
-          setPrice(response.data.data.balance);
-        }
-      }
-    }
+    user && getWallet();
+  }, [user]);
 
-    if (user) {
-      getWallet();
-    } else {
-      navigate('/login');
-    }
-  }, [loading, user]);
+  const getWallet = async () => {
+    const { data } = await axios.get(walletUrl + user?.uid?.toString());
+    setPrice(data.data.balance);
+  };
+
   return (
     <>
       <Container maxWidth="sm">
@@ -49,14 +40,13 @@ function Profile() {
           <Stack alignItems="center" sx={{ my: 2 }}>
             <Avatar
               src={
-                user != null && user.photoURL != null
-                  ? user.photoURL
-                  : 'https://lens-storage.storage.googleapis.com/png/4cde995e-9c55-4ed0-8f6d-e9aebd5d5596'
+                user?.photoURL ||
+                'https://lens-storage.storage.googleapis.com/png/4cde995e-9c55-4ed0-8f6d-e9aebd5d5596'
               }
               sx={{ width: '150px', height: '150px' }}
             />
             <Typography variant="h5" textAlign="center">
-              {user != null ? user.displayName : 'Name'}
+              {user?.displayName || 'Name'}
             </Typography>
             <Stack direction="column" flex={1} justifyContent="center" marginTop={2}>
               <Typography variant="caption" textAlign="center">
@@ -139,6 +129,6 @@ function Profile() {
       />
     </>
   );
-}
+};
 
 export default Profile;

@@ -5,26 +5,16 @@ import {
   StatGroup,
   StatHelpText,
   StatLabel,
-  StatNumber,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs
+  StatNumber
 } from '@chakra-ui/react';
-import axios from 'axios';
 import { Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import LineGraph from '../components/Portfolio/LineGraph';
-import { PieChart } from '../components/Portfolio/pie';
-import { Holdings , StockCard } from './Holdings';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import axios from 'axios';
 import { getAuth } from 'firebase/auth';
-import {app} from '../components/Firebase'
-import { useEffect , useState } from 'react';
-const StatComponent = ({portfolio_value}) => {
-
- 
+import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { app } from '../components/Firebase';
+import { StockCard } from './Holdings';
+const StatComponent = ({ portfolio_value }) => {
   return (
     <div style={{ marginLeft: 10 }}>
       <StatGroup>
@@ -40,82 +30,42 @@ const StatComponent = ({portfolio_value}) => {
     </div>
   );
 };
-const TabView = () => {
-  return (
-    <Tabs isFitted variant="enclosed" colorScheme="green">
-      <TabList>
-        <Tab>5D</Tab>
-        <Tab>1M</Tab>
-        <Tab>6M</Tab>
-        <Tab>1Y</Tab>
-        <Tab>2Y</Tab>
-      </TabList>
-      <TabPanels>
-        <TabPanel>
-          <HistoryGraph timeFrame={5} />
-        </TabPanel>
-        <TabPanel>
-          <HistoryGraph timeFrame={30} />
-        </TabPanel>
-        <TabPanel>
-          <HistoryGraph timeFrame={180} />
-        </TabPanel>
-        <TabPanel>
-          <HistoryGraph timeFrame={365} />
-        </TabPanel>
-        <TabPanel>
-          <HistoryGraph timeFrame={730} />
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
-  );
-};
-
-  const HistoryGraph = ({ timeFrame }) => {
-    return (
-      <div style={{ marginLeft: 'auto', marginRight: 'auto', width: '90%', height: '50%' }}>
-        <LineGraph symbol={'INFY'} timeFrame={timeFrame} />
-      </div>
-    );
-  };
 
 export const Portfolio = () => {
-  const auth = getAuth(app)
+  const auth = getAuth(app);
 
-  const [user , loading , error] = useAuthState(auth)
-  const [name , setName] = useState("")
+  const [user, loading, error] = useAuthState(auth);
+  const [name, setName] = useState('');
   const baseUrl = import.meta.env.VITE_BASE_URL + '/portfolio/';
   const [HoldingsList, setHoldingsList] = useState([]);
-  const [portfolioValue , setPortfolioValue] = useState(0)
+  const [portfolioValue, setPortfolioValue] = useState(0);
 
-  useEffect(()=>{
+  useEffect(() => {
     async function getHoldings() {
-      const response = await axios.get(baseUrl + user.uid);
-      console.log(response.data);
-      setHoldingsList(response.data.holdings);
-      setPortfolioValue(Number(response.data.portfolio_value))
+      const { data } = await axios.get(baseUrl + user.uid);
+      setHoldingsList(data.holdings);
+      setPortfolioValue(Number(data.portfolio_value));
     }
-    if (loading){
-
-    }else{
-      if(user){
-        setName(user.displayName.toString())
-        getHoldings()
-      }
+    if (user) {
+      setName(user?.displayName?.toString());
+      getHoldings();
     }
-  },[loading , user , error])
-  
+  }, [loading, user, error]);
 
-  const navigate = useNavigate();
-  const backBtn = () => {
-    navigate(-1);
-  };
   return (
-    <div style={{ margin: 10, padding: 20  ,}}>
-     
+    <div style={{ margin: 10, padding: 20 }}>
+      <h1
+        style={{
+          textAlign: 'center',
+          fontSize: 22,
+          padding: 3,
+          color: 'gray',
+          fontWeight: 'bolder',
+          fontFamily: 'fantasy'
+        }}>
+        Portfolio
+      </h1>
 
-        <h1 style={{textAlign:'center' , fontSize:22 , padding:3 , color:'gray' , fontWeight:'bolder' , fontFamily:'fantasy'}}>Portfolio</h1>
-     
       <div
         style={{
           display: 'flex',
@@ -159,10 +109,10 @@ export const Portfolio = () => {
           Holdings
         </Typography>
         <div>
-        {HoldingsList.map((holdings, idx) => (
-          <StockCard key={idx} holdings={holdings} />
-        ))}
-    </div>
+          {HoldingsList.map((holdings, idx) => (
+            <StockCard key={idx} holdings={holdings} />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ import {
 import { Link } from 'react-router-dom';
 import CircularLoading from '../Loading/CircularLoading';
 
-export const TransactionLogCard = ({ log, loading, error }) => {
+const TransactionLogCard = ({ log, loading, error }) => {
   return (
     <Container maxWidth="sm">
       <TableContainer component={Card} variant="outlined">
@@ -27,6 +27,7 @@ export const TransactionLogCard = ({ log, loading, error }) => {
             <TableBody>
               {log.map((logItem, idx) => (
                 <TableRow
+                  key={idx}
                   sx={{
                     '&:hover': {
                       backgroundColor: '#00000010'
@@ -103,3 +104,5 @@ export const TransactionLogCard = ({ log, loading, error }) => {
     </Container>
   );
 };
+
+export default TransactionLogCard;

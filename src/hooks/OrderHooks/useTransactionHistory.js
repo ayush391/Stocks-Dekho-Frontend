@@ -8,7 +8,7 @@ const url = import.meta.env.VITE_BASE_URL + '/transaction/history/';
 
 const useTransactionHistory = (type, stockSymbol) => {
   const auth = getAuth(app);
-  const [user, userLoading, userError] = useAuthState(auth);
+  const [user, userLoading] = useAuthState(auth);
 
   const [transactions, setTransactions] = useState([]);
 
@@ -26,9 +26,10 @@ const useTransactionHistory = (type, stockSymbol) => {
   async function getLogList() {
     try {
       setLoading(true);
-      const response = await axios.get(url + user.uid + `?type=${type.toString()}`+"&"+`stockSymbol=${stockSymbol.toString()}`);
+      const response = await axios.get(
+        url + user.uid + `?type=${type.toString()}` + '&' + `stockSymbol=${stockSymbol.toString()}`
+      );
       if (response.status === 200) {
-        console.log(response.data);
         setTransactions([...response.data.allTransactions]);
         setLoading(false);
       }

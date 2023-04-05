@@ -11,12 +11,9 @@ const BuySellBar = ({ symbol }) => {
       sx={{
         top: 'auto',
         bottom: 0
-        // backgroundImage: 'linear-gradient(45deg,#73b9ff,#73b9ff40)',
-        // backdropFilter: 'blur(15px)'
       }}>
       <Toolbar sx={{ display: 'flex', flex: 1, gap: 2 }}>
         <Button
-          
           component={Link}
           to={'/buy/' + symbol}
           size="large"
