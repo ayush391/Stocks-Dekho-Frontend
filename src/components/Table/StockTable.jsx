@@ -21,72 +21,71 @@ const StockTable = ({ stocksData }) => {
           <Table>
             <TableBody>
               {stocksData.map((stock, idx) => {
-
-                if(stock!=null){
-                return (
-                  <TableRow
-                    key={stock.symbol}
-                    component={Link}
-                    to={'/' + stock.symbol}
-                    sx={{
-                      '&:hover': {
-                        backgroundColor: '#00000010'
-                      }
-                    }}>
-                    <TableCell>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          placeItems: 'center',
-                          gap: 1,
-                          fontWeight: 'bold',
-                          width: 100,
-                          textAlign: 'center'
-                        }}>
-                        {stock.icon ? (
-                          <img height={40} width={40} src={stock.icon}></img>
-                        ) : (
-                          <StockSymbol symbol={stock.symbol} idx={idx} />
-                        )}
-                        <Typography
-                          fontWeight="bold"
+                if (stock != null) {
+                  return (
+                    <TableRow
+                      key={stock.symbol}
+                      component={Link}
+                      to={'/' + stock.symbol}
+                      sx={{
+                        '&:hover': {
+                          backgroundColor: '#00000010'
+                        }
+                      }}>
+                      <TableCell>
+                        <Box
                           sx={{
-                            textOverflow: 'ellipsis',
-                            overflow: 'hidden'
+                            display: 'flex',
+                            flexDirection: 'column',
+                            placeItems: 'center',
+                            gap: 1,
+                            fontWeight: 'bold',
+                            width: 100,
+                            textAlign: 'center'
                           }}>
-                          {stock.symbol}
-                        </Typography>
-                        <Typography
-                          variant="caption"
-                          sx={{
-                            textOverflow: 'ellipsis',
-                            overflow: 'hidden'
-                          }}>
-                          {stock.meta ? stock.meta.companyName : stock.symbol}
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Stack alignItems="center">
-                        <Typography
-                          variant="h5"
-                          sx={{
-                            textOverflow: 'ellipsis',
-                            overflow: 'hidden'
-                          }}>
-                          ₹{parseFloat(stock.lastPrice).toFixed(2)}
-                        </Typography>
-                        <StockPChange pChange={stock.pChange} />
-                      </Stack>
-                    </TableCell>
-                    {/* <TableCell align="right"><StockChange change={stock.change} /></TableCell> */}
-                    {/* <TableCell align="right">
+                          {stock.icon ? (
+                            <img height={40} width={40} src={stock.icon}></img>
+                          ) : (
+                            <StockSymbol symbol={stock.symbol} idx={idx} />
+                          )}
+                          <Typography
+                            fontWeight="bold"
+                            sx={{
+                              textOverflow: 'ellipsis',
+                              overflow: 'hidden'
+                            }}>
+                            {stock.symbol}
+                          </Typography>
+                          <Typography
+                            variant="caption"
+                            sx={{
+                              textOverflow: 'ellipsis',
+                              overflow: 'hidden'
+                            }}>
+                            {stock.meta ? stock.meta.companyName : stock.symbol}
+                          </Typography>
+                        </Box>
+                      </TableCell>
+                      <TableCell align="right">
+                        <Stack alignItems="center">
+                          <Typography
+                            variant="h5"
+                            sx={{
+                              textOverflow: 'ellipsis',
+                              overflow: 'hidden'
+                            }}>
+                            ₹{parseFloat(stock.lastPrice).toFixed(2)}
+                          </Typography>
+                          <StockPChange pChange={stock.pChange} />
+                        </Stack>
+                      </TableCell>
+                      {/* <TableCell align="right"><StockChange change={stock.change} /></TableCell> */}
+                      {/* <TableCell align="right">
                                                     <StockPChange pChange={stock.pChange} />
                                                 </TableCell> */}
-                  </TableRow>
-                )}
-                
+                    </TableRow>
+                  );
+                }
               })}
             </TableBody>
           </Table>
