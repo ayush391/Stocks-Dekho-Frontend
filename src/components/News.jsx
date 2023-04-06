@@ -5,16 +5,21 @@ import { useEffect, useState } from 'react';
 import CircularLoading from './Loading/CircularLoading';
 import { NewsCard } from './News/NewsCard';
 
-const BASE_URL = import.meta.env.VITE_BASE_URL + '/news' + '/PAYTM';
 
-const News = () => {
-  const [news, setNews] = useState([]);
 
+const News = ({symbol}) => {
+  const [news, setNews] = useState([]); 
+  const SymbolStr = symbol!=null?symbol.toString(): ''
+
+  const BASE_URL = import.meta.env.VITE_BASE_URL + '/news/' + SymbolStr;
+  console.log("URL",BASE_URL)
   useEffect(() => {
-    (async () => {
+    
+      async function getNews(){
       const result = await axios.get(BASE_URL);
-      setNews(result.data.data.articles.slice(0, 6) || result.data.articles);
-    })();
+      
+      }
+      getNews()
   }, []);
 
   return (
