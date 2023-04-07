@@ -7,7 +7,11 @@ import { YoutubeTab } from '../components/Table/youtube';
 const Home = () => {
   return (
     <>
+    
       <Container maxWidth="sm">
+      <Typography sx={{marginTop:3 , marginBottom:3 , fontWeight:'bold' , fontSize:22}}> Sector</Typography>
+
+      <SectorTab />
         <StockPanel />
       </Container>
       
@@ -18,8 +22,7 @@ const Home = () => {
           py: 2
         }}>
           <YoutubeTab/>
-          <Typography sx={{marginTop:3 , marginBottom:3 , fontWeight:'bold' , fontSize:22}}> Sector</Typography>
-        <SectorTab />
+       
         <News />
       </Container>
     </>
