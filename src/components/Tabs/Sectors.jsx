@@ -5,7 +5,8 @@ import { AntTab } from './AntTab';
 import { AntTabs } from './AntTabs';
 import SectorStocks from './SectorStocks';
 import { TabPanel } from './TabPanel';
-
+import { Button } from '@mui/material';
+import {Link} from 'react-router-dom';
 export const SectorTab = () => {
   const { sectorData, error, loading } = useAllSectors();
 
@@ -21,25 +22,27 @@ export const SectorTab = () => {
     <CircularLoading />
   ) : (
     <div>
-      <AntTabs variant="scrollable" value={value} onChange={handleChange} allowScrollButtonsMobile>
+      
         {sectorData.map((sector, idx) => {
           return (
-            <AntTab
-              key={idx}
-              iconPosition="top"
-              // icon={<TrendingUp color="success" />}
-              label={sector.name.slice(6, sector.length)}
-            />
+            // <AntTab
+            //   key={idx}
+            //   iconPosition="top"
+            //   // icon={<TrendingUp color="success" />}
+            //   label={sector.name.slice(6, sector.length)}
+              
+            // />
+            <Button component={Link} to={"/SectorPage/"+sector?.name}>{sector.name.slice(6, sector.length)}</Button>
           );
         })}
-      </AntTabs>
-      {sectorData.map((sector, idx) => {
+      
+      {/* {sectorData.map((sector, idx) => {
         return (
           <TabPanel key={idx} value={value} index={idx}>
             <SectorStocks sectorName={`/${sector.name}`} />
           </TabPanel>
         );
-      })}
+      })} */}
     </div>
   );
 };

@@ -20,6 +20,7 @@ import StockPage from './pages/StockPage';
 import { TransactionHistory } from './pages/TransactionHistory';
 import Profile from './pages/profile';
 import createThemeWithMode from './theme';
+import SectorPage from './pages/SectorPage';
 
 function App() {
   const context = useContext(AppContext);
@@ -51,6 +52,8 @@ function App() {
             <Route path="/buy/:symbol" element={<BuyStock />}></Route>
             <Route path="/sell/:symbol" element={<SellStock />}></Route>
             <Route path="/test" element={<SectorTab />}></Route>
+            <Route path="/SectorPage/:sectorName" element={<SectorPage />}></Route>
+
           </Routes>
         </ThemeProvider>
       </HashRouter>
