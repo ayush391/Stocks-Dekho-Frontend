@@ -1,4 +1,5 @@
-import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import { Card, CardActionArea, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export const NewsCard = (props) => {
   return (
@@ -17,6 +18,7 @@ export const NewsCard = (props) => {
         display: 'flex',
         flexDirection: 'column'
       }}>
+        <CardActionArea component={Link} to={props.url} >
       <Stack
         justifyContent="flex-end"
         sx={{
@@ -45,6 +47,7 @@ export const NewsCard = (props) => {
           </Stack>
         </CardContent>
       </Stack>
+      </CardActionArea>
     </Card>
   );
 };
