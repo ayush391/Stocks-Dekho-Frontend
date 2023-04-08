@@ -1,4 +1,4 @@
-import { AccountBox, House, Login, LogoutRounded, VerifiedUser, Wallet } from '@mui/icons-material';
+import { AccountBox, House, Login, LogoutRounded, VerifiedUser, Wallet , YouTube } from '@mui/icons-material';
 import { List } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -51,6 +51,15 @@ const Sidebar = ({ open, onClose }) => {
               <House />
             </ListItemIcon>
             <ListItemText>Home</ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => checkUser() && navigate('/YoutubePage')}>
+            <ListItemIcon>
+              <YouTube />
+            </ListItemIcon>
+            <ListItemText>Shorts</ListItemText>
+            <ListItemText sx={{ color: 'red' }}>Beta</ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>

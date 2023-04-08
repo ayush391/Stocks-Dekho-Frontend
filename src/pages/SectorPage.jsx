@@ -6,10 +6,10 @@ import { AntTabs } from '../components/Tabs/AntTabs';
 import SectorStocks from '../components/Tabs/SectorStocks';
 import { TabPanel } from '../components/Tabs/TabPanel';
 import { Button } from '@mui/material';
-import {Link} from 'react-router-dom';
-import {Container} from '@mui/material';
-const SectorPage=()=>{
-    const { sectorData, error, loading } = useAllSectors();
+import { Link } from 'react-router-dom';
+import { Container } from '@mui/material';
+const SectorPage = () => {
+  const { sectorData, error, loading } = useAllSectors();
 
   //panel
   const [value, setValue] = useState(0);
@@ -31,13 +31,12 @@ const SectorPage=()=>{
               iconPosition="top"
               // icon={<TrendingUp color="success" />}
               label={sector.name.slice(6, sector.length)}
-              
             />
             // <Button component={Link} to={"/SectorPage/"+sector?.name}>{sector.name.slice(6, sector.length)}</Button>
           );
         })}
-        </AntTabs>
-      
+      </AntTabs>
+
       {sectorData.map((sector, idx) => {
         return (
           <TabPanel key={idx} value={value} index={idx}>
