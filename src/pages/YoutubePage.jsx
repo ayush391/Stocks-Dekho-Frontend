@@ -5,7 +5,7 @@ const YoutubePage = () => {
   return (
     <div style={{ maxWidth: 'sm' }}>
       {videoIdList.map((videoId) => (
-        <YoutubeTab videoId={videoId}/>
+        <YoutubeTab videoId={videoId} />
       ))}
     </div>
   );

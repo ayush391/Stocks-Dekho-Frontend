@@ -1,5 +1,5 @@
 import { Assignment, Bookmark, BookmarkBorder } from '@mui/icons-material';
-import { IconButton, Link, Stack } from '@mui/material';
+import { IconButton, Stack } from '@mui/material';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -48,11 +48,11 @@ const WatchListAndTransactionHistory = ({ symbol }) => {
       <IconButton color="success" onClick={handleWatchListBtn}>
         {inWatchlist ? <Bookmark color="success" /> : <BookmarkBorder color="success" />}
       </IconButton>
-      <Link component={RouterLink} to={transactionUrl} state={{ symbol }}>
+      <RouterLink to={transactionUrl} state={{ stockSymbol: symbol }}>
         <IconButton>
           <Assignment />
         </IconButton>
-      </Link>
+      </RouterLink>
     </Stack>
   );
 };

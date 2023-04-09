@@ -1,25 +1,12 @@
 import { Newspaper } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useData } from '../hooks/useData';
+import { REMOTE } from '../utils/remoteRoutes';
 import CircularLoading from './Loading/CircularLoading';
 import { NewsCard } from './News/NewsCard';
 
-const News = ({ symbol }) => {
-  const [news, setNews] = useState([]);
-  const SymbolStr = symbol != null ? symbol.toString() : '';
-
-  const BASE_URL = import.meta.env.VITE_BASE_URL + '/news/' + SymbolStr;
-  console.log('URL', BASE_URL);
-
-  useEffect(() => {
-    async function getNews() {
-      const result = await axios.get(BASE_URL);
-      setNews(result.data.data.articles);
-      console.log(result.data.data.articles);
-    }
-    getNews();
-  }, []);
+const News = ({ symbol = 'home' }) => {
+  const { data, isLoading } = useData(REMOTE.NEWS, [symbol]);
 
   return (
     <>
@@ -35,14 +22,14 @@ const News = ({ symbol }) => {
             TOP STORIES
           </Typography>
         </Stack>
-        {news ? (
+        {isLoading ? (
+          <CircularLoading />
+        ) : (
           <Stack direction="row" spacing={2} sx={{ flexWrap: 'nowrap', overflow: 'scroll' }}>
-            {news.map((article, idx) => {
+            {data?.data?.articles?.map((article, idx) => {
               return <NewsCard key={idx} {...article} />;
             })}
           </Stack>
-        ) : (
-          <CircularLoading />
         )}
       </Stack>
     </>

@@ -1,30 +1,41 @@
 import { Box, Typography } from '@mui/material';
+import { getAuth } from 'firebase/auth';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { app } from '../components/Firebase';
 import TransactionLogCard from '../components/Order/TransactionLog';
 import { AntTab } from '../components/Tabs/AntTab';
 import { AntTabs } from '../components/Tabs/AntTabs';
 import { TabPanel } from '../components/Tabs/TabPanel';
-import useTransactionHistory from '../hooks/OrderHooks/useTransactionHistory';
+import { useData } from '../hooks/useData';
+import { REMOTE } from '../utils/remoteRoutes';
+import { useLocation } from 'react-router-dom';
 
 export const TransactionHistory = () => {
+  const auth = getAuth(app);
+  const [user] = useAuthState(auth);
   const [value, setValue] = useState(0);
   const location = useLocation();
-
-  let stockSymbol = null;
+  let stockSymbol = '';
   if (location.state != null) {
-    stockSymbol = location.state.symbol;
+    stockSymbol = location.state.stockSymbol;
   }
   const {
-    transactions: transactionsBuy,
-    loading: loadingBuy,
+    data: transactionsBuy,
+    isLoading: loadingBuy,
     error: errorBuy
-  } = useTransactionHistory('BUY', stockSymbol != null ? stockSymbol : '');
+  } = useData(`${REMOTE.TRANSACTION}/history`, [user?.uid], {
+    type: 'BUY',
+    stockSymbol: stockSymbol.toString()
+  });
   const {
-    transactions: transactionsSell,
-    loading: loadingSell,
+    data: transactionsSell,
+    isLoading: loadingSell,
     error: errorSell
-  } = useTransactionHistory('SELL', stockSymbol != null ? stockSymbol : '');
+  } = useData(`${REMOTE.TRANSACTION}/history`, [user?.uid], {
+    type: 'SELL',
+    stockSymbol: stockSymbol
+  });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -47,10 +58,18 @@ export const TransactionHistory = () => {
         <AntTab style={{ width: '50%' }} label="Sell" />
       </AntTabs>
       <TabPanel value={value} index={0}>
-        <TransactionLogCard log={transactionsBuy} loading={loadingBuy} error={errorBuy} />
+        <TransactionLogCard
+          log={transactionsBuy?.allTransactions}
+          loading={loadingBuy}
+          error={errorBuy}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TransactionLogCard log={transactionsSell} loading={loadingSell} error={errorSell} />
+        <TransactionLogCard
+          log={transactionsSell?.allTransactions}
+          loading={loadingSell}
+          error={errorSell}
+        />
       </TabPanel>
     </>
   );

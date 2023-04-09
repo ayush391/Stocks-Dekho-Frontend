@@ -7,22 +7,19 @@ import { useParams } from 'react-router-dom';
 import { app } from '../components/Firebase';
 import CircularLoading from '../components/Loading/CircularLoading';
 import ConfirmOrder from '../components/Order/ConfirmOrder';
-import useStockData from '../hooks/StockHooks/useStockData';
+import { useData } from '../hooks/useData';
+import { REMOTE } from '../utils/remoteRoutes';
 
-export default function BuyStock(props) {
-  const params = useParams();
-  const { symbol } = params;
-
-  const { stockData, loading, error } = useStockData(symbol);
-
+export default function BuyStock() {
+  const { symbol } = useParams();
+  const { data, isLoading, error } = useData(REMOTE.PRICES, [symbol]);
   const [stockQty, setStockQty] = useState(1);
   const user = getAuth(app);
   const buyUrl = import.meta.env.VITE_BASE_URL + '/transaction/review/buy';
-
   const [open, setOpen] = useState(false);
   const [orderReview, setOrderReview] = useState({});
-
   const [loadingConfirmOrder, setloadingConfirmOrder] = useState(false);
+  const stockData = data?.data;
 
   const BuyReview = async () => {
     try {
@@ -56,7 +53,7 @@ export default function BuyStock(props) {
         }}>
         {error ? (
           <Typography>An error occured</Typography>
-        ) : loading ? (
+        ) : isLoading ? (
           <CircularLoading />
         ) : (
           <Stack direction="column" alignItems="center">

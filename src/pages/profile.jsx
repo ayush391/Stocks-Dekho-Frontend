@@ -8,7 +8,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import { app } from '../components/Firebase';
 import TransactionLogCard from '../components/Order/TransactionLog';
-import useTransactionHistory from '../hooks/OrderHooks/useTransactionHistory';
+import { useData } from '../hooks/useData';
+import { REMOTE } from '../utils/remoteRoutes';
 
 const Profile = () => {
   const auth = getAuth(app);
@@ -16,7 +17,7 @@ const Profile = () => {
   const walletUrl = import.meta.env.VITE_BASE_URL + '/wallet/';
   const [price, setPrice] = useState(0);
 
-  const { transactions, transLoading, transError } = useTransactionHistory();
+  const { data, isLoading, error } = useData(`${REMOTE.TRANSACTION}/history`, [user?.uid]);
 
   useEffect(() => {
     user && getWallet();
@@ -123,9 +124,9 @@ const Profile = () => {
         </Typography>
       </Container>
       <TransactionLogCard
-        log={transactions.slice(0, 5)}
-        loading={transLoading}
-        error={transError}
+        log={data?.allTransactions?.slice(0, 5)}
+        loading={isLoading}
+        error={error}
       />
     </>
   );

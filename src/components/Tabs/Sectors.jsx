@@ -1,49 +1,25 @@
-import { useState } from 'react';
-import useAllSectors from '../../hooks/StockHooks/useAllSectors';
-import CircularLoading from '../Loading/CircularLoading';
-import { AntTab } from './AntTab';
-import { AntTabs } from './AntTabs';
-import SectorStocks from './SectorStocks';
-import { TabPanel } from './TabPanel';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-export const SectorTab = () => {
-  const { sectorData, error, loading } = useAllSectors();
+import { useData } from '../../hooks/useData';
+import { REMOTE } from '../../utils/remoteRoutes';
+import CircularLoading from '../Loading/CircularLoading';
 
-  //panel
-  const [value, setValue] = useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+export const SectorTab = () => {
+  const { data, error, isLoading } = useData(REMOTE.STOCKS, ['sectors']);
 
   return error ? (
     <h1>Error Occured</h1>
-  ) : loading ? (
+  ) : isLoading ? (
     <CircularLoading />
   ) : (
-    <div>
-      {sectorData.map((sector, idx) => {
+    <>
+      {data?.data?.map((sector, idx) => {
         return (
-          // <AntTab
-          //   key={idx}
-          //   iconPosition="top"
-          //   // icon={<TrendingUp color="success" />}
-          //   label={sector.name.slice(6, sector.length)}
-
-          // />
-          <Button component={Link} to={'/SectorPage/' + sector?.name}>
+          <Button key={idx} component={Link} to={'/SectorPage/' + sector?.name}>
             {sector.name.slice(6, sector.length)}
           </Button>
         );
       })}
-
-      {/* {sectorData.map((sector, idx) => {
-        return (
-          <TabPanel key={idx} value={value} index={idx}>
-            <SectorStocks sectorName={`/${sector.name}`} />
-          </TabPanel>
-        );
-      })} */}
-    </div>
+    </>
   );
 };
