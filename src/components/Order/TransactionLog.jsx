@@ -22,7 +22,7 @@ const TransactionLogCard = ({ log, loading, error }) => {
           <CircularLoading />
         ) : error ? (
           <CardContent>An error occured</CardContent>
-        ) : log.length > 0 ? (
+        ) : log?.length > 0 ? (
           <Table>
             <TableBody>
               {log.map((logItem, idx) => (

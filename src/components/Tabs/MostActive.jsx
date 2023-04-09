@@ -1,19 +1,20 @@
 import { Typography } from '@mui/material';
-import useAllStocks from '../../hooks/StockHooks/useAllStocks';
+import { useData } from '../../hooks/useData';
+import { REMOTE } from '../../utils/remoteRoutes';
 import TableSkeletonPhone from '../Loading/TableSkeletonPhone';
 import StockTable from '../Table/StockTable';
 
 const MostActive = () => {
-  const { stocksData, loading, error } = useAllStocks('/most-active');
+  const { data, isLoading, error } = useData(REMOTE.PRICES, ['most-active']);
 
   return (
     <>
       {error ? (
         <Typography>An error occured</Typography>
-      ) : loading ? (
+      ) : isLoading ? (
         <TableSkeletonPhone rows={5} />
       ) : (
-        <StockTable stocksData={stocksData} />
+        <StockTable stocksData={data?.data} />
       )}
     </>
   );
