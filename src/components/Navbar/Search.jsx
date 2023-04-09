@@ -12,35 +12,19 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useData } from '../../hooks/useData';
+import { useDebounce } from '../../hooks/useDebounce';
+import { REMOTE } from '../../utils/remoteRoutes';
 import StockPChange from '../Table/StockPChange';
 
-const BASE_URL = import.meta.env.VITE_BASE_URL + '/prices/search';
-
 const Search = () => {
-  const [stocksData, setStocksData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [showSuggest, setShowSuggest] = useState(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(async () => {
-      const url = BASE_URL + '?symbol=' + searchQuery;
-      if (searchQuery.length > 0) {
-        const result = await axios.get(url);
-        setStocksData(result.data.data);
-      } else {
-        setStocksData([]);
-      }
-    }, 500);
-
-    return () => clearTimeout(timeout);
-  }, [searchQuery]);
-
-  const handleQuery = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  const debouncedSearchQuery = useDebounce(searchQuery);
+  const { data } = useData(REMOTE.PRICES, ['search'], null, debouncedSearchQuery);
+  const stocksData = data?.data;
 
   const handleSuggest = (val) => {
     setShowSuggest(val);
@@ -51,7 +35,7 @@ const Search = () => {
       <Box width="350px">
         <Input
           color="white"
-          onChange={handleQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           value={searchQuery}
           onFocus={() => handleSuggest(true)}
           fullWidth
@@ -74,7 +58,7 @@ const Search = () => {
           }}>
           <Card
             sx={{
-              display: stocksData.length > 0 && showSuggest ? 'block' : 'none',
+              display: stocksData?.length > 0 && showSuggest ? 'block' : 'none',
               top: '-5px',
               position: 'absolute',
               maxHeight: '500px',
@@ -86,38 +70,42 @@ const Search = () => {
             }}>
             <Table>
               <TableBody>
-                {stocksData.map((stock) => {
-                  return (
-                    <TableRow
-                      key={stock.symbol}
-                      component={Link}
-                      to={'/' + stock.symbol}
-                      onClickCapture={() => handleSuggest(false)}
-                      sx={{
-                        '&:hover': {
-                          backgroundColor: '#00000010'
-                        }
-                      }}>
-                      <TableCell>
-                        <Stack width={30}>
-                          <Typography variant="caption" fontWeight="bold">
-                            {stock.symbol}
-                          </Typography>
-                          {/* <Typography variant='caption'>
+                {searchQuery &&
+                  stocksData?.map((stock) => {
+                    return (
+                      <TableRow
+                        key={stock.symbol}
+                        component={Link}
+                        to={'/' + stock.symbol}
+                        onClickCapture={() => handleSuggest(false)}
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: '#00000010'
+                          }
+                        }}>
+                        <TableCell>
+                          <Stack width={30}>
+                            <Typography variant="caption" fontWeight="bold">
+                              {stock.symbol}
+                            </Typography>
+                            {/* <Typography variant='caption'>
                             {stock.meta?.companyName}
                           </Typography> */}
-                          ₹{parseFloat(stock.lastPrice).toFixed(2)}
-                        </Stack>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Stack alignItems="center"></Stack>
-                      </TableCell>
-                      <TableCell align="right">
-                        <StockPChange pChange={stock.pChange} style={{ flexDirection: 'column' }} />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                            ₹{parseFloat(stock.lastPrice).toFixed(2)}
+                          </Stack>
+                        </TableCell>
+                        <TableCell align="right">
+                          <Stack alignItems="center"></Stack>
+                        </TableCell>
+                        <TableCell align="right">
+                          <StockPChange
+                            pChange={stock.pChange}
+                            style={{ flexDirection: 'column' }}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </Card>

@@ -1,20 +1,21 @@
 import { Typography } from '@mui/material';
 import React from 'react';
-import useAllStocksBySector from '../../hooks/StockHooks/useAllStocksBySector';
+import { useData } from '../../hooks/useData';
+import { REMOTE } from '../../utils/remoteRoutes';
 import TableSkeletonPhone from '../Loading/TableSkeletonPhone';
 import StockTable from '../Table/StockTable';
 
 const SectorStocks = ({ sectorName = '' }) => {
-  const { stocksData, loading, error } = useAllStocksBySector(sectorName);
+  const { data, isLoading, error } = useData(REMOTE.STOCKS, ['sectors', sectorName]);
 
   return (
     <>
       {error ? (
         <Typography>An error occured</Typography>
-      ) : loading ? (
+      ) : isLoading ? (
         <TableSkeletonPhone rows={5} />
       ) : (
-        <StockTable stocksData={stocksData.slice(0, 10)} />
+        <StockTable stocksData={data?.data?.slice(0, 10)} />
       )}
     </>
   );

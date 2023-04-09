@@ -1,15 +1,17 @@
 import { Stack, Typography } from '@mui/material';
-import useStockData from '../hooks/StockHooks/useStockData';
+import { useData } from '../hooks/useData';
+import { REMOTE } from '../utils/remoteRoutes';
 import StockPageHeaderSkeleton from './Loading/StockPageHeaderSkeleton';
 import StockPChange from './Table/StockPChange';
 import StockSymbol from './Table/StockSymbol';
 
 const StockPageHeader = ({ symbol }) => {
-  const { stockData, loading, error } = useStockData(symbol);
+  const { data, isLoading, error } = useData(REMOTE.PRICES, [symbol]);
+  const stockData = data?.data;
 
   return error ? (
     <Typography>An error occured</Typography>
-  ) : loading ? (
+  ) : isLoading ? (
     <StockPageHeaderSkeleton />
   ) : (
     <Stack

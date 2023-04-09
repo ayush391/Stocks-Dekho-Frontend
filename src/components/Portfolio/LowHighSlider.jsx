@@ -1,39 +1,41 @@
 import { Slider, Stack, Typography } from '@mui/material';
 import React from 'react';
-import useStockData from '../../hooks/StockHooks/useStockData';
+import { useData } from '../../hooks/useData';
 import CircularLoading from '../Loading/CircularLoading';
+import { REMOTE } from '../../utils/remoteRoutes';
 
 const LowHighSlider = ({ symbol }) => {
-  const { stockData, loading, error } = useStockData(symbol);
+  const { data, isLoading, error } = useData(REMOTE.PRICES, [symbol]);
+  const stockData = data?.data;
 
   return error ? (
     <Typography>An error occured</Typography>
-  ) : loading ? (
+  ) : isLoading ? (
     <CircularLoading />
   ) : (
     <Stack>
       <Stack width="100%" direction="row" justifyContent="space-between">
         <Typography variant="caption" color="grey">
-          Today's Low
+          {`Today's Low`}
         </Typography>
         <Typography variant="caption" color="grey">
-          Today's High
+          {`Today's High`}
         </Typography>
       </Stack>
 
       <Stack width="100%" direction="row" justifyContent="space-between">
         <Typography variant="body2" fontWeight="">
-          {stockData.dayLow}
+          {stockData?.dayLow}
         </Typography>
         <Typography variant="body2" fontWeight="">
-          {stockData.dayHigh}
+          {stockData?.dayHigh}
         </Typography>
       </Stack>
       <Slider
         track={false}
-        min={stockData.dayLow}
-        max={stockData.dayHigh}
-        value={stockData.lastPrice}
+        min={stockData?.dayLow}
+        max={stockData?.dayHigh}
+        value={stockData?.lastPrice}
         valueLabelDisplay="auto"
         defaultValue={0.00000005}
         step={0.00000001}
@@ -50,17 +52,17 @@ const LowHighSlider = ({ symbol }) => {
 
       <Stack width="100%" direction="row" justifyContent="space-between">
         <Typography variant="body2" fontWeight="">
-          {stockData.yearLow}
+          {stockData?.yearLow}
         </Typography>
         <Typography variant="body2" fontWeight="">
-          {stockData.yearHigh}
+          {stockData?.yearHigh}
         </Typography>
       </Stack>
       <Slider
         track={false}
-        min={stockData.yearLow}
-        max={stockData.yearHigh}
-        value={stockData.lastPrice}
+        min={stockData?.yearLow}
+        max={stockData?.yearHigh}
+        value={stockData?.lastPrice}
         valueLabelDisplay="auto"
         defaultValue={0.00000005}
         step={0.00000001}
