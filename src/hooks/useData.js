@@ -16,7 +16,7 @@ export const useData = (route, queryKey = [], query, searchQuery) => {
     return api.get(`${route}/${queryKey.join('/')}`, params);
   };
 
-  return useQuery([...queryKey, searchQuery], fetchData, {
+  return useQuery([...queryKey, query, searchQuery], fetchData, {
     enabled: ready,
     select: (data) => data.data
   });
