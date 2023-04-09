@@ -11,29 +11,23 @@ import { useData } from '../hooks/useData';
 import { REMOTE } from '../utils/remoteRoutes';
 import { useLocation } from 'react-router-dom';
 
+const TRANSACTION_TYPE = Object.freeze({
+  BUY: 'BUY',
+  SELL: 'SELL'
+});
+
 export const TransactionHistory = () => {
   const auth = getAuth(app);
   const [user] = useAuthState(auth);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(TRANSACTION_TYPE.BUY);
   const location = useLocation();
   let stockSymbol = '';
   if (location.state != null) {
     stockSymbol = location.state.stockSymbol;
   }
-  const {
-    data: transactionsBuy,
-    isLoading: loadingBuy,
-    error: errorBuy
-  } = useData(`${REMOTE.TRANSACTION}/history`, [user?.uid], {
-    type: 'BUY',
-    stockSymbol: stockSymbol.toString()
-  });
-  const {
-    data: transactionsSell,
-    isLoading: loadingSell,
-    error: errorSell
-  } = useData(`${REMOTE.TRANSACTION}/history`, [user?.uid], {
-    type: 'SELL',
+
+  const { data, isLoading, error } = useData(`${REMOTE.TRANSACTION}/history`, [user?.uid], {
+    type: value,
     stockSymbol: stockSymbol
   });
 
@@ -48,29 +42,16 @@ export const TransactionHistory = () => {
           Transactions History
         </Typography>
       </Box>
-      <AntTabs
-        style={{ width: '100%' }}
-        value={value}
-        onChange={handleChange}
-        aria-label="basic tabs example"
-        sx={{ marginBottom: 2 }}>
-        <AntTab style={{ width: '50%' }} label="Buy" />
-        <AntTab style={{ width: '50%' }} label="Sell" />
+      <AntTabs value={value} onChange={handleChange} sx={{ width: '100%', marginBottom: 2 }}>
+        {Object.values(TRANSACTION_TYPE).map((type) => (
+          <AntTab key={type} sx={{ width: '50%' }} label="Sell" value={type} />
+        ))}
       </AntTabs>
-      <TabPanel value={value} index={0}>
-        <TransactionLogCard
-          log={transactionsBuy?.allTransactions}
-          loading={loadingBuy}
-          error={errorBuy}
-        />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <TransactionLogCard
-          log={transactionsSell?.allTransactions}
-          loading={loadingSell}
-          error={errorSell}
-        />
-      </TabPanel>
+      {Object.values(TRANSACTION_TYPE).map((type) => (
+        <TabPanel key={type} value={value} index={type}>
+          <TransactionLogCard log={data?.allTransactions} loading={isLoading} error={error} />
+        </TabPanel>
+      ))}
     </>
   );
 };
