@@ -24,11 +24,10 @@ function LineGraph({ endpoint = 'graph', symbol, timeFrame = 5 }) {
       const response = await axios.get(url);
       let tempLt = [];
       let tempLtLabel = [];
-      response.data.data.forEach((item) => {
+      response.data.data.reverse().forEach((item) => {
         tempLt.push(parseFloat(item['HIGH '].replace(/,/g, '')));
         tempLtLabel.push(item['Date ']);
       });
-
       setStockPriceHistoryList(tempLt);
       setLabels(tempLtLabel);
       setLoading(false);

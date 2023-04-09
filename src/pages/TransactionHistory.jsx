@@ -9,6 +9,7 @@ import { AntTabs } from '../components/Tabs/AntTabs';
 import { TabPanel } from '../components/Tabs/TabPanel';
 import { useData } from '../hooks/useData';
 import { REMOTE } from '../utils/remoteRoutes';
+import { useLocation } from 'react-router-dom';
 
 const TRANSACTION_TYPE = Object.freeze({
   BUY: 'BUY',
@@ -19,9 +20,15 @@ export const TransactionHistory = () => {
   const auth = getAuth(app);
   const [user] = useAuthState(auth);
   const [value, setValue] = useState(TRANSACTION_TYPE.BUY);
+  const location = useLocation();
+  let stockSymbol = '';
+  if (location.state != null) {
+    stockSymbol = location.state.stockSymbol;
+  }
 
   const { data, isLoading, error } = useData(`${REMOTE.TRANSACTION}/history`, [user?.uid], {
-    type: value
+    type: value,
+    stockSymbol: stockSymbol
   });
 
   const handleChange = (event, newValue) => {
