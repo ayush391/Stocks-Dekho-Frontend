@@ -13,7 +13,7 @@ export const TransactionHistory = () => {
 
   let stockSymbol = null;
   if (location.state != null) {
-    stockSymbol = location.state.stockSymbol;
+    stockSymbol = location.state.symbol;
   }
   const {
     transactions: transactionsBuy,

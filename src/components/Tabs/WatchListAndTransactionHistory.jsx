@@ -48,7 +48,7 @@ const WatchListAndTransactionHistory = ({ symbol }) => {
       <IconButton color="success" onClick={handleWatchListBtn}>
         {inWatchlist ? <Bookmark color="success" /> : <BookmarkBorder color="success" />}
       </IconButton>
-      <Link component={RouterLink} to={transactionUrl}>
+      <Link component={RouterLink} to={transactionUrl} state={{ symbol }}>
         <IconButton>
           <Assignment />
         </IconButton>

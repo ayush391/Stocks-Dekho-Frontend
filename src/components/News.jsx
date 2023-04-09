@@ -15,8 +15,8 @@ const News = ({ symbol }) => {
   useEffect(() => {
     async function getNews() {
       const result = await axios.get(BASE_URL);
-      setNews(result.data.data.articles)
-      console.log(result.data.data.articles)
+      setNews(result.data.data.articles);
+      console.log(result.data.data.articles);
     }
     getNews();
   }, []);

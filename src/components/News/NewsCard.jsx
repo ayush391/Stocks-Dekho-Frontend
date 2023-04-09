@@ -18,35 +18,35 @@ export const NewsCard = (props) => {
         display: 'flex',
         flexDirection: 'column'
       }}>
-        <CardActionArea component={Link} to={props.url} >
-      <Stack
-        justifyContent="flex-end"
-        sx={{
-          height: '100%',
-          flex: 1
-        }}>
-        <CardMedia
-          component="img"
-          src={props.urlToImage}
+      <CardActionArea component={Link} to={props.url}>
+        <Stack
+          justifyContent="flex-end"
           sx={{
-            height: '200px'
-          }}
-        />
-        <CardContent
-          sx={{
-            backdropFilter: 'blur(10px) brightness(50%)',
-            color: '#fff'
+            height: '100%',
+            flex: 1
           }}>
-          <Stack justifyContent="space-between">
-            <Typography variant="body1" height="100px" textOverflow="ellipsis">
-              {props.title}
-            </Typography>
-            <Typography variant="caption" textAlign="right" justifySelf="flex-end">
-              {new Date(props.publishedAt).toDateString()}
-            </Typography>
-          </Stack>
-        </CardContent>
-      </Stack>
+          <CardMedia
+            component="img"
+            src={props.urlToImage}
+            sx={{
+              height: '200px'
+            }}
+          />
+          <CardContent
+            sx={{
+              backdropFilter: 'blur(10px) brightness(50%)',
+              color: '#fff'
+            }}>
+            <Stack justifyContent="space-between">
+              <Typography variant="body1" height="100px" textOverflow="ellipsis">
+                {props.title}
+              </Typography>
+              <Typography variant="caption" textAlign="right" justifySelf="flex-end">
+                {new Date(props.publishedAt).toDateString()}
+              </Typography>
+            </Stack>
+          </CardContent>
+        </Stack>
       </CardActionArea>
     </Card>
   );
