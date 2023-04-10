@@ -44,7 +44,7 @@ export const TransactionHistory = () => {
       </Box>
       <AntTabs value={value} onChange={handleChange} sx={{ width: '100%', marginBottom: 2 }}>
         {Object.values(TRANSACTION_TYPE).map((type) => (
-          <AntTab key={type} sx={{ width: '50%' }} label="Sell" value={type} />
+          <AntTab key={type} sx={{ width: '50%' }} label={type} value={type} />
         ))}
       </AntTabs>
       {Object.values(TRANSACTION_TYPE).map((type) => (
