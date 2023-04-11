@@ -5,10 +5,14 @@ import ReactPlayer from 'react-player';
 export const YoutubeTab = ({ videoId }) => {
   const { ref, inView, entry } = useInView({ threshold: 0.8 });
   const playerRef = useRef(null);
-  const opts = {
-    height: window.innerHeight + 'px',
-    width: window.innerWidth + 'px',
-    playerVars: {}
+
+  const config = {
+    youtube: {
+      playerVars: {
+        height: '700',
+        width: '320'
+      }
+    }
   };
 
   const onPlayerReady = (event) => {
@@ -23,17 +27,20 @@ export const YoutubeTab = ({ videoId }) => {
       ref={ref}
       style={{
         overflow: 'hidden',
-        maxWidth: 'sm'
+        borderRadius: '20px'
       }}>
       <ReactPlayer
         playing={inView}
         ref={playerRef}
+        // playsinline={false}
+        muted={true}
         controls={true}
         onReady={onPlayerReady}
-        url={'https://www.youtube.com/shorts/QVdUBFPfOrg?autoplay=1'}
+        url={'https://www.youtube.com/watch?v=Ah597mW9LXA?autoplay=1'}
         title="Learn the Basics of Stock Market"
         width={'100%'}
-        height={'700px'}
+        height={'640px'}
+        config={config}
         // volume={10}
       />
     </div>
