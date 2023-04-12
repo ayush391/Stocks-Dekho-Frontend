@@ -1,6 +1,5 @@
 import { Avatar, Card, Stack, Typography, CardContent } from '@mui/material';
 import { useData } from '../../hooks/useData';
-import { AccountCircle } from '@mui/icons-material';
 import { useState } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
 import { app } from '../Firebase';
