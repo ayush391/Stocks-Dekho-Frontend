@@ -1,29 +1,17 @@
-name: stocks-dekho-backend
+name: stocks-dekho-frontend
 version: 0
 application:
   version: 1.20 # (optional)
-  language: nodejs
+  language: javascript
   ports:
   - port: 5173
-    ingress: true
-    ingressPath: /
-endpoints:
-  - path: /stocks
-    method: GET
-    command: node build/index.js
-build:
-  command: vite build
-  outputDirectory: build
-healthChecks:
-  readinessProbe:
-    httpGet:
-      path: /healthz
-      port: 5173
-    initialDelaySeconds: 5
-    timeoutSeconds: 5
-  livenessProbe:
-    httpGet:
-      path: /healthz
-      port: 5173
-    initialDelaySeconds: 15
-    timeoutSeconds: 5
+    protocol: TCP
+    targetPort: 5173
+    ingress:
+      enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /$2
+    path: /
+pre-exec:
+  commands:  
+  - cmd: date # Print the deploy date
