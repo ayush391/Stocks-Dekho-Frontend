@@ -1,7 +1,6 @@
 .background-image {
     display: flex;
     flex-direction: column;
-    width: 80%;
     color: white;
     font-weight: bold;
     margin-right: auto;
