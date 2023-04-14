@@ -14,7 +14,7 @@ routes:
   - path: /
     destination:
       port:
-        number: 3000
+        number: 5173
     rewrite:
       target: build/index.html
 
