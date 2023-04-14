@@ -1,18 +1,9 @@
-import {
-  ChakraProvider,
-  Stat,
-  StatArrow,
-  StatGroup,
-  StatHelpText,
-  StatLabel,
-  StatNumber
-} from '@chakra-ui/react';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { app } from '../Firebase';
-import { Typography } from '@mui/material';
+import { Divider } from '@mui/material';
 // const StatComponent = ({ portfolio_value }) => {
 //   return (
 //     <div style={{ marginLeft: 10 }}>
@@ -70,10 +61,13 @@ const PortfolioTab = () => {
           {' '}
           Hi , Welcome Back
           <br></br>
-          {name}
+          {user != null ? name : ''}
         </h1>
+        <Divider />
         <div>
-          <h3>Portfolio Value {portfolioValue.toFixed(2)}</h3>
+          <h3 style={{ textAlign: 'center' }}>
+            {user != null ? 'Portfolio Value ' + portfolioValue.toFixed(2) : 'Please Log In'}
+          </h3>
         </div>
       </div>
     </div>

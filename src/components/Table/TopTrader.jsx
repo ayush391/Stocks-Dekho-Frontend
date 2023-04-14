@@ -35,7 +35,7 @@ const CardView = ({ item, index }) => {
           <Typography>
             <b>{index + 1}.</b> {name}
           </Typography>
-          <Typography style={{ color: 'green' }}>{item.portfolio_value}</Typography>
+          <Typography style={{ color: 'green' }}>{item.portfolio_value.toFixed(2)}</Typography>
         </Stack>
       </CardContent>
     </Card>

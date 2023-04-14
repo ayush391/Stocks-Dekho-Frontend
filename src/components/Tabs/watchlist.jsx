@@ -28,7 +28,7 @@ const WatchList = () => {
   return (
     <Stack justifyContent={'center'} justifyItems={'center'}>
       <h3 style={{ fontFamily: 'sans-serif', fontWeight: 'bolder' }}>WatchList</h3>
-      {watchList.map((stock) => (
+      {watchList.slice(0, watchList.length > 3 ? 3 : watchList.length).map((stock) => (
         // eslint-disable-next-line react/jsx-key
         <p
           style={{
