@@ -5,7 +5,12 @@ application:
   language: Nodejs
   ports:
   - port: 5173
-
-pre-exec:
-  commands:  
-  - cmd: date # Print the deploy date
+    ingress: true
+    ingressPath: /
+endpoints:
+  - path: /
+    method: GET
+    command: node build/index.js
+build:
+  command: vite build
+  outputDirectory: build
