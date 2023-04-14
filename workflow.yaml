@@ -5,8 +5,7 @@ application:
   language: Nodejs
   ports:
   - port: 5173
-    ingress: true
-    ingressPath: /
+
 pre-exec:
   commands:  
   - cmd: date # Print the deploy date
