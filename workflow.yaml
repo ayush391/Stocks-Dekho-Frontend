@@ -14,4 +14,16 @@ endpoints:
 build:
   command: vite build
   outputDirectory: build
-
+healthChecks:
+  readinessProbe:
+    httpGet:
+      path: /healthz
+      port: 8080
+    initialDelaySeconds: 5
+    timeoutSeconds: 5
+  livenessProbe:
+    httpGet:
+      path: /healthz
+      port: 8080
+    initialDelaySeconds: 15
+    timeoutSeconds: 5
