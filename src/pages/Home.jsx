@@ -8,8 +8,8 @@ import PortfolioTab from '../components/Tabs/portfolioTab';
 const Home = () => {
   return (
     <>
-      <PortfolioTab />
       <Container maxWidth="sm">
+        <PortfolioTab />
         <StockPanel />
       </Container>
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { app } from '../Firebase';
 import { Divider } from '@mui/material';
+import './portfolioTab.css';
 // const StatComponent = ({ portfolio_value }) => {
 //   return (
 //     <div style={{ marginLeft: 10 }}>
@@ -43,20 +44,7 @@ const PortfolioTab = () => {
   return (
     <div>
       <br></br>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '80%',
-          backgroundColor: 'lightgreen',
-          color: 'white',
-          fontWeight: 'bold',
-          marginRight: 'auto',
-          marginLeft: 'auto',
-          padding: 10,
-          borderRadius: 20,
-          marginBottom: 20
-        }}>
+      <div className="background-image">
         <h1 style={{ fontSize: '29', fontWeight: 'bolder' }}>
           {' '}
           Hi , Welcome Back
