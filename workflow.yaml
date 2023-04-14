@@ -1,16 +1,17 @@
-name: stocks-dekho-frontend
+name: stocks-dekho-backend
 version: 0
 application:
   version: 1.20 # (optional)
-  language: Nodejs
+  language: nodejs
   ports:
-  - port: 5173
+  - port: 8080
     ingress: true
     ingressPath: /
 endpoints:
-  - path: /
+  - path: /stocks
     method: GET
     command: node build/index.js
 build:
   command: vite build
   outputDirectory: build
+
