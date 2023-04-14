@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { app } from '../Firebase';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 const WatchList = () => {
@@ -22,7 +22,7 @@ const WatchList = () => {
       getWatchList();
     }
   }, [user, loading]);
-  const handleBtn = (stock) =>{
+  const handleBtn = (stock) => {
     navigation('/' + stock);
   };
   return (

@@ -4,10 +4,11 @@ import StockPanel from '../components/StockPanel';
 import { SectorTab } from '../components/Tabs/Sectors';
 import TopTrader from '../components/Table/TopTrader';
 import WatchList from '../components/Tabs/watchlist';
-
+import PortfolioTab from '../components/Tabs/portfolioTab';
 const Home = () => {
   return (
     <>
+      <PortfolioTab />
       <Container maxWidth="sm">
         <StockPanel />
       </Container>
