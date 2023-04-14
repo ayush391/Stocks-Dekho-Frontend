@@ -4,7 +4,7 @@ application:
   version: 1.20 # (optional)
   language: nodejs
   ports:
-  - port: 8080
+  - port: 5173
     ingress: true
     ingressPath: /
 endpoints:
@@ -18,12 +18,12 @@ healthChecks:
   readinessProbe:
     httpGet:
       path: /healthz
-      port: 8080
+      port: 5173
     initialDelaySeconds: 5
     timeoutSeconds: 5
   livenessProbe:
     httpGet:
       path: /healthz
-      port: 8080
+      port: 5173
     initialDelaySeconds: 15
     timeoutSeconds: 5
