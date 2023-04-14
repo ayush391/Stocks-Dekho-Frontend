@@ -16,5 +16,5 @@ routes:
       port:
         number: 3000
     rewrite:
-      target: /index.html
+      target: build/index.html
 
