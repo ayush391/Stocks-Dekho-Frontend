@@ -2,7 +2,7 @@ name: stocks-dekho-frontend
 version: 0
 application:
   version: 1.20 # (optional)
-  language: javascript
+  language: Nodejs
   ports:
   - port: 5173
     ingress: true
