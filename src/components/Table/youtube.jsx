@@ -1,18 +1,48 @@
-import YouTube from 'react-youtube';
+import { useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
+import ReactPlayer from 'react-player';
 
 export const YoutubeTab = ({ videoId }) => {
-  const opts = {
-    height: window.innerHeight + 'px',
-    width: window.innerWidth + 'px',
-    playerVars: {}
+  const { ref, inView, entry } = useInView({ threshold: 0.8 });
+  const playerRef = useRef(null);
+
+  const config = {
+    youtube: {
+      playerVars: {
+        height: '700',
+        width: '320'
+      }
+    }
   };
+
+  const onPlayerReady = (event) => {
+    console.log('player Ready ' + event);
+  };
+
+  // useEffect(() => {
+  //   inView ? playerRef.current.playVideo() : playerRef.current.pauseVideo();
+  // }, [inView]);
   return (
     <div
+      ref={ref}
       style={{
         overflow: 'hidden',
-        maxWidth: 'sm'
+        borderRadius: '20px'
       }}>
-      <YouTube videoId={videoId} title="Learn the Basics of Stock Market" opts={opts} />
+      <ReactPlayer
+        playing={inView}
+        ref={playerRef}
+        // playsinline={false}
+        muted={true}
+        controls={true}
+        onReady={onPlayerReady}
+        url={'https://www.youtube.com/watch?v=Ah597mW9LXA?autoplay=1'}
+        title="Learn the Basics of Stock Market"
+        width={'100%'}
+        height={'640px'}
+        config={config}
+        // volume={10}
+      />
     </div>
   );
 };

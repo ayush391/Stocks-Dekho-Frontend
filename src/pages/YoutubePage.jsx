@@ -1,13 +1,16 @@
+import { Container } from '@mui/material';
 import { YoutubeTab } from '../components/Table/youtube';
+import './yt.css';
 
 const YoutubePage = () => {
   const videoIdList = ['LILp_Lr7ENc', 'wwVAzm3ObWg', 'clEseZpv2yg', 'NqWJXk700FA', '_BkGh08iIfs'];
+
   return (
-    <div style={{ maxWidth: 'sm' }}>
+    <Container maxWidth="sm" sx={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       {videoIdList.map((videoId) => (
-        <YoutubeTab videoId={videoId} />
+        <YoutubeTab key={videoId} videoId={videoId} />
       ))}
-    </div>
+    </Container>
   );
 };
 

@@ -1,4 +1,4 @@
-import { AccountBalanceWallet, History, MonetizationOn, Wallet } from '@mui/icons-material';
+import { AccountBalanceWallet, History, Wallet, AccountCircle } from '@mui/icons-material';
 import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import axios from 'axios';
@@ -91,20 +91,24 @@ const Profile = () => {
 
               <Button
                 size="large"
+                component={Link}
+                to={'/EditProfile'}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
                   backgroundColor: 'primary.light',
                   textTransform: 'none'
                 }}>
-                <MonetizationOn fontSize="large" color="primary" />
+                <AccountCircle fontSize="large" color="primary" />
                 <Typography variant="caption" display="block">
-                  Balance
+                  EditProfile
                 </Typography>
               </Button>
 
               <Button
                 size="large"
+                component={Link}
+                to={'/portfolio'}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
