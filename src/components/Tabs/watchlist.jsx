@@ -27,24 +27,30 @@ const WatchList = () => {
   };
   return (
     <Stack justifyContent={'center'} justifyItems={'center'}>
-      <h3 style={{ fontFamily: 'sans-serif', fontWeight: 'bolder' }}>WatchList</h3>
-      {watchList.slice(0, watchList.length > 3 ? 3 : watchList.length).map((stock) => (
-        // eslint-disable-next-line react/jsx-key
-        <p
-          style={{
-            textAlign: 'center',
-            border: '1px solid',
-            borderRadius: 10,
-            padding: 10,
-            transition: 'background-color 0.5s'
-          }}
-          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#D3D3D3')}
-          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-          onClick={(e) => handleBtn(stock)}>
-          {' '}
-          {stock}{' '}
-        </p>
-      ))}
+      {user != null ? (
+        <div>
+          <h3 style={{ fontFamily: 'sans-serif', fontWeight: 'bolder' }}>WatchList</h3>
+          {watchList.slice(0, watchList.length > 3 ? 3 : watchList.length).map((stock) => (
+            // eslint-disable-next-line react/jsx-key
+            <p
+              style={{
+                textAlign: 'center',
+                border: '1px solid',
+                borderRadius: 10,
+                padding: 10,
+                transition: 'background-color 0.5s'
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#D3D3D3')}
+              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+              onClick={(e) => handleBtn(stock)}>
+              {' '}
+              {stock}{' '}
+            </p>
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
     </Stack>
   );
 };
