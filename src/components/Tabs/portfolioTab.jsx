@@ -45,7 +45,7 @@ const PortfolioTab = () => {
     <div>
       <br></br>
       <div className="background-image">
-        <h1 style={{ fontSize: '29', fontWeight: 'bolder' }}>
+        <h1 style={{ fontSize: '29', fontWeight: 'bolder', textAlign: 'center' }}>
           {' '}
           Hi , Welcome Back
           <br></br>

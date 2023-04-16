@@ -11,6 +11,7 @@ import {
   Typography
 } from '@mui/material';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getDatabase, ref as refRDB, set } from 'firebase/database';
 
 import axios from 'axios';
 import {
@@ -34,7 +35,7 @@ export const SignUpPage = () => {
   const [loading, setLoading] = useState(false);
 
   const [alert, setAlert] = useState({ message: '', open: false, type: 'error' });
-
+  const rdb = getDatabase(app);
   const handleOpen = (msg, type) => {
     setAlert({ message: msg, open: true, type: type });
   };
@@ -56,7 +57,14 @@ export const SignUpPage = () => {
   const handleText = (event) => {
     setName(event.target.value);
   };
-
+  const uploadToRDB = async (picUrl, uid) => {
+    console.log('Data');
+    await set(refRDB(rdb, 'User/' + uid), {
+      username: name,
+      desc: '',
+      photoURL: picUrl
+    });
+  };
   const uploadImage = async (uid) => {
     if (file != {}) {
       const storageRef = ref(storage, uid + file.name);
@@ -83,7 +91,7 @@ export const SignUpPage = () => {
         const response = await axios.post(import.meta.env.VITE_BASE_URL + '/user/signup', {
           userId: user.uid.toString()
         });
-
+        await uploadToRDB(picUrl, user.uid.toString());
         updateProfile(user, {
           displayName: name.toString(),
           photoURL: picUrl
