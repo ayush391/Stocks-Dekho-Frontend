@@ -13,8 +13,10 @@ const WatchList = () => {
   const navigation = useNavigate();
   useEffect(() => {
     const getWatchList = async () => {
-      const response = await axios.get(baseUrl + '/watchlist/' + auth.currentUser.uid);
-      setWatchList(response.data.watchlist);
+      if (auth.currentUser != null) {
+        const response = await axios.get(baseUrl + '/watchlist/' + auth.currentUser.uid);
+        setWatchList(response.data.watchlist);
+      }
     };
     if (loading) {
       console.log(loading);

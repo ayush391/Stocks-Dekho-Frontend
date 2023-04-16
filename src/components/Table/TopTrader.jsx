@@ -35,7 +35,9 @@ const CardView = ({ item, index }) => {
           <Typography>
             <b>{index + 1}.</b> {name}
           </Typography>
-          <Typography style={{ color: 'green' }}>{item.portfolio_value.toFixed(2)}</Typography>
+          <Typography style={{ color: 'green' }}>
+            {item.portfolio_value != null ? item.portfolio_value.toFixed(2) : 0}
+          </Typography>
         </Stack>
       </CardContent>
     </Card>
@@ -44,7 +46,7 @@ const CardView = ({ item, index }) => {
 
 const TopTrader = () => {
   const { data, isLoading, error } = useData(`/leader-board`);
-  if (isLoading) {
+  if (isLoading || error) {
     console.log(isLoading);
   } else {
     return (
