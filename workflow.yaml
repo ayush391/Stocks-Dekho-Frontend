@@ -1,0 +1,20 @@
+name: stocks-dekho-frontend
+version: 0
+application:
+  version: 1.20 # (optional)
+  language: node
+  ports:
+    - port: 5173
+      ingress: true
+      ingressPath: /
+pre-exec:
+  commands:  
+    - cmd: date # Print the deploy date
+routes:
+  - path: /
+    destination:
+      port:
+        number: 5173
+    rewrite:
+      target: build/index.html
+

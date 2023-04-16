@@ -1,0 +1,14 @@
+.background-image {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-weight: bold;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    background-image: url(../../assets/blue.jpg);
+    opacity: 0.7;
+    background-size: cover;
+  }
