@@ -29,7 +29,7 @@ const WatchList = () => {
   };
   return (
     <Stack justifyContent={'center'} justifyItems={'center'}>
-      {user != null ? (
+      {user != null && watchList != null ? (
         <div>
           <h3 style={{ fontFamily: 'sans-serif', fontWeight: 'bolder' }}>WatchList</h3>
           {watchList.slice(0, watchList.length > 3 ? 3 : watchList.length).map((stock) => (
