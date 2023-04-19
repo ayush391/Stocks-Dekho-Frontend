@@ -42,7 +42,7 @@ const PortfolioTab = () => {
     }
   }, [loading, user, error]);
   return (
-    <div style={{ flexShrink: 0, minWidth: '100vw', overflowX: 'auto', marginRight: 5 }}>
+    <div style={{ flexShrink: 0, minWidth: 'sm', overflowX: 'auto', marginRight: 5 }}>
       <br></br>
       <div className="background-image">
         <h1 style={{ fontSize: '29', fontWeight: 'bolder', textAlign: 'center' }}>

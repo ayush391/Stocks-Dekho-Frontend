@@ -3,7 +3,7 @@ import './portfolioTab.css';
 import { Divider } from '@mui/material';
 const EventTab = () => {
   return (
-    <div style={{ flexShrink: 0, minWidth: '100vw', overflowX: 'auto' }}>
+    <div style={{ flexShrink: 0, minWidth: 'sm', overflowX: 'auto' }}>
       <br></br>
       <div className="background-image">
         <h1 style={{ fontSize: '29', fontWeight: 'bolder', textAlign: 'center' }}>

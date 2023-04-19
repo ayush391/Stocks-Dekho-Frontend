@@ -19,11 +19,11 @@ const Home = () => {
   const classes = useStyles();
   return (
     <>
-      <Stack direction={'row'} sx={{ overflowX: 'scroll', maxWidth: 'sm', padding: 2 }}>
-        <PortfolioTab />
-        <EventTab />
-      </Stack>
       <Container maxWidth="sm">
+        <Stack direction={'row'} sx={{ overflowX: 'scroll', maxWidth: 'sm', padding: 2 }}>
+          <PortfolioTab />
+          <EventTab />
+        </Stack>
         <StockPanel />
       </Container>
 
