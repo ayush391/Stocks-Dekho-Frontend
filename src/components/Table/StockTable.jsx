@@ -3,7 +3,7 @@ import TableSkeletonPhone from '../Loading/TableSkeletonPhone';
 import StockCard from '../StockCard';
 
 const StockTable = ({ data, isLoading, error }) => {
-  const stockList = data?.data;
+  const stockList = data?.watchlist ? data.watchlist.map((symbol) => ({ symbol })) : data?.data;
 
   return (
     <>
