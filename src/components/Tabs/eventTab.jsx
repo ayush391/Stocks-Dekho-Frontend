@@ -1,7 +1,9 @@
 import { Button } from '@mui/material';
 import './portfolioTab.css';
 import { Divider } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 const EventTab = () => {
+  const navigate = useNavigate();
   return (
     <div style={{ flexShrink: 0, minWidth: 'sm', overflowX: 'auto' }}>
       <br></br>
@@ -12,7 +14,7 @@ const EventTab = () => {
           <br></br>
         </h1>
         <Divider />
-        <Button onClick={() => alert('no new Event')}>learn more</Button>
+        <Button onClick={() => navigate('/Events')}>learn more</Button>
       </div>
     </div>
   );
