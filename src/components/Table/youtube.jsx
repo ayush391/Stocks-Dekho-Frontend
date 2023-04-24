@@ -36,7 +36,7 @@ export const YoutubeTab = ({ videoId }) => {
         muted={true}
         controls={true}
         onReady={onPlayerReady}
-        url={'https://www.youtube.com/watch?v=Ah597mW9LXA?autoplay=1'}
+        url={'https://www.youtube.com/watch?v=' + videoId}
         title="Learn the Basics of Stock Market"
         width={'100%'}
         height={'640px'}

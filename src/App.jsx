@@ -23,6 +23,7 @@ import createThemeWithMode from './theme';
 import SectorPage from './pages/SectorPage';
 import YoutubePage from './pages/YoutubePage';
 import EditProfile from './pages/EditProfile';
+import EventsPage from './pages/Events';
 
 function App() {
   const context = useContext(AppContext);
@@ -57,6 +58,7 @@ function App() {
             <Route path="/SectorPage/:sectorName" element={<SectorPage />}></Route>
             <Route path="/YoutubePage" element={<YoutubePage />}></Route>
             <Route path="/EditProfile" element={<EditProfile />}></Route>
+            <Route path="/Events" element={<EventsPage />}></Route>
           </Routes>
         </ThemeProvider>
       </HashRouter>
