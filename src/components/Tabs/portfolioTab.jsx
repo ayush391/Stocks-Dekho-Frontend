@@ -5,6 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { app } from '../Firebase';
 import { Divider } from '@mui/material';
 import './portfolioTab.css';
+import { Link } from 'react-router-dom';
 // const StatComponent = ({ portfolio_value }) => {
 //   return (
 //     <div style={{ marginLeft: 10 }}>
@@ -42,7 +43,7 @@ const PortfolioTab = () => {
     }
   }, [loading, user, error]);
   return (
-    <div>
+    <div style={{ flexShrink: 0, minWidth: 'sm', overflowX: 'auto', marginRight: 5 }}>
       <br></br>
       <div className="background-image">
         <h1 style={{ fontSize: '29', fontWeight: 'bolder', textAlign: 'center' }}>
@@ -53,9 +54,11 @@ const PortfolioTab = () => {
         </h1>
         <Divider />
         <div>
-          <h3 style={{ textAlign: 'center' }}>
-            {user != null ? 'Portfolio Value ' + portfolioValue.toFixed(2) : 'Please Log In'}
-          </h3>
+          <Link to={user != null ? '/portfolio' : 'login'}>
+            <h3 style={{ textAlign: 'center', color: 'white' }}>
+              {user != null ? 'Portfolio Value ' + portfolioValue.toFixed(2) : 'Please Log In'}
+            </h3>
+          </Link>
         </div>
       </div>
     </div>

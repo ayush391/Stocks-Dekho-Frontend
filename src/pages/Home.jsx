@@ -1,15 +1,29 @@
-import { Container, Typography } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 import News from '../components/News';
 import StockPanel from '../components/StockPanel';
 import { SectorTab } from '../components/Tabs/Sectors';
 import TopTrader from '../components/Table/TopTrader';
 import WatchList from '../components/Tabs/watchlist';
 import PortfolioTab from '../components/Tabs/portfolioTab';
+import EventTab from '../components/Tabs/eventTab';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  grid: {
+    display: 'flex',
+    overflowX: 'scroll',
+    flexDirection: 'row'
+  }
+});
 const Home = () => {
+  const classes = useStyles();
   return (
     <>
       <Container maxWidth="sm">
-        <PortfolioTab />
+        <Stack direction={'row'} sx={{ overflowX: 'scroll', maxWidth: 'sm', padding: 2 }}>
+          <PortfolioTab />
+          <EventTab />
+        </Stack>
         <StockPanel />
       </Container>
 
