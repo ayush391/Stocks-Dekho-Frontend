@@ -5,17 +5,8 @@ import TopTrader from '../components/Table/TopTrader';
 import { SectorTab } from '../components/Tabs/Sectors';
 import PortfolioTab from '../components/Tabs/portfolioTab';
 import EventTab from '../components/Tabs/eventTab';
-import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles({
-  grid: {
-    display: 'flex',
-    overflowX: 'scroll',
-    flexDirection: 'row'
-  }
-});
 const Home = () => {
-  const classes = useStyles();
   return (
     <>
       <Container maxWidth="sm">
