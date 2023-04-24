@@ -1,13 +1,20 @@
-import { AccountCircle } from '@mui/icons-material';
-import { AppBar, Avatar, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
+import { AccountCircle, Menu } from '@mui/icons-material';
+import {
+  AppBar,
+  Avatar,
+  Button,
+  IconButton,
+  SwipeableDrawer,
+  Toolbar,
+  Typography
+} from '@mui/material';
 import { getAuth } from 'firebase/auth';
-import Hamburger from 'hamburger-react';
 import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import { app } from '../Firebase';
+import SidebarMenu from '../SidebarMenu';
 import Search from './Search';
-import Sidebar from './Slidebar';
 
 const NavbarHome = () => {
   const [isOpen, setOpen] = useState(false);
@@ -62,20 +69,17 @@ const NavbarHome = () => {
             StoxDekho
           </Typography>
         </Button>
-        <Toolbar
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            gap: 3
-          }}>
-          <Stack direction="row">
-            <Hamburger color="white" toggled={isOpen} toggle={setOpen} />
-          </Stack>
+        <Toolbar sx={{ justifyContent: 'space-between', gap: 3 }}>
+          <IconButton color="white" onClick={setOpen}>
+            <Menu fontSize="large" />
+          </IconButton>
           <Search />
           <RenderComponent />
         </Toolbar>
-        <Sidebar open={isOpen} onClose={() => setOpen(false)} />
       </AppBar>
+      <SwipeableDrawer open={isOpen} onClose={() => setOpen(false)} onOpen={() => setOpen(true)}>
+        <SidebarMenu />
+      </SwipeableDrawer>
     </>
   );
 };
