@@ -13,8 +13,8 @@ const SidebarMenu = () => {
   return (
     <Box sx={{ width: 250 }} role="presentation">
       <List>
-        {menuItems(user).map((item) => {
-          if (item.divider) return <Divider sx={{ my: 1 }} />;
+        {menuItems(user).map((item, idx) => {
+          if (item.divider) return <Divider key={idx} sx={{ my: 1 }} />;
           if (item.visible === undefined || item.visible)
             return <SidebarMenuItem key={item.name} item={item} />;
           return null;

@@ -29,14 +29,12 @@ export default function BuyStock() {
         stockSymbol: stockData != null ? stockData.symbol : 'Symbol',
         quantity: stockQty
       });
-      console.log(response.data);
       if (response.status === 200) {
         setOrderReview(response.data);
         setOpen(true);
         setloadingConfirmOrder(false);
       }
     } catch (err) {
-      // setError(err.message);
       setloadingConfirmOrder(false);
     }
   };

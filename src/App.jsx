@@ -54,7 +54,7 @@ function App() {
             <Route path="/sell/:symbol" element={<SellStock />}></Route>
             <Route path="/test" element={<SectorTab />}></Route>
             <Route path="/SectorPage/:sectorName" element={<SectorPage />}></Route>
-            <Route path="/YoutubePage" element={<YoutubePage />}></Route>
+            <Route path="/shorts" element={<YoutubePage />}></Route>
             <Route path="/EditProfile" element={<EditProfile />}></Route>
             <Route path="/Events" element={<EventsPage />}></Route>
           </Routes>

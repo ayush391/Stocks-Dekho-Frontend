@@ -32,7 +32,6 @@ export default function SellStock() {
         stockSymbol: stockData != null ? stockData.symbol : 'Symbol',
         quantity: stockQty
       });
-      console.log(response.data);
       if (response.status === 200) {
         setOrderReview(response.data);
         setOpen(true);

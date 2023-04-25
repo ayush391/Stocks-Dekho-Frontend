@@ -18,7 +18,6 @@ const useSearchStock = (searchQuery) => {
           const data = await result.data;
           setStocksData(data.data);
           setLoading(false);
-          console.log(data.data);
         } else {
           setStocksData([]);
           setLoading(false);
