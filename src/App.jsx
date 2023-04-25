@@ -8,7 +8,6 @@ import Search from './components/Navbar/Search';
 import { SignUpPage } from './components/SignupPage';
 import { SectorTab } from './components/Tabs/Sectors';
 import AppContext from './context/AppContext';
-import AllStocks from './pages/AllStocks';
 import { BankHistory } from './pages/BankHistory';
 import BuyStock from './pages/BuyStock';
 import { ForgetPassword } from './pages/ForgetPassword';
@@ -41,7 +40,6 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/allstocks" element={<AllStocks />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/signup" element={<SignUpPage />}></Route>
             <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
