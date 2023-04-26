@@ -31,7 +31,7 @@ const StockPanel = () => {
 
   return (
     <>
-      <AntTabs value={value} onChange={handleChange} centered>
+      <AntTabs value={value} onChange={handleChange} variant="scrollable">
         {tabs.map((tab) => (
           <AntTab key={tab.queryKey} icon={tab.icon} label={tab.label} value={tab.queryKey} />
         ))}

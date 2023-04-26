@@ -1,8 +1,17 @@
-import { AccountBox, DarkMode, House, Login, LogoutRounded, VerifiedUser, Wallet, YouTube } from '@mui/icons-material';
+import {
+  AccountBox,
+  DarkMode,
+  House,
+  Login,
+  LogoutRounded,
+  VerifiedUser,
+  Wallet,
+  YouTube
+} from '@mui/icons-material';
 
 export const menuItems = (user) => [
   { Icon: House, name: 'Home', link: '/' },
-  { Icon: YouTube, name: 'Shorts', link: '/youtubePage' },
+  { Icon: YouTube, name: 'Shorts', link: '/shorts' },
   { Icon: Wallet, name: 'Transaction History', link: '/transactionHistory' },
   { Icon: VerifiedUser, name: 'Portfolio', link: '/portfolio' },
   { Icon: AccountBox, name: 'Profile', link: '/profile' },

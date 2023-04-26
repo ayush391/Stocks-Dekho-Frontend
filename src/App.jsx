@@ -8,7 +8,6 @@ import Search from './components/Navbar/Search';
 import { SignUpPage } from './components/SignupPage';
 import { SectorTab } from './components/Tabs/Sectors';
 import AppContext from './context/AppContext';
-import AllStocks from './pages/AllStocks';
 import { BankHistory } from './pages/BankHistory';
 import BuyStock from './pages/BuyStock';
 import { ForgetPassword } from './pages/ForgetPassword';
@@ -41,7 +40,6 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/allstocks" element={<AllStocks />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/signup" element={<SignUpPage />}></Route>
             <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
@@ -56,7 +54,7 @@ function App() {
             <Route path="/sell/:symbol" element={<SellStock />}></Route>
             <Route path="/test" element={<SectorTab />}></Route>
             <Route path="/SectorPage/:sectorName" element={<SectorPage />}></Route>
-            <Route path="/YoutubePage" element={<YoutubePage />}></Route>
+            <Route path="/shorts" element={<YoutubePage />}></Route>
             <Route path="/EditProfile" element={<EditProfile />}></Route>
             <Route path="/Events" element={<EventsPage />}></Route>
           </Routes>

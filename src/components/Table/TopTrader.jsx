@@ -8,7 +8,6 @@ const CardView = ({ item, index }) => {
   const [name, setName] = useState('Name');
   const [photoURL, setPhotoUrl] = useState('');
   const getRdb = (uid) => {
-    console.log('getRdb');
     const db = getDatabase(app);
     const userRef = ref(db, 'User/' + uid.toString());
     get(userRef).then((snapshot) => {
@@ -47,7 +46,7 @@ const CardView = ({ item, index }) => {
 const TopTrader = () => {
   const { data, isLoading, error } = useData(`/leader-board`);
   if (isLoading || error) {
-    console.log(isLoading);
+    /* empty */
   } else {
     return (
       <div>
@@ -57,10 +56,7 @@ const TopTrader = () => {
           data
             .sort((a, b) => b.portfolio_value - a.portfolio_value)
             .slice(0, 3)
-            .map((item, index) => (
-              // eslint-disable-next-line react/jsx-key
-              <CardView item={item} index={index} />
-            ))
+            .map((item, index) => <CardView key={index} item={item} index={index} />)
         ) : (
           <></>
         )}

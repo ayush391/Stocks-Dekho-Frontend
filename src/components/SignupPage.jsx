@@ -58,7 +58,6 @@ export const SignUpPage = () => {
     setName(event.target.value);
   };
   const uploadToRDB = async (picUrl, uid) => {
-    console.log('Data');
     await set(refRDB(rdb, 'User/' + uid), {
       username: name,
       desc: '',
@@ -69,16 +68,13 @@ export const SignUpPage = () => {
     if (file != {}) {
       const storageRef = ref(storage, uid + file.name);
       const response = await uploadBytes(storageRef, file);
-      console.log('Uploaded a blob or file!', response);
       const url = await getDownloadURL(storageRef);
-      console.log(url);
       setProfileUrl(url);
       return url.toString();
     }
     return '';
   };
   const handleFile = (event) => {
-    console.log(event.target.files[0]);
     setFile(event.target.files[0]);
   };
   const SignBtnHandler = async () => {
@@ -96,14 +92,12 @@ export const SignUpPage = () => {
           displayName: name.toString(),
           photoURL: picUrl
         }).then(() => {
-          console.log('profile set up complete');
           setLoading(false);
           handleOpen('Registeration Successful', 'success');
           setTimeout(() => navigate('/'), 2000);
         });
         sendEmailVerification(user)
           .then(() => {
-            console.log('email sent sucessfully');
             navigate(-1);
           })
           .catch((e) => navigate(-1));

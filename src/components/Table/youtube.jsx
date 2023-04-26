@@ -16,7 +16,7 @@ export const YoutubeTab = ({ videoId }) => {
   };
 
   const onPlayerReady = (event) => {
-    console.log('player Ready ' + event);
+    // console.log('player Ready ' + event);
   };
 
   // useEffect(() => {

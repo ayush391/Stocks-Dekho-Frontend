@@ -44,7 +44,6 @@ export const LoginPage = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCred) => {
         const user = userCred.user;
-        console.log('logged in sucessfully');
         setLoading(false);
         handleOpen('Login Successful', 'success');
         setTimeout(() => navigate('/'), 500);

@@ -22,11 +22,9 @@ const EditProfile = () => {
     setDesc(event.target.value);
   };
   const handleFile = (event) => {
-    console.log(event.target.files[0]);
     setFile(event.target.files[0]);
   };
   const uploadToRDB = async (picUrl) => {
-    console.log('Data');
     await set(refRDB(rdb, 'User/' + auth.currentUser.uid), {
       username: name,
       desc: desc,
@@ -37,9 +35,7 @@ const EditProfile = () => {
     if (file != {}) {
       const storageRef = ref(storage, uid + file.name);
       const response = await uploadBytes(storageRef, file);
-      console.log('Uploaded a blob or file!', response);
       const url = await getDownloadURL(storageRef);
-      console.log(url);
       return url.toString();
     }
     return '';
@@ -52,7 +48,6 @@ const EditProfile = () => {
       displayName: name.toString() != '' ? name.toString() : auth.currentUser.displayName,
       photoURL: picUrl != '' ? picUrl : auth.currentUser.photoURL
     }).then(() => {
-      console.log('profile set up complete');
       setLoading(false);
       setTimeout(() => navigate('/'), 2000);
     });
