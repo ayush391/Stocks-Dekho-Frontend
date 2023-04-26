@@ -8,18 +8,15 @@ import {
   Toolbar,
   Typography
 } from '@mui/material';
-import { getAuth } from 'firebase/auth';
 import { useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import { app } from '../Firebase';
+import { useAppContext } from '../../context/AppState';
 import SidebarMenu from '../SidebarMenu';
 import Search from './Search';
 
 const NavbarHome = () => {
+  const { user } = useAppContext();
   const [isOpen, setOpen] = useState(false);
-  const auth = getAuth(app);
-  const [user] = useAuthState(auth);
 
   const LoggedInComponent = () => {
     return (

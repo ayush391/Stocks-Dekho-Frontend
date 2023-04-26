@@ -1,11 +1,9 @@
 import { Avatar, Card, CardActionArea, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import axios from 'axios';
-import { getAuth } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import { app } from '../components/Firebase';
+import { useAppContext } from '../context/AppState';
 
 export const StockCard = ({ holdings }) => {
   const [priceTick, setPriceTick] = useState({});
@@ -53,17 +51,16 @@ export const StockCard = ({ holdings }) => {
   );
 };
 export const Holdings = () => {
-  const auth = getAuth(app);
+  const { user } = useAppContext();
   const baseUrl = import.meta.env.VITE_BASE_URL + '/portfolio/';
   const [HoldingsList, setHoldingsList] = useState([]);
-  const [user] = useAuthState(auth);
 
   useEffect(() => {
     getHoldings();
   }, []);
 
   const getHoldings = async () => {
-    const { data } = await axios.get(baseUrl + user.uid);
+    const { data } = await axios.get(baseUrl + user?.uid);
     setHoldingsList(data.holdings);
   };
 

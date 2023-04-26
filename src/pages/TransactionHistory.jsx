@@ -1,15 +1,13 @@
 import { Box, Typography } from '@mui/material';
-import { getAuth } from 'firebase/auth';
 import { useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { app } from '../components/Firebase';
+import { useLocation } from 'react-router-dom';
 import TransactionLogCard from '../components/Order/TransactionLog';
 import { AntTab } from '../components/Tabs/AntTab';
 import { AntTabs } from '../components/Tabs/AntTabs';
 import { TabPanel } from '../components/Tabs/TabPanel';
+import { useAppContext } from '../context/AppState';
 import { useData } from '../hooks/useData';
 import { REMOTE } from '../utils/remoteRoutes';
-import { useLocation } from 'react-router-dom';
 
 const TRANSACTION_TYPE = Object.freeze({
   BUY: 'BUY',
@@ -17,8 +15,7 @@ const TRANSACTION_TYPE = Object.freeze({
 });
 
 export const TransactionHistory = () => {
-  const auth = getAuth(app);
-  const [user] = useAuthState(auth);
+  const { user } = useAppContext();
   const [value, setValue] = useState(TRANSACTION_TYPE.BUY);
   const location = useLocation();
   let stockSymbol = '';

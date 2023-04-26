@@ -1,17 +1,14 @@
 import { Assignment, Bookmark, BookmarkBorder } from '@mui/icons-material';
 import { IconButton, Stack } from '@mui/material';
 import axios from 'axios';
-import { getAuth } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link as RouterLink } from 'react-router-dom';
-import { app } from '../../components/Firebase';
+import { useAppContext } from '../../context/AppState';
 
 const WatchListAndTransactionHistory = ({ symbol }) => {
+  const { user } = useAppContext();
   const transactionUrl = '/transactionHistory';
-  const auth = getAuth(app);
   const [inWatchlist, setInWatchlist] = useState(false);
-  const [user] = useAuthState(auth);
   const url = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {

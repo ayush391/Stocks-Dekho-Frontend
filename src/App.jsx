@@ -1,5 +1,4 @@
 import { CssBaseline, ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material';
-import { useContext } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { LoginPage } from './components/LoginPage';
@@ -7,26 +6,25 @@ import Navbar from './components/Navbar/Navbar';
 import Search from './components/Navbar/Search';
 import { SignUpPage } from './components/SignupPage';
 import { SectorTab } from './components/Tabs/Sectors';
-import AppContext from './context/AppContext';
+import { useAppContext } from './context/AppState';
 import { BankHistory } from './pages/BankHistory';
 import BuyStock from './pages/BuyStock';
+import EditProfile from './pages/EditProfile';
+import EventsPage from './pages/Events';
 import { ForgetPassword } from './pages/ForgetPassword';
 import { HoldingPage } from './pages/Holdings';
 import Home from './pages/Home';
 import { Portfolio } from './pages/Portoflio';
+import SectorPage from './pages/SectorPage';
 import SellStock from './pages/SellStock';
 import StockPage from './pages/StockPage';
 import { TransactionHistory } from './pages/TransactionHistory';
+import YoutubePage from './pages/YoutubePage';
 import Profile from './pages/profile';
 import createThemeWithMode from './theme';
-import SectorPage from './pages/SectorPage';
-import YoutubePage from './pages/YoutubePage';
-import EditProfile from './pages/EditProfile';
-import EventsPage from './pages/Events';
 
 function App() {
-  const context = useContext(AppContext);
-  const { themeMode } = context;
+  const { themeMode } = useAppContext();
 
   const AppTheme = createThemeWithMode(themeMode);
   const theme = responsiveFontSizes(createTheme(AppTheme));

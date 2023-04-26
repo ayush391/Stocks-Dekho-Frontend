@@ -9,13 +9,14 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { app } from '../components/Firebase';
+import { useAppContext } from '../context/AppState';
 import CircularLoading from './Loading/CircularLoading';
 
 export const LoginPage = () => {
+  const { auth } = useAppContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,7 +31,6 @@ export const LoginPage = () => {
     setAlert({ ...alert, open: false });
   };
 
-  const auth = getAuth(app);
   const navigate = useNavigate();
   const handleEmail = (event) => {
     setEmail(event.target.value);

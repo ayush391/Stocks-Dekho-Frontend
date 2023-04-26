@@ -1,10 +1,8 @@
 import { BarChart, BookmarkAdd, TrendingDown, TrendingUp } from '@mui/icons-material';
-import { getAuth } from 'firebase/auth';
 import { useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAppContext } from '../context/AppState';
 import { useData } from '../hooks/useData';
 import { REMOTE } from '../utils/remoteRoutes';
-import { app } from './Firebase';
 import StockTable from './Table/StockTable';
 import { AntTab } from './Tabs/AntTab';
 import { AntTabs } from './Tabs/AntTabs';
@@ -18,8 +16,7 @@ const tabs = [
 ];
 
 const StockPanel = () => {
-  const auth = getAuth(app);
-  const [user] = useAuthState(auth);
+  const { user } = useAppContext();
   const [value, setValue] = useState(tabs[1].queryKey);
   const [route, setRoute] = useState(REMOTE.PRICES);
   const { data, isLoading, error } = useData(route, [value === 'watchlist' ? user?.uid : value]);

@@ -1,12 +1,12 @@
 import { Button, Container, Stack, TextField, Typography } from '@mui/material';
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { app } from '../components/Firebase';
+import { useAppContext } from '../context/AppState';
 
 const ForgetPassword = () => {
+  const { auth } = useAppContext();
   const [email, setEmail] = useState('');
-  const auth = getAuth(app);
   const navigate = useNavigate();
   const handleEmail = (event) => {
     setEmail(event.target.value);

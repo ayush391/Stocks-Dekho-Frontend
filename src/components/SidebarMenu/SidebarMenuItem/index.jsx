@@ -1,12 +1,11 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Switch } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AppContext from '../../../context/AppContext';
+import { useAppContext } from '../../../context/AppState';
 
 const SidebarMenuItem = ({ item }) => {
   const { Icon, link, name, action } = item;
-  const context = useContext(AppContext);
-  const { themeMode, setThemeMode } = context;
+  const { themeMode, setThemeMode } = useAppContext();
   const [switchState, setSwitchState] = useState(false);
 
   return (
