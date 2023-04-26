@@ -13,17 +13,16 @@ import {
   Typography
 } from '@mui/material';
 import axios from 'axios';
-import { getAuth } from 'firebase/auth';
 import React, { useState } from 'react';
-import { app } from '../Firebase';
+import { useAppContext } from '../../context/AppState';
 import CircularLoading from '../Loading/CircularLoading';
 import OrderSuccessfull from './OrderSuccessful';
 
 const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => {
+  const { user } = useAppContext();
   const url =
     import.meta.env.VITE_BASE_URL +
     (transactionType === 'buy' ? '/transaction/buy/' : '/transaction/sell/');
-  const user = getAuth(app);
 
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -32,7 +31,7 @@ const ConfirmOrder = ({ open, icon, reviewOrder, onClose, transactionType }) => 
   const handleOrder = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(url, { ...reviewOrder, userId: user.currentUser.uid });
+      const response = await axios.post(url, { ...reviewOrder, userId: user?.uid });
       if (response.status === 200) {
         setShowResult(true);
         setLoading(false);

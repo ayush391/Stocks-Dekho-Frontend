@@ -10,22 +10,23 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { getDatabase, ref as refRDB, set } from 'firebase/database';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 import axios from 'axios';
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   sendEmailVerification,
   updateProfile
 } from 'firebase/auth';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppContext } from '../context/AppState';
 import { app } from './Firebase';
 import CircularLoading from './Loading/CircularLoading';
 
 export const SignUpPage = () => {
+  const { auth } = useAppContext();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +44,6 @@ export const SignUpPage = () => {
     setAlert({ ...alert, open: false });
   };
 
-  const auth = getAuth(app);
   const navigate = useNavigate();
   const storage = getStorage();
 
@@ -82,12 +82,12 @@ export const SignUpPage = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCred) => {
         const user = userCred.user;
-        let picUrl = await uploadImage(user.uid.toString());
+        let picUrl = await uploadImage(user?.uid.toString());
 
         const response = await axios.post(import.meta.env.VITE_BASE_URL + '/user/signup', {
-          userId: user.uid.toString()
+          userId: user?.uid.toString()
         });
-        await uploadToRDB(picUrl, user.uid.toString());
+        await uploadToRDB(picUrl, user?.uid.toString());
         updateProfile(user, {
           displayName: name.toString(),
           photoURL: picUrl

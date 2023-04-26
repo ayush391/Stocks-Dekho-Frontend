@@ -1,20 +1,18 @@
 import { Box, Button, Container, Modal, Stack, TextField, Typography } from '@mui/material';
 import axios from 'axios';
-import { getAuth } from 'firebase/auth';
-import * as React from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { app } from '../components/Firebase';
 import CircularLoading from '../components/Loading/CircularLoading';
 import ConfirmOrder from '../components/Order/ConfirmOrder';
+import { useAppContext } from '../context/AppState';
 import { useData } from '../hooks/useData';
 import { REMOTE } from '../utils/remoteRoutes';
 
 export default function BuyStock() {
+  const { user } = useAppContext();
   const { symbol } = useParams();
   const { data, isLoading, error } = useData(REMOTE.PRICES, [symbol]);
   const [stockQty, setStockQty] = useState(1);
-  const user = getAuth(app);
   const buyUrl = import.meta.env.VITE_BASE_URL + '/transaction/review/buy';
   const [open, setOpen] = useState(false);
   const [orderReview, setOrderReview] = useState({});
@@ -25,7 +23,7 @@ export default function BuyStock() {
     try {
       setloadingConfirmOrder(true);
       const response = await axios.post(buyUrl, {
-        userId: user.currentUser.uid,
+        userId: user?.uid,
         stockSymbol: stockData != null ? stockData.symbol : 'Symbol',
         quantity: stockQty
       });

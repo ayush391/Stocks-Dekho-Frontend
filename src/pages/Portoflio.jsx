@@ -9,10 +9,8 @@ import {
 } from '@chakra-ui/react';
 import { Typography } from '@mui/material';
 import axios from 'axios';
-import { getAuth } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { app } from '../components/Firebase';
+import { useAppContext } from '../context/AppState';
 import { StockCard } from './Holdings';
 const StatComponent = ({ portfolio_value }) => {
   return (
@@ -32,9 +30,7 @@ const StatComponent = ({ portfolio_value }) => {
 };
 
 export const Portfolio = () => {
-  const auth = getAuth(app);
-
-  const [user, loading, error] = useAuthState(auth);
+  const { user } = useAppContext();
   const [name, setName] = useState('');
   const baseUrl = import.meta.env.VITE_BASE_URL + '/portfolio/';
   const [HoldingsList, setHoldingsList] = useState([]);
@@ -42,7 +38,7 @@ export const Portfolio = () => {
 
   useEffect(() => {
     async function getHoldings() {
-      const { data } = await axios.get(baseUrl + user.uid);
+      const { data } = await axios.get(baseUrl + user?.uid);
       setHoldingsList(data.holdings);
       setPortfolioValue(Number(data.portfolio_value));
     }
@@ -50,7 +46,7 @@ export const Portfolio = () => {
       setName(user?.displayName?.toString());
       getHoldings();
     }
-  }, [loading, user, error]);
+  }, [user]);
 
   return (
     <div style={{ margin: 10, padding: 20 }}>

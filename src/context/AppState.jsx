@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
-import AppContext from './AppContext';
+import { getAuth } from 'firebase/auth';
+import { createContext, useContext, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { app } from '../components/Firebase';
 
-const AppState = ({ children }) => {
+const AppContext = createContext();
+
+export const AppState = ({ children }) => {
   const [themeMode, setThemeMode] = useState('light');
+  const auth = getAuth(app);
+  const [user] = useAuthState(auth);
 
-  return <AppContext.Provider value={{ themeMode, setThemeMode }}>{children}</AppContext.Provider>;
+  const stateValue = {
+    themeMode,
+    setThemeMode,
+    auth,
+    user
+  };
+
+  return <AppContext.Provider value={stateValue}>{children}</AppContext.Provider>;
 };
 
-export default AppState;
+export const useAppContext = () => useContext(AppContext);
