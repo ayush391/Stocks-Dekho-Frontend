@@ -1,41 +1,40 @@
 import { CssBaseline, ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material';
+import { Suspense, lazy } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { LoginPage } from './components/LoginPage';
 import Navbar from './components/Navbar/Navbar';
-import Search from './components/Navbar/Search';
-import { SignUpPage } from './components/SignupPage';
-import { SectorTab } from './components/Tabs/Sectors';
 import { useAppContext } from './context/AppState';
-import { BankHistory } from './pages/BankHistory';
-import BuyStock from './pages/BuyStock';
-import EditProfile from './pages/EditProfile';
-import EventsPage from './pages/Events';
-import { ForgetPassword } from './pages/ForgetPassword';
-import { HoldingPage } from './pages/Holdings';
-import Home from './pages/Home';
-import { Portfolio } from './pages/Portoflio';
-import SectorPage from './pages/SectorPage';
-import SellStock from './pages/SellStock';
-import StockPage from './pages/StockPage';
-import { TransactionHistory } from './pages/TransactionHistory';
-import YoutubePage from './pages/YoutubePage';
-import Profile from './pages/profile';
 import createThemeWithMode from './theme';
 
-function App() {
+const LoginPage = lazy(() => import('./components/LoginPage'));
+const Search = lazy(() => import('./components/Navbar/Search'));
+const SignUpPage = lazy(() => import('./components/SignupPage'));
+const BankHistory = lazy(() => import('./pages/BankHistory'));
+const BuyStock = lazy(() => import('./pages/BuyStock'));
+const EditProfile = lazy(() => import('./pages/EditProfile'));
+const EventsPage = lazy(() => import('./pages/Events'));
+const ForgetPassword = lazy(() => import('./pages/ForgetPassword'));
+const Home = lazy(() => import('./pages/Home'));
+const Portfolio = lazy(() => import('./pages/Portoflio'));
+const SectorPage = lazy(() => import('./pages/SectorPage'));
+const SellStock = lazy(() => import('./pages/SellStock'));
+const StockPage = lazy(() => import('./pages/StockPage'));
+const TransactionHistory = lazy(() => import('./pages/TransactionHistory'));
+const YoutubePage = lazy(() => import('./pages/YoutubePage'));
+const Profile = lazy(() => import('./pages/profile'));
+
+const App = () => {
   const { themeMode } = useAppContext();
 
   const AppTheme = createThemeWithMode(themeMode);
   const theme = responsiveFontSizes(createTheme(AppTheme));
 
   return (
-    <div className="App">
-      <HashRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Navbar />
-
+    <HashRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Navbar />
+        <Suspense fallback="Loading...">
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
@@ -45,21 +44,19 @@ function App() {
             <Route path="/search" element={<Search />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/portfolio" element={<Portfolio />}></Route>
-            <Route path="/holdings" element={<HoldingPage />}></Route>
             <Route path="/transactionHistory" element={<TransactionHistory />}></Route>
             <Route path="/bankHistory" element={<BankHistory />}></Route>
             <Route path="/buy/:symbol" element={<BuyStock />}></Route>
             <Route path="/sell/:symbol" element={<SellStock />}></Route>
-            <Route path="/test" element={<SectorTab />}></Route>
             <Route path="/SectorPage/:sectorName" element={<SectorPage />}></Route>
             <Route path="/shorts" element={<YoutubePage />}></Route>
             <Route path="/EditProfile" element={<EditProfile />}></Route>
             <Route path="/Events" element={<EventsPage />}></Route>
           </Routes>
-        </ThemeProvider>
-      </HashRouter>
-    </div>
+        </Suspense>
+      </ThemeProvider>
+    </HashRouter>
   );
-}
+};
 
 export default App;

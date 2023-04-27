@@ -25,7 +25,7 @@ import { useAppContext } from '../context/AppState';
 import { app } from './Firebase';
 import CircularLoading from './Loading/CircularLoading';
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
   const { auth } = useAppContext();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -173,3 +173,5 @@ export const SignUpPage = () => {
     </Container>
   );
 };
+
+export default SignUpPage;

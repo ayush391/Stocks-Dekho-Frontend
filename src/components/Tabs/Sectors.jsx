@@ -4,7 +4,7 @@ import { useData } from '../../hooks/useData';
 import { REMOTE } from '../../utils/remoteRoutes';
 import CircularLoading from '../Loading/CircularLoading';
 
-export const SectorTab = () => {
+const SectorTab = () => {
   const { data, error, isLoading } = useData(REMOTE.STOCKS, ['sectors']);
 
   return error ? (
@@ -23,3 +23,5 @@ export const SectorTab = () => {
     </>
   );
 };
+
+export default SectorTab;

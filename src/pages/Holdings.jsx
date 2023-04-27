@@ -50,7 +50,7 @@ export const StockCard = ({ holdings }) => {
     </Card>
   );
 };
-export const Holdings = () => {
+const Holdings = () => {
   const { user } = useAppContext();
   const baseUrl = import.meta.env.VITE_BASE_URL + '/portfolio/';
   const [HoldingsList, setHoldingsList] = useState([]);

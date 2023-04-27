@@ -2,7 +2,7 @@ import { Container, Stack, Typography } from '@mui/material';
 import News from '../components/News';
 import StockPanel from '../components/StockPanel';
 import TopTrader from '../components/Table/TopTrader';
-import { SectorTab } from '../components/Tabs/Sectors';
+import SectorTab from '../components/Tabs/Sectors';
 import EventTab from '../components/Tabs/eventTab';
 import PortfolioTab from '../components/Tabs/portfolioTab';
 
