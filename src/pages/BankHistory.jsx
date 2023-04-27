@@ -3,7 +3,7 @@ import { Avatar, Card, CardContent, CardHeader, Divider, Typography } from '@mui
 import { Container, Stack } from '@mui/system';
 import { Link } from 'react-router-dom';
 
-export const BankHistory = () => {
+const BankHistory = () => {
   return (
     <div>
       <Typography
@@ -119,3 +119,5 @@ export const BankHistory = () => {
     </div>
   );
 };
+
+export default BankHistory;

@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom';
 import { useAppContext } from '../../../context/AppState';
 
 const SidebarMenuItem = ({ item }) => {
-  const { Icon, link, name, action } = item;
+  const { Icon, link, name, action, onClick } = item;
   const { themeMode, setThemeMode } = useAppContext();
   const [switchState, setSwitchState] = useState(false);
 
   return (
     <ListItem disablePadding>
-      <ListItemButton component={Link} to={link}>
+      <ListItemButton
+        component={link ? Link : 'button'}
+        to={link && link}
+        onClick={onClick && onClick}>
         <ListItemIcon>
           <Icon />
         </ListItemIcon>

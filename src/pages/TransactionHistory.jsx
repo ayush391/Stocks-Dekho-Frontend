@@ -14,7 +14,7 @@ const TRANSACTION_TYPE = Object.freeze({
   SELL: 'SELL'
 });
 
-export const TransactionHistory = () => {
+const TransactionHistory = () => {
   const { user } = useAppContext();
   const [value, setValue] = useState(TRANSACTION_TYPE.BUY);
   const location = useLocation();
@@ -52,3 +52,5 @@ export const TransactionHistory = () => {
     </>
   );
 };
+
+export default TransactionHistory;

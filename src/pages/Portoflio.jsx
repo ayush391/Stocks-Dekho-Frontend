@@ -29,7 +29,7 @@ const StatComponent = ({ portfolio_value }) => {
   );
 };
 
-export const Portfolio = () => {
+const Portfolio = () => {
   const { user } = useAppContext();
   const [name, setName] = useState('');
   const baseUrl = import.meta.env.VITE_BASE_URL + '/portfolio/';
@@ -113,3 +113,5 @@ export const Portfolio = () => {
     </div>
   );
 };
+
+export default Portfolio;

@@ -15,7 +15,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppState';
 import CircularLoading from './Loading/CircularLoading';
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const { auth } = useAppContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -104,3 +104,5 @@ export const LoginPage = () => {
     </Container>
   );
 };
+
+export default LoginPage;
