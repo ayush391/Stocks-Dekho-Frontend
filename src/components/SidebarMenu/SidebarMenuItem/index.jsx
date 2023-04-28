@@ -1,11 +1,11 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Switch } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppContext } from '../../../context/AppState';
+import { useThemeContext } from '../../../context/ThemeContext';
 
 const SidebarMenuItem = ({ item }) => {
   const { Icon, link, name, action, onClick } = item;
-  const { themeMode, setThemeMode } = useAppContext();
+  const { toggleDarkMode } = useThemeContext();
   const [switchState, setSwitchState] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ const SidebarMenuItem = ({ item }) => {
           <Switch
             checked={switchState}
             onClick={() => {
-              themeMode === 'dark' ? setThemeMode('light') : setThemeMode('dark');
+              toggleDarkMode();
               setSwitchState(!switchState);
             }}
           />

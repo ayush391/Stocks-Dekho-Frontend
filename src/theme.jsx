@@ -119,7 +119,7 @@ const darkTheme = {
     }
   }
 };
-const createThemeWithMode = (mode = 'light') => {
-  return mode === 'dark' ? darkTheme : lightTheme;
+const createThemeWithMode = (darkMode) => {
+  return darkMode ? darkTheme : lightTheme;
 };
 export default createThemeWithMode;
