@@ -8,15 +8,16 @@ import {
   Wallet,
   YouTube
 } from '@mui/icons-material';
+import { LOCAL } from '../../../utils/routes';
 
 export const menuItems = (user, logout) => [
-  { Icon: House, name: 'Home', link: '/' },
-  { Icon: YouTube, name: 'Shorts', link: '/shorts' },
-  { Icon: Wallet, name: 'Transaction History', link: '/transactionHistory' },
-  { Icon: VerifiedUser, name: 'Portfolio', link: '/portfolio' },
-  { Icon: AccountBox, name: 'Profile', link: '/profile' },
+  { Icon: House, name: 'Home', link: LOCAL.EXPLORE },
+  { Icon: YouTube, name: 'Shorts', link: LOCAL.SHORTS },
+  { Icon: Wallet, name: 'Transaction History', link: LOCAL.TRANSACTION_HISTORY },
+  { Icon: VerifiedUser, name: 'Portfolio', link: LOCAL.PORTFOLIO },
+  { Icon: AccountBox, name: 'Profile', link: LOCAL.PROFILE },
   { divider: true },
   { Icon: DarkMode, name: 'Dark Mode', action: true },
-  { Icon: Login, name: 'Login', link: '/login', visible: !user },
+  { Icon: Login, name: 'Login', link: LOCAL.LOGIN, visible: !user },
   { Icon: LogoutRounded, name: 'Logout', onClick: logout, visible: !!user }
 ];

@@ -2,6 +2,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import { Avatar, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import { Container, Stack } from '@mui/system';
 import { Link } from 'react-router-dom';
+import { LOCAL } from '../utils/routes';
 
 const BankHistory = () => {
   return (
@@ -9,7 +10,7 @@ const BankHistory = () => {
       <Typography
         fontSize={28}
         component={Link}
-        to="/"
+        to={LOCAL.EXPLORE}
         marginBottom={1}
         sx={{
           backgroundColor: ' #c3defd',

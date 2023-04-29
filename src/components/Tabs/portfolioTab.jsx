@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/AppState';
+import { LOCAL } from '../../utils/routes';
 import './portfolioTab.css';
 
 const PortfolioTab = () => {
@@ -35,7 +36,7 @@ const PortfolioTab = () => {
         </h1>
         <Divider />
         <div>
-          <Link to={user != null ? '/portfolio' : 'login'}>
+          <Link to={user != null ? LOCAL.PORTFOLIO : LOCAL.LOGIN}>
             <h3 style={{ textAlign: 'center', color: 'white' }}>
               {user != null ? 'Portfolio Value ' + portfolioValue.toFixed(2) : 'Please Log In'}
             </h3>

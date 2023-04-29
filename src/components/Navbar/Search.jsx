@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData } from '../../hooks/useData';
 import { useDebounce } from '../../hooks/useDebounce';
-import { REMOTE } from '../../utils/remoteRoutes';
+import { LOCAL, REMOTE } from '../../utils/routes';
 import StockPChange from '../Table/StockPChange';
 
 const Search = () => {
@@ -76,7 +76,7 @@ const Search = () => {
                       <TableRow
                         key={stock.symbol}
                         component={Link}
-                        to={'/' + stock.symbol}
+                        to={`${LOCAL.STOCKS}/${stock.symbol}`}
                         onClickCapture={() => handleSuggest(false)}
                         sx={{
                           '&:hover': {

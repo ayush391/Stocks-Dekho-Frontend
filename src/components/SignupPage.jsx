@@ -22,6 +22,7 @@ import {
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppState';
+import { LOCAL } from '../utils/routes';
 import { app } from './Firebase';
 import CircularLoading from './Loading/CircularLoading';
 
@@ -155,7 +156,7 @@ const SignUpPage = () => {
           <Typography variant="caption" color="grey">
             Already registered?
           </Typography>
-          <Typography variant="caption" color="primary" component={Link} to="/login">
+          <Typography variant="caption" color="primary" component={Link} to={LOCAL.LOGIN}>
             Login here
           </Typography>
         </Stack>

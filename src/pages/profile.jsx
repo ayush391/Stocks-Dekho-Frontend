@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import TransactionLogCard from '../components/Order/TransactionLog';
 import { useAppContext } from '../context/AppState';
 import { useData } from '../hooks/useData';
-import { REMOTE } from '../utils/remoteRoutes';
+import { LOCAL, REMOTE } from '../utils/routes';
 
 const Profile = () => {
   const { user } = useAppContext();
@@ -59,7 +59,7 @@ const Profile = () => {
               <Button
                 size="large"
                 component={Link}
-                to={'/transactionHistory'}
+                to={LOCAL.TRANSACTION_HISTORY}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -89,7 +89,7 @@ const Profile = () => {
               <Button
                 size="large"
                 component={Link}
-                to={'/EditProfile'}
+                to={`${LOCAL.PROFILE}/edit`}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -105,7 +105,7 @@ const Profile = () => {
               <Button
                 size="large"
                 component={Link}
-                to={'/portfolio'}
+                to={LOCAL.PORTFOLIO}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',

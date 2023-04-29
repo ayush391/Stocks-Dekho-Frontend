@@ -7,7 +7,7 @@ import { AntTabs } from '../components/Tabs/AntTabs';
 import { TabPanel } from '../components/Tabs/TabPanel';
 import { useAppContext } from '../context/AppState';
 import { useData } from '../hooks/useData';
-import { REMOTE } from '../utils/remoteRoutes';
+import { REMOTE } from '../utils/routes';
 
 const TRANSACTION_TYPE = Object.freeze({
   BUY: 'BUY',

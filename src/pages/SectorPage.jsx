@@ -6,7 +6,7 @@ import { AntTabs } from '../components/Tabs/AntTabs';
 import SectorStocks from '../components/Tabs/SectorStocks';
 import { TabPanel } from '../components/Tabs/TabPanel';
 import { useData } from '../hooks/useData';
-import { REMOTE } from '../utils/remoteRoutes';
+import { REMOTE } from '../utils/routes';
 
 const SectorPage = () => {
   const { data, error, isLoading } = useData(REMOTE.STOCKS, ['sectors']);
