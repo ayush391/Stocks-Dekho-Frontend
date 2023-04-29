@@ -2,7 +2,7 @@ import { Slider, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useData } from '../../hooks/useData';
 import CircularLoading from '../Loading/CircularLoading';
-import { REMOTE } from '../../utils/remoteRoutes';
+import { REMOTE } from '../../utils/routes';
 
 const LowHighSlider = ({ symbol }) => {
   const { data, isLoading, error } = useData(REMOTE.PRICES, [symbol]);

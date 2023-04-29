@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 import { useData } from '../../hooks/useData';
-import { REMOTE } from '../../utils/remoteRoutes';
+import { REMOTE } from '../../utils/routes';
 import TableSkeletonPhone from '../Loading/TableSkeletonPhone';
 import StockTable from '../Table/StockTable';
 

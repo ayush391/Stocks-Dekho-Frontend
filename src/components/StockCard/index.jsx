@@ -1,11 +1,12 @@
 import { Box, Card, CardContent, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { LOCAL } from '../../utils/routes';
 import StockPChange from '../Table/StockPChange';
 import StockSymbol from '../Table/StockSymbol';
 
 const StockCard = ({ stock }) => {
   return (
-    <Card component={Link} to={stock?.symbol}>
+    <Card component={Link} to={`${LOCAL.STOCKS}/${stock?.symbol}`}>
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Stack>

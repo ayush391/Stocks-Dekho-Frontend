@@ -1,7 +1,7 @@
 import { Newspaper } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
 import { useData } from '../hooks/useData';
-import { REMOTE } from '../utils/remoteRoutes';
+import { REMOTE } from '../utils/routes';
 import CircularLoading from './Loading/CircularLoading';
 import { NewsCard } from './News/NewsCard';
 

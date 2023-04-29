@@ -6,7 +6,7 @@ import CircularLoading from '../components/Loading/CircularLoading';
 import ConfirmOrder from '../components/Order/ConfirmOrder';
 import { useAppContext } from '../context/AppState';
 import { useData } from '../hooks/useData';
-import { REMOTE } from '../utils/remoteRoutes';
+import { REMOTE } from '../utils/routes';
 
 export default function SellStock() {
   const { user } = useAppContext();

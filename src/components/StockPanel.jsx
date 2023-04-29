@@ -2,7 +2,7 @@ import { BarChart, BookmarkAdd, TrendingDown, TrendingUp } from '@mui/icons-mate
 import { useState } from 'react';
 import { useAppContext } from '../context/AppState';
 import { useData } from '../hooks/useData';
-import { REMOTE } from '../utils/remoteRoutes';
+import { REMOTE } from '../utils/routes';
 import StockTable from './Table/StockTable';
 import { AntTab } from './Tabs/AntTab';
 import { AntTabs } from './Tabs/AntTabs';

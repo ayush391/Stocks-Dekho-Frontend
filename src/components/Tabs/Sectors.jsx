@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useData } from '../../hooks/useData';
-import { REMOTE } from '../../utils/remoteRoutes';
+import { LOCAL, REMOTE } from '../../utils/routes';
 import CircularLoading from '../Loading/CircularLoading';
 
 const SectorTab = () => {
@@ -15,7 +15,7 @@ const SectorTab = () => {
     <>
       {data?.data?.map((sector, idx) => {
         return (
-          <Button key={idx} component={Link} to={'/SectorPage/' + sector?.name}>
+          <Button key={idx} component={Link} to={`${LOCAL.SECTORS}/${sector?.name}`}>
             {sector.name.slice(6, sector.length)}
           </Button>
         );

@@ -13,6 +13,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppState';
+import { LOCAL } from '../utils/routes';
 import CircularLoading from './Loading/CircularLoading';
 
 const LoginPage = () => {
@@ -74,7 +75,7 @@ const LoginPage = () => {
           onChange={handlePassword}
         />
 
-        <Typography variant="caption" color="grey" component={Link} to="/forgetpassword">
+        <Typography variant="caption" color="grey" component={Link} to={LOCAL.FORGOT}>
           Forgot Password?
         </Typography>
 
@@ -86,7 +87,7 @@ const LoginPage = () => {
           <Typography variant="caption" color="grey">
             Haven't registered yet?
           </Typography>
-          <Typography variant="caption" color="primary" component={Link} to="/signup">
+          <Typography variant="caption" color="primary" component={Link} to={LOCAL.SIGNUP}>
             Register now
           </Typography>
         </Stack>

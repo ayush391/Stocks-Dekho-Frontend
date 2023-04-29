@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import { useData } from '../hooks/useData';
-import { REMOTE } from '../utils/remoteRoutes';
+import { REMOTE } from '../utils/routes';
 import StockPageHeaderSkeleton from './Loading/StockPageHeaderSkeleton';
 import StockPChange from './Table/StockPChange';
 import StockSymbol from './Table/StockSymbol';

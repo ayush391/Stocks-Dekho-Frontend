@@ -11,16 +11,18 @@ import {
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/AppState';
+import { LOCAL } from '../../utils/routes';
 import SidebarMenu from '../SidebarMenu';
 import Search from './Search';
 
 const NavbarHome = () => {
   const { user } = useAppContext();
   const [isOpen, setOpen] = useState(false);
+  // console.log('user => ', user);
 
   const LoggedInComponent = () => {
     return (
-      <IconButton component={Link} to="/profile">
+      <IconButton component={Link} to={LOCAL.PROFILE}>
         <Avatar
           style={{ width: 40, height: 40 }}
           src={user?.photoURL ? user.photoURL.toString() : ''}
@@ -39,7 +41,7 @@ const NavbarHome = () => {
             size="small"
             variant="contained"
             component={Link}
-            to="/login"
+            to={LOCAL.LOGIN}
             sx={{
               backgroundColor: 'linear-gradient(55deg,#73b9ff,#73b9ff20)'
             }}>
@@ -61,7 +63,7 @@ const NavbarHome = () => {
           backgroundImage: 'linear-gradient(45deg,#73b9ff,#73b9ff40)',
           backdropFilter: 'blur(5px)'
         }}>
-        <Button component={Link} to="/" sx={{ color: '#fff', textDecoration: 'none' }}>
+        <Button component={Link} to={LOCAL.EXPLORE} sx={{ color: '#fff', textDecoration: 'none' }}>
           <Typography variant="h4" fontWeight="bold" textTransform="none" fontFamily="Righteous">
             StoxDekho
           </Typography>
