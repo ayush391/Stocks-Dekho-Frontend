@@ -1,10 +1,11 @@
+import { CssBaseline } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { HashRouter } from 'react-router-dom';
 import App from './App';
 import { AppState } from './context/AppState';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { AppThemeProvider } from './context/ThemeContext';
-import { CssBaseline } from '@mui/material';
 
 const queryClient = new QueryClient();
 
@@ -14,8 +15,10 @@ root.render(
     <AppState>
       <QueryClientProvider client={queryClient}>
         <AppThemeProvider>
-          <CssBaseline />
-          <App />
+          <HashRouter>
+            <CssBaseline />
+            <App />
+          </HashRouter>
         </AppThemeProvider>
       </QueryClientProvider>
     </AppState>
