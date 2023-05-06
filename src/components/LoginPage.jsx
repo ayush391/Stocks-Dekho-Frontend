@@ -11,19 +11,22 @@ import {
 } from '@mui/material';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAppContext } from '../context/AppState';
 import { LOCAL } from '../utils/routes';
 import CircularLoading from './Loading/CircularLoading';
 
 const LoginPage = () => {
-  const { auth } = useAppContext();
+  const { auth, user } = useAppContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [loading, setLoading] = useState(false);
 
   const [alert, setAlert] = useState({ message: '', open: false, type: 'error' });
+
+  const location = useLocation();
+  const redirectPath = location.state?.from?.pathname || LOCAL.EXPLORE;
 
   const handleOpen = (msg, type) => {
     setAlert({ message: msg, open: true, type: type });
@@ -32,7 +35,6 @@ const LoginPage = () => {
     setAlert({ ...alert, open: false });
   };
 
-  const navigate = useNavigate();
   const handleEmail = (event) => {
     setEmail(event.target.value);
   };
@@ -47,13 +49,14 @@ const LoginPage = () => {
         const user = userCred.user;
         setLoading(false);
         handleOpen('Login Successful', 'success');
-        setTimeout(() => navigate('/'), 500);
       })
       .catch((e) => {
         setLoading(false);
         handleOpen(e.message, 'error');
       });
   };
+
+  if (user) return <Navigate to={redirectPath} replace />;
   return (
     <Container maxWidth="sm" sx={{ marginY: 5 }}>
       <Stack gap={2} component="form" noValidate autoComplete="off" textAlign="center">
