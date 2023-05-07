@@ -2,14 +2,15 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import { Avatar, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import { Container, Stack } from '@mui/system';
 import { Link } from 'react-router-dom';
+import { LOCAL } from '../utils/routes';
 
-export const BankHistory = () => {
+const BankHistory = () => {
   return (
     <div>
       <Typography
         fontSize={28}
         component={Link}
-        to="/"
+        to={LOCAL.EXPLORE}
         marginBottom={1}
         sx={{
           backgroundColor: ' #c3defd',
@@ -119,3 +120,5 @@ export const BankHistory = () => {
     </div>
   );
 };
+
+export default BankHistory;

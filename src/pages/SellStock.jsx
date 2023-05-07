@@ -1,19 +1,18 @@
 import { Box, Button, Container, Modal, Stack, TextField, Typography } from '@mui/material';
 import axios from 'axios';
-import { getAuth } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { app } from '../components/Firebase';
 import CircularLoading from '../components/Loading/CircularLoading';
 import ConfirmOrder from '../components/Order/ConfirmOrder';
+import { useAppContext } from '../context/AppState';
 import { useData } from '../hooks/useData';
-import { REMOTE } from '../utils/remoteRoutes';
+import { REMOTE } from '../utils/routes';
 
 export default function SellStock() {
+  const { user } = useAppContext();
   const { symbol } = useParams();
   const { data, isLoading, error } = useData(REMOTE.PRICES, [symbol]);
   const [stockQty, setStockQty] = useState(1);
-  const user = getAuth(app);
   const sellUrl = import.meta.env.VITE_BASE_URL + '/transaction/review/sell';
   const [open, setOpen] = useState(false);
   const [orderReview, setOrderReview] = useState({});
@@ -28,11 +27,10 @@ export default function SellStock() {
     try {
       setloadingConfirmOrder(true);
       const response = await axios.post(sellUrl, {
-        userId: user.currentUser.uid,
+        userId: user?.uid,
         stockSymbol: stockData != null ? stockData.symbol : 'Symbol',
         quantity: stockQty
       });
-      console.log(response.data);
       if (response.status === 200) {
         setOrderReview(response.data);
         setOpen(true);

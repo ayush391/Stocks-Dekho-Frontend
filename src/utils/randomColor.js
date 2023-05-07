@@ -14,7 +14,6 @@ const COLORS = [
 export const getRandomColor = (seed) => {
   let x = Math.sin(seed++) * 10000;
   x = x - Math.floor(x);
-  console.log((x * 1000).toString()[2]);
   x = (x * 1000).toString()[2];
   let result = COLORS[x % COLORS.length];
   return result;

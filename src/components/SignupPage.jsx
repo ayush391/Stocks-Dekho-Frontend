@@ -10,22 +10,24 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { getDatabase, ref as refRDB, set } from 'firebase/database';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 import axios from 'axios';
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   sendEmailVerification,
   updateProfile
 } from 'firebase/auth';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppContext } from '../context/AppState';
+import { LOCAL } from '../utils/routes';
 import { app } from './Firebase';
 import CircularLoading from './Loading/CircularLoading';
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
+  const { auth } = useAppContext();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +45,6 @@ export const SignUpPage = () => {
     setAlert({ ...alert, open: false });
   };
 
-  const auth = getAuth(app);
   const navigate = useNavigate();
   const storage = getStorage();
 
@@ -58,7 +59,6 @@ export const SignUpPage = () => {
     setName(event.target.value);
   };
   const uploadToRDB = async (picUrl, uid) => {
-    console.log('Data');
     await set(refRDB(rdb, 'User/' + uid), {
       username: name,
       desc: '',
@@ -69,16 +69,13 @@ export const SignUpPage = () => {
     if (file != {}) {
       const storageRef = ref(storage, uid + file.name);
       const response = await uploadBytes(storageRef, file);
-      console.log('Uploaded a blob or file!', response);
       const url = await getDownloadURL(storageRef);
-      console.log(url);
       setProfileUrl(url);
       return url.toString();
     }
     return '';
   };
   const handleFile = (event) => {
-    console.log(event.target.files[0]);
     setFile(event.target.files[0]);
   };
   const SignBtnHandler = async () => {
@@ -86,24 +83,22 @@ export const SignUpPage = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCred) => {
         const user = userCred.user;
-        let picUrl = await uploadImage(user.uid.toString());
+        let picUrl = await uploadImage(user?.uid.toString());
 
         const response = await axios.post(import.meta.env.VITE_BASE_URL + '/user/signup', {
-          userId: user.uid.toString()
+          userId: user?.uid.toString()
         });
-        await uploadToRDB(picUrl, user.uid.toString());
+        await uploadToRDB(picUrl, user?.uid.toString());
         updateProfile(user, {
           displayName: name.toString(),
           photoURL: picUrl
         }).then(() => {
-          console.log('profile set up complete');
           setLoading(false);
           handleOpen('Registeration Successful', 'success');
           setTimeout(() => navigate('/'), 2000);
         });
         sendEmailVerification(user)
           .then(() => {
-            console.log('email sent sucessfully');
             navigate(-1);
           })
           .catch((e) => navigate(-1));
@@ -161,7 +156,7 @@ export const SignUpPage = () => {
           <Typography variant="caption" color="grey">
             Already registered?
           </Typography>
-          <Typography variant="caption" color="primary" component={Link} to="/login">
+          <Typography variant="caption" color="primary" component={Link} to={LOCAL.LOGIN}>
             Login here
           </Typography>
         </Stack>
@@ -179,3 +174,5 @@ export const SignUpPage = () => {
     </Container>
   );
 };
+
+export default SignUpPage;

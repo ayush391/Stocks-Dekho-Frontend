@@ -1,34 +1,26 @@
-import { Container, Typography } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 import News from '../components/News';
 import StockPanel from '../components/StockPanel';
-import { SectorTab } from '../components/Tabs/Sectors';
 import TopTrader from '../components/Table/TopTrader';
-import WatchList from '../components/Tabs/watchlist';
+import SectorTab from '../components/Tabs/Sectors';
+import EventTab from '../components/Tabs/eventTab';
 import PortfolioTab from '../components/Tabs/portfolioTab';
+
 const Home = () => {
   return (
-    <>
-      <Container maxWidth="sm">
+    <Container maxWidth="sm">
+      <Stack direction={'row'} sx={{ overflowX: 'scroll', maxWidth: 'sm', padding: 2 }}>
         <PortfolioTab />
-        <StockPanel />
-      </Container>
-
-      <Container
-        maxWidth="sm"
-        sx={{
-          my: 2,
-          py: 2
-        }}>
-        <WatchList />
-        <TopTrader />
-        <Typography sx={{ marginTop: 3, marginBottom: 3, fontWeight: 'bold', fontSize: 22 }}>
-          {' '}
-          Sector
-        </Typography>
-        <SectorTab />
-        <News symbol={'home'} />
-      </Container>
-    </>
+        <EventTab />
+      </Stack>
+      <StockPanel />
+      <TopTrader />
+      <Typography sx={{ marginTop: 3, marginBottom: 3, fontWeight: 'bold', fontSize: 22 }}>
+        Sector
+      </Typography>
+      <SectorTab />
+      <News symbol="home" />
+    </Container>
   );
 };
 

@@ -1,6 +1,7 @@
 import { MoneyOff, ShoppingCart } from '@mui/icons-material';
 import { AppBar, Button, Toolbar } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { LOCAL } from '../../utils/routes';
 
 const BuySellBar = ({ symbol }) => {
   return (
@@ -15,7 +16,7 @@ const BuySellBar = ({ symbol }) => {
       <Toolbar sx={{ display: 'flex', flex: 1, gap: 2 }}>
         <Button
           component={Link}
-          to={'/buy/' + symbol}
+          to={`${LOCAL.STOCKS}/${symbol}/buy`}
           size="large"
           variant="contained"
           startIcon={<ShoppingCart fontSize="large" />}
@@ -24,7 +25,7 @@ const BuySellBar = ({ symbol }) => {
         </Button>
         <Button
           component={Link}
-          to={'/sell/' + symbol}
+          to={`${LOCAL.STOCKS}/${symbol}/sell`}
           size="large"
           variant="contained"
           color="danger"

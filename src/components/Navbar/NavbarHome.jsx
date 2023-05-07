@@ -1,22 +1,28 @@
-import { AccountCircle } from '@mui/icons-material';
-import { AppBar, Avatar, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
-import { getAuth } from 'firebase/auth';
-import Hamburger from 'hamburger-react';
+import { AccountCircle, Menu } from '@mui/icons-material';
+import {
+  AppBar,
+  Avatar,
+  Button,
+  IconButton,
+  SwipeableDrawer,
+  Toolbar,
+  Typography
+} from '@mui/material';
 import { useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import { app } from '../Firebase';
+import { useAppContext } from '../../context/AppState';
+import { LOCAL } from '../../utils/routes';
+import SidebarMenu from '../SidebarMenu';
 import Search from './Search';
-import Sidebar from './Slidebar';
 
 const NavbarHome = () => {
+  const { user } = useAppContext();
   const [isOpen, setOpen] = useState(false);
-  const auth = getAuth(app);
-  const [user] = useAuthState(auth);
+  // console.log('user => ', user);
 
   const LoggedInComponent = () => {
     return (
-      <IconButton component={Link} to="/profile">
+      <IconButton component={Link} to={LOCAL.PROFILE}>
         <Avatar
           style={{ width: 40, height: 40 }}
           src={user?.photoURL ? user.photoURL.toString() : ''}
@@ -35,7 +41,7 @@ const NavbarHome = () => {
             size="small"
             variant="contained"
             component={Link}
-            to="/login"
+            to={LOCAL.LOGIN}
             sx={{
               backgroundColor: 'linear-gradient(55deg,#73b9ff,#73b9ff20)'
             }}>
@@ -57,25 +63,22 @@ const NavbarHome = () => {
           backgroundImage: 'linear-gradient(45deg,#73b9ff,#73b9ff40)',
           backdropFilter: 'blur(5px)'
         }}>
-        <Button component={Link} to="/" sx={{ color: '#fff', textDecoration: 'none' }}>
+        <Button component={Link} to={LOCAL.EXPLORE} sx={{ color: '#fff', textDecoration: 'none' }}>
           <Typography variant="h4" fontWeight="bold" textTransform="none" fontFamily="Righteous">
             StoxDekho
           </Typography>
         </Button>
-        <Toolbar
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            gap: 3
-          }}>
-          <Stack direction="row">
-            <Hamburger color="white" toggled={isOpen} toggle={setOpen} />
-          </Stack>
+        <Toolbar sx={{ justifyContent: 'space-between', gap: 3 }}>
+          <IconButton color="white" onClick={setOpen}>
+            <Menu fontSize="large" />
+          </IconButton>
           <Search />
           <RenderComponent />
         </Toolbar>
-        <Sidebar open={isOpen} onClose={() => setOpen(false)} />
       </AppBar>
+      <SwipeableDrawer open={isOpen} onClose={() => setOpen(false)} onOpen={() => setOpen(true)}>
+        <SidebarMenu />
+      </SwipeableDrawer>
     </>
   );
 };

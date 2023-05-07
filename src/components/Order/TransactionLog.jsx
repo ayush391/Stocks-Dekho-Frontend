@@ -12,6 +12,7 @@ import {
   Typography
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { LOCAL } from '../../utils/routes';
 import CircularLoading from '../Loading/CircularLoading';
 
 const TransactionLogCard = ({ log, loading, error }) => {
@@ -50,7 +51,7 @@ const TransactionLogCard = ({ log, loading, error }) => {
                       }}>
                       <Typography
                         component={Link}
-                        to={'/' + logItem.stockSymbol}
+                        to={`${LOCAL.STOCKS}/${logItem.stockSymbol}`}
                         fontWeight="bold"
                         sx={{
                           color: 'primary.main',

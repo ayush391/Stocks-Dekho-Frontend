@@ -1,10 +1,10 @@
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useData } from '../../hooks/useData';
-import { REMOTE } from '../../utils/remoteRoutes';
+import { LOCAL, REMOTE } from '../../utils/routes';
 import CircularLoading from '../Loading/CircularLoading';
 
-export const SectorTab = () => {
+const SectorTab = () => {
   const { data, error, isLoading } = useData(REMOTE.STOCKS, ['sectors']);
 
   return error ? (
@@ -15,7 +15,7 @@ export const SectorTab = () => {
     <>
       {data?.data?.map((sector, idx) => {
         return (
-          <Button key={idx} component={Link} to={'/SectorPage/' + sector?.name}>
+          <Button key={idx} component={Link} to={`${LOCAL.SECTORS}/${sector?.name}`}>
             {sector.name.slice(6, sector.length)}
           </Button>
         );
@@ -23,3 +23,5 @@ export const SectorTab = () => {
     </>
   );
 };
+
+export default SectorTab;

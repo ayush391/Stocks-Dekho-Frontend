@@ -9,19 +9,24 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { app } from '../components/Firebase';
+import { Link, Navigate, useLocation } from 'react-router-dom';
+import { useAppContext } from '../context/AppState';
+import { LOCAL } from '../utils/routes';
 import CircularLoading from './Loading/CircularLoading';
 
-export const LoginPage = () => {
+const LoginPage = () => {
+  const { auth, user } = useAppContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [loading, setLoading] = useState(false);
 
   const [alert, setAlert] = useState({ message: '', open: false, type: 'error' });
+
+  const location = useLocation();
+  const redirectPath = location.state?.from?.pathname || LOCAL.EXPLORE;
 
   const handleOpen = (msg, type) => {
     setAlert({ message: msg, open: true, type: type });
@@ -30,8 +35,6 @@ export const LoginPage = () => {
     setAlert({ ...alert, open: false });
   };
 
-  const auth = getAuth(app);
-  const navigate = useNavigate();
   const handleEmail = (event) => {
     setEmail(event.target.value);
   };
@@ -44,16 +47,16 @@ export const LoginPage = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCred) => {
         const user = userCred.user;
-        console.log('logged in sucessfully');
         setLoading(false);
         handleOpen('Login Successful', 'success');
-        setTimeout(() => navigate('/'), 500);
       })
       .catch((e) => {
         setLoading(false);
         handleOpen(e.message, 'error');
       });
   };
+
+  if (user) return <Navigate to={redirectPath} replace />;
   return (
     <Container maxWidth="sm" sx={{ marginY: 5 }}>
       <Stack gap={2} component="form" noValidate autoComplete="off" textAlign="center">
@@ -75,7 +78,7 @@ export const LoginPage = () => {
           onChange={handlePassword}
         />
 
-        <Typography variant="caption" color="grey" component={Link} to="/forgetpassword">
+        <Typography variant="caption" color="grey" component={Link} to={LOCAL.FORGOT}>
           Forgot Password?
         </Typography>
 
@@ -87,7 +90,7 @@ export const LoginPage = () => {
           <Typography variant="caption" color="grey">
             Haven't registered yet?
           </Typography>
-          <Typography variant="caption" color="primary" component={Link} to="/signup">
+          <Typography variant="caption" color="primary" component={Link} to={LOCAL.SIGNUP}>
             Register now
           </Typography>
         </Stack>
@@ -105,3 +108,5 @@ export const LoginPage = () => {
     </Container>
   );
 };
+
+export default LoginPage;

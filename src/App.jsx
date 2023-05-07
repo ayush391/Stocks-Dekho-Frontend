@@ -1,67 +1,49 @@
-import { CssBaseline, ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material';
-import { useContext } from 'react';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { LoginPage } from './components/LoginPage';
+import RequireAuth from './RequireAuth';
 import Navbar from './components/Navbar/Navbar';
-import Search from './components/Navbar/Search';
-import { SignUpPage } from './components/SignupPage';
-import { SectorTab } from './components/Tabs/Sectors';
-import AppContext from './context/AppContext';
-import AllStocks from './pages/AllStocks';
-import { BankHistory } from './pages/BankHistory';
-import BuyStock from './pages/BuyStock';
-import { ForgetPassword } from './pages/ForgetPassword';
-import { HoldingPage } from './pages/Holdings';
-import Home from './pages/Home';
-import { Portfolio } from './pages/Portoflio';
-import SellStock from './pages/SellStock';
-import StockPage from './pages/StockPage';
-import { TransactionHistory } from './pages/TransactionHistory';
-import Profile from './pages/profile';
-import createThemeWithMode from './theme';
-import SectorPage from './pages/SectorPage';
-import YoutubePage from './pages/YoutubePage';
-import EditProfile from './pages/EditProfile';
+import Auth from './pages/auth';
+import { LOCAL } from './utils/routes';
 
-function App() {
-  const context = useContext(AppContext);
-  const { themeMode } = context;
+const BuyStock = lazy(() => import('./pages/BuyStock'));
+const EditProfile = lazy(() => import('./pages/EditProfile'));
+const EventsPage = lazy(() => import('./pages/Events'));
+const Home = lazy(() => import('./pages/Home'));
+const Portfolio = lazy(() => import('./pages/Portoflio'));
+const SectorPage = lazy(() => import('./pages/SectorPage'));
+const SellStock = lazy(() => import('./pages/SellStock'));
+const StockPage = lazy(() => import('./pages/StockPage'));
+const TransactionHistory = lazy(() => import('./pages/TransactionHistory'));
+const YoutubePage = lazy(() => import('./pages/YoutubePage'));
+const Profile = lazy(() => import('./pages/profile'));
 
-  const AppTheme = createThemeWithMode(themeMode);
-  const theme = responsiveFontSizes(createTheme(AppTheme));
-
+const App = () => {
   return (
-    <div className="App">
-      <HashRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Navbar />
-
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/allstocks" element={<AllStocks />}></Route>
-            <Route path="/login" element={<LoginPage />}></Route>
-            <Route path="/signup" element={<SignUpPage />}></Route>
-            <Route path="/forgetpassword" element={<ForgetPassword />}></Route>
-            <Route path="/:symbol" element={<StockPage />}></Route>
-            <Route path="/search" element={<Search />}></Route>
-            <Route path="/profile" element={<Profile />}></Route>
-            <Route path="/portfolio" element={<Portfolio />}></Route>
-            <Route path="/holdings" element={<HoldingPage />}></Route>
-            <Route path="/transactionHistory" element={<TransactionHistory />}></Route>
-            <Route path="/bankHistory" element={<BankHistory />}></Route>
-            <Route path="/buy/:symbol" element={<BuyStock />}></Route>
-            <Route path="/sell/:symbol" element={<SellStock />}></Route>
-            <Route path="/test" element={<SectorTab />}></Route>
-            <Route path="/SectorPage/:sectorName" element={<SectorPage />}></Route>
-            <Route path="/YoutubePage" element={<YoutubePage />}></Route>
-            <Route path="/EditProfile" element={<EditProfile />}></Route>
-          </Routes>
-        </ThemeProvider>
-      </HashRouter>
-    </div>
+    <>
+      <Navbar />
+      <Suspense fallback="Loading...">
+        <Routes>
+          <Route path="/*" element={<Auth />} />
+          <Route path="/" element={<Navigate to={LOCAL.EXPLORE} />} />
+          <Route path={LOCAL.EVENTS} element={<EventsPage />} />
+          <Route path={LOCAL.EXPLORE} element={<Home />} />
+          <Route path={`${LOCAL.SECTORS}/:sectorName`} element={<SectorPage />} />
+          <Route path={LOCAL.SHORTS} element={<YoutubePage />} />
+          <Route path={`${LOCAL.STOCKS}/:symbol`} element={<StockPage />} />
+          <Route element={<RequireAuth />}>
+            <Route path={LOCAL.PORTFOLIO} element={<Portfolio />} />
+            <Route path={LOCAL.PROFILE} element={<Profile />} />
+            <Route path={`${LOCAL.PROFILE}/edit`} element={<EditProfile />} />
+            <Route path={`${LOCAL.STOCKS}/:symbol/buy`} element={<BuyStock />} />
+            <Route path={`${LOCAL.STOCKS}/:symbol/sell`} element={<SellStock />} />
+            <Route path={LOCAL.TRANSACTION_HISTORY} element={<TransactionHistory />} />
+          </Route>
+          <Route path="*" element={<div>404! Route Not Found</div>} />
+        </Routes>
+      </Suspense>
+    </>
   );
-}
+};
 
 export default App;

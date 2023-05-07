@@ -1,19 +1,21 @@
-import { Container, Stack, TextField, Avatar, Button, Modal } from '@mui/material';
-import { useState } from 'react';
-import { updateProfile, getAuth } from 'firebase/auth';
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { Avatar, Button, Container, Modal, Stack, TextField } from '@mui/material';
+import { updateProfile } from 'firebase/auth';
 import { getDatabase, ref as refRDB, set } from 'firebase/database';
-import { app } from '../components/Firebase';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { app } from '../components/Firebase';
 import CircularLoading from '../components/Loading/CircularLoading';
+import { useAppContext } from '../context/AppState';
+
 const EditProfile = () => {
+  const { user } = useAppContext();
   const [name, setName] = useState('');
   const [file, setFile] = useState({});
   const [desc, setDesc] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const storage = getStorage();
-  const auth = getAuth(app);
   const rdb = getDatabase(app);
   const handleText = (event) => {
     setName(event.target.value);
@@ -22,12 +24,10 @@ const EditProfile = () => {
     setDesc(event.target.value);
   };
   const handleFile = (event) => {
-    console.log(event.target.files[0]);
     setFile(event.target.files[0]);
   };
   const uploadToRDB = async (picUrl) => {
-    console.log('Data');
-    await set(refRDB(rdb, 'User/' + auth.currentUser.uid), {
+    await set(refRDB(rdb, 'User/' + user?.uid), {
       username: name,
       desc: desc,
       photoURL: picUrl
@@ -37,22 +37,19 @@ const EditProfile = () => {
     if (file != {}) {
       const storageRef = ref(storage, uid + file.name);
       const response = await uploadBytes(storageRef, file);
-      console.log('Uploaded a blob or file!', response);
       const url = await getDownloadURL(storageRef);
-      console.log(url);
       return url.toString();
     }
     return '';
   };
   const SignBtnHandler = async () => {
     setLoading(true);
-    let picUrl = await uploadImage(auth.currentUser.uid.toString());
+    let picUrl = await uploadImage(user?.uid.toString());
     await uploadToRDB(picUrl);
-    updateProfile(auth.currentUser, {
-      displayName: name.toString() != '' ? name.toString() : auth.currentUser.displayName,
-      photoURL: picUrl != '' ? picUrl : auth.currentUser.photoURL
+    updateProfile(user, {
+      displayName: name.toString() != '' ? name.toString() : user?.displayName,
+      photoURL: picUrl != '' ? picUrl : user?.photoURL
     }).then(() => {
-      console.log('profile set up complete');
       setLoading(false);
       setTimeout(() => navigate('/'), 2000);
     });

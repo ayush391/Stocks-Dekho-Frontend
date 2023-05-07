@@ -1,19 +1,16 @@
-import { AccountBalanceWallet, History, Wallet, AccountCircle } from '@mui/icons-material';
+import { AccountBalanceWallet, AccountCircle, History, Wallet } from '@mui/icons-material';
 import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import axios from 'axios';
-import { getAuth } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import { app } from '../components/Firebase';
 import TransactionLogCard from '../components/Order/TransactionLog';
+import { useAppContext } from '../context/AppState';
 import { useData } from '../hooks/useData';
-import { REMOTE } from '../utils/remoteRoutes';
+import { LOCAL, REMOTE } from '../utils/routes';
 
 const Profile = () => {
-  const auth = getAuth(app);
-  const [user] = useAuthState(auth);
+  const { user } = useAppContext();
   const walletUrl = import.meta.env.VITE_BASE_URL + '/wallet/';
   const [price, setPrice] = useState(0);
 
@@ -62,7 +59,7 @@ const Profile = () => {
               <Button
                 size="large"
                 component={Link}
-                to={'/transactionHistory'}
+                to={LOCAL.TRANSACTION_HISTORY}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -92,7 +89,7 @@ const Profile = () => {
               <Button
                 size="large"
                 component={Link}
-                to={'/EditProfile'}
+                to={`${LOCAL.PROFILE}/edit`}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -108,7 +105,7 @@ const Profile = () => {
               <Button
                 size="large"
                 component={Link}
-                to={'/portfolio'}
+                to={LOCAL.PORTFOLIO}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',

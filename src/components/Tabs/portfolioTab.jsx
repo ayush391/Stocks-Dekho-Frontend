@@ -1,30 +1,13 @@
-import axios from 'axios';
-import { getAuth } from 'firebase/auth';
-import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { app } from '../Firebase';
 import { Divider } from '@mui/material';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAppContext } from '../../context/AppState';
+import { LOCAL } from '../../utils/routes';
 import './portfolioTab.css';
-// const StatComponent = ({ portfolio_value }) => {
-//   return (
-//     <div style={{ marginLeft: 10 }}>
-//       <StatGroup>
-//         <Stat>
-//           <StatLabel>Portfolio</StatLabel>
-//           <StatNumber>{portfolio_value.toFixed(2)}</StatNumber>
-//           <StatHelpText>
-//             <StatArrow type="increase" />
-//             23.36%
-//           </StatHelpText>
-//         </Stat>
-//       </StatGroup>
-//     </div>
-//   );
-// };
-const PortfolioTab = () => {
-  const auth = getAuth(app);
 
-  const [user, loading, error] = useAuthState(auth);
+const PortfolioTab = () => {
+  const { user } = useAppContext();
   const [name, setName] = useState('');
   const baseUrl = import.meta.env.VITE_BASE_URL + '/portfolio/';
   const [HoldingsList, setHoldingsList] = useState([]);
@@ -32,7 +15,7 @@ const PortfolioTab = () => {
 
   useEffect(() => {
     async function getHoldings() {
-      const { data } = await axios.get(baseUrl + user.uid);
+      const { data } = await axios.get(baseUrl + user?.uid);
       setHoldingsList(data.holdings);
       setPortfolioValue(Number(data.portfolio_value));
     }
@@ -40,9 +23,9 @@ const PortfolioTab = () => {
       setName(user?.displayName?.toString());
       getHoldings();
     }
-  }, [loading, user, error]);
+  }, [user]);
   return (
-    <div>
+    <div style={{ flexShrink: 0, minWidth: 'sm', overflowX: 'auto', marginRight: 5 }}>
       <br></br>
       <div className="background-image">
         <h1 style={{ fontSize: '29', fontWeight: 'bolder', textAlign: 'center' }}>
@@ -53,9 +36,11 @@ const PortfolioTab = () => {
         </h1>
         <Divider />
         <div>
-          <h3 style={{ textAlign: 'center' }}>
-            {user != null ? 'Portfolio Value ' + portfolioValue.toFixed(2) : 'Please Log In'}
-          </h3>
+          <Link to={user != null ? LOCAL.PORTFOLIO : LOCAL.LOGIN}>
+            <h3 style={{ textAlign: 'center', color: 'white' }}>
+              {user != null ? 'Portfolio Value ' + portfolioValue.toFixed(2) : 'Please Log In'}
+            </h3>
+          </Link>
         </div>
       </div>
     </div>
